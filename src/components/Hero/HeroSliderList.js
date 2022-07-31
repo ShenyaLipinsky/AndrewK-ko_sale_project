@@ -6,7 +6,6 @@ import {
   SliderContainer,
   SliderLink,
 } from './HeroSlider.styled';
-const { Box } = require('components/Box');
 
 export default class HeroSliderList extends Component {
   state = {
