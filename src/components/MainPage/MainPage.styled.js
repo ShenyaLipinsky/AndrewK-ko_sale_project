@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const NavLink = styled(Link)`
-  padding: ${p => p.theme.space[3]}px;
   color: ${p => p.theme.colors.text};
   text-decoration: underline;
 
@@ -11,9 +10,9 @@ export const NavLink = styled(Link)`
   }
 `;
 export const NavItem = styled.li`
-  margin-bottom: ${p => p.theme.space[3]}px;
+  width: 230px;
 
-  :last-child {
-    margin-bottom: 0;
+  :hover {
+    zoom: 103%;
   }
 `;

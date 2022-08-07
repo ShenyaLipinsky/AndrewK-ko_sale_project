@@ -2,7 +2,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { SearchBox } from '../SearchBox/SearchBox';
 import { fetchMovieById, searchMovies } from 'components/services/API-MovieDB';
-import MovieList from 'components/MovieList/MovieLIst';
+import MainPage from 'components/MainPage/MainPage';
 
 const Movies = () => {
   const location = useLocation();
@@ -25,7 +25,7 @@ const Movies = () => {
       <SearchBox value={queueParam} onSubmit={changeSearchValue} />
       {foundedFilms.length > 0 && (
         <>
-          <MovieList
+          <MainPage
             data={foundedFilms}
             moreDetails={fetchMovieById}
             location={location}

@@ -1,4 +1,4 @@
-import MovieList from 'components/MovieList/MovieLIst';
+import MainPage from 'components/MainPage/MainPage';
 import { Suspense, useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Box } from '../../Box';
@@ -27,7 +27,7 @@ const Home = () => {
       <Box as="h2" p={3}>
         Trending today
       </Box>
-      <MovieList data={hits} moreDetails={fetchMovieById} location={location} />
+      <MainPage data={hits} moreDetails={fetchMovieById} location={location} />
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>

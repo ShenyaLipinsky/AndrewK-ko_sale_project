@@ -25,7 +25,7 @@ export const FilmDetailItem = styled(NavLink)`
 `;
 
 export const FilmImage = styled.img`
-  max-width: 250px;
+  max-width: 230px;
   margin-bottom: ${p => p.theme.space[3]}px;
 `;
 export const FilmGenresList = styled.ul`
