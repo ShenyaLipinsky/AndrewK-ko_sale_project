@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/AndrewK-ko_sale_project/static/css/main.8e160c73.css",
-    "main.js": "/AndrewK-ko_sale_project/static/js/main.4f3a42f5.js",
+    "main.js": "/AndrewK-ko_sale_project/static/js/main.3927da2d.js",
     "static/js/394.53a7c3b4.chunk.js": "/AndrewK-ko_sale_project/static/js/394.53a7c3b4.chunk.js",
     "static/css/458.07ee1aed.chunk.css": "/AndrewK-ko_sale_project/static/css/458.07ee1aed.chunk.css",
     "static/js/458.d7735bec.chunk.js": "/AndrewK-ko_sale_project/static/js/458.d7735bec.chunk.js",
-    "static/js/905.c2d8f707.chunk.js": "/AndrewK-ko_sale_project/static/js/905.c2d8f707.chunk.js",
-    "static/js/620.39c8a28c.chunk.js": "/AndrewK-ko_sale_project/static/js/620.39c8a28c.chunk.js",
+    "static/js/905.35e8100d.chunk.js": "/AndrewK-ko_sale_project/static/js/905.35e8100d.chunk.js",
+    "static/js/620.b33d6863.chunk.js": "/AndrewK-ko_sale_project/static/js/620.b33d6863.chunk.js",
     "static/js/692.f82a108d.chunk.js": "/AndrewK-ko_sale_project/static/js/692.f82a108d.chunk.js",
     "index.html": "/AndrewK-ko_sale_project/index.html",
     "main.8e160c73.css.map": "/AndrewK-ko_sale_project/static/css/main.8e160c73.css.map",
-    "main.4f3a42f5.js.map": "/AndrewK-ko_sale_project/static/js/main.4f3a42f5.js.map",
+    "main.3927da2d.js.map": "/AndrewK-ko_sale_project/static/js/main.3927da2d.js.map",
     "394.53a7c3b4.chunk.js.map": "/AndrewK-ko_sale_project/static/js/394.53a7c3b4.chunk.js.map",
     "458.07ee1aed.chunk.css.map": "/AndrewK-ko_sale_project/static/css/458.07ee1aed.chunk.css.map",
     "458.d7735bec.chunk.js.map": "/AndrewK-ko_sale_project/static/js/458.d7735bec.chunk.js.map",
-    "905.c2d8f707.chunk.js.map": "/AndrewK-ko_sale_project/static/js/905.c2d8f707.chunk.js.map",
-    "620.39c8a28c.chunk.js.map": "/AndrewK-ko_sale_project/static/js/620.39c8a28c.chunk.js.map",
+    "905.35e8100d.chunk.js.map": "/AndrewK-ko_sale_project/static/js/905.35e8100d.chunk.js.map",
+    "620.b33d6863.chunk.js.map": "/AndrewK-ko_sale_project/static/js/620.b33d6863.chunk.js.map",
     "692.f82a108d.chunk.js.map": "/AndrewK-ko_sale_project/static/js/692.f82a108d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8e160c73.css",
-    "static/js/main.4f3a42f5.js"
+    "static/js/main.3927da2d.js"
   ]
 }
