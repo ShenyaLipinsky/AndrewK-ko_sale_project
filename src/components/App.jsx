@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import Footer from './Footer/Footer';
 // import HeroSlider from './Hero/HeroSlider';
 // import Layout from './Layout/Layout';
 import Cast from './Pages/FilmDetails/Cast';
@@ -27,6 +28,7 @@ export const App = () => {
               <Layout />
               <HeroSlider />
               <Home />
+              <Footer />
             </>
           }
         ></Route>

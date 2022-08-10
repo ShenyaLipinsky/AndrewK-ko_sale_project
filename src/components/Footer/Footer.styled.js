@@ -5,6 +5,8 @@ import { Box } from 'components/Box';
 export const NavBox = styled.nav`
   position: relative;
   display: flex;
+  width: 100vw;
+  justify-content: space-around;
 `;
 
 export const NavDropBox = styled(Box)`
