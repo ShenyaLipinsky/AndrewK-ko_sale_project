@@ -16,6 +16,8 @@ const Footer = () => {
     <Box
       as="footer"
       display="flex"
+      flexDirection="column"
+      justify-content="space-around"
       alignItems="center"
       width="100vw"
       height={100}
@@ -49,6 +51,11 @@ const Footer = () => {
           );
         })}
       </NavBox>
+      <Box>
+        <h4>
+          Copyright © 2022 ________ LLC. All the respective rights reserved.
+        </h4>
+      </Box>
     </Box>
   );
 };
