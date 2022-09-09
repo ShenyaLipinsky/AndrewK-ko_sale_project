@@ -1,9 +1,9 @@
 import { FilmImage } from 'components/Pages/FilmDetails/FilmDetails.styled';
 import propTypes from 'prop-types';
-import { Box } from '../Box';
-import { NavItem, NavLink } from './MainPage.styled';
+import { Box } from '../../Box';
+import { NavItem, NavLink } from './SliderHomePageItem.styled';
 
-const MainPage = ({ data, moreDetails, location }) => {
+const SliderHomePageItem = ({ data, moreDetails, location }) => {
   const posterPath = `https://image.tmdb.org/t/p/w500/`;
   return (
     <Box
@@ -31,7 +31,7 @@ const MainPage = ({ data, moreDetails, location }) => {
     </Box>
   );
 };
-MainPage.propTypes = {
+SliderHomePageItem.propTypes = {
   moreDetails: propTypes.func.isRequired,
   data: propTypes.arrayOf(
     propTypes.shape({
@@ -42,4 +42,4 @@ MainPage.propTypes = {
   ),
 };
 
-export default MainPage;
+export default SliderHomePageItem;

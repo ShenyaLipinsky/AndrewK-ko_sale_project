@@ -1,8 +1,9 @@
-import MainPage from 'components/MainPage/MainPage';
+// import MainPage from 'components/MainPage/MainPage';
 import { Suspense, useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Box } from '../../Box';
 import { fetchMovieById, fetchMovies } from '../../services/API-MovieDB';
+import SliderHomePage from './SliderHomePage';
 
 const Home = () => {
   const [hits, setHits] = useState([]);
@@ -27,7 +28,12 @@ const Home = () => {
       <Box as="h2" p={3}>
         Trending today
       </Box>
-      <MainPage data={hits} moreDetails={fetchMovieById} location={location} />
+      {/* <MainPage data={hits} moreDetails={fetchMovieById} location={location} /> */}
+      <SliderHomePage
+        data={hits}
+        moreDetails={fetchMovieById}
+        location={location}
+      />
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>
