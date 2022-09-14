@@ -16,6 +16,8 @@ const Footer = () => {
     <Box
       as="footer"
       display="flex"
+      position="absolute"
+      bottom={0}
       flexDirection="column"
       justify-content="space-around"
       alignItems="center"

@@ -5,6 +5,7 @@ import { NavItem, NavLink } from './SliderHomePageItem.styled';
 
 const SliderHomePageItem = ({ data, moreDetails, location }) => {
   const posterPath = `https://image.tmdb.org/t/p/w500/`;
+  console.log(data, 'SliderHomePageItem Data');
   return (
     <Box
       as="ul"

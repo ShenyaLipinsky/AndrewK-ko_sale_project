@@ -1,4 +1,3 @@
-import fetchImages from 'components/services/API-Pixabay';
 import React, { Component } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import {
@@ -9,7 +8,7 @@ import {
 } from './SliderHomePage.styled';
 import 'react-multi-carousel/lib/styles.css';
 import { NavLink } from 'react-router-dom';
-import SliderHomePageItem from './SliderHomePageitem';
+import { SliderHomePageItem } from './SliderHomePageItem.styled';
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -44,15 +43,7 @@ export default class SliderHomePage extends Component {
 
   componentDidMount() {
     const { data } = this.props;
-    if (data.length > 0) {
-      this.setState({ hits: data });
-    } else {
-      fetchImages().then(res => {
-        this.setState({ hits: [...res] });
-      });
-    }
-    console.log(this.props);
-    console.log(this.state);
+    this.setState({ hits: data });
   }
 
   render() {

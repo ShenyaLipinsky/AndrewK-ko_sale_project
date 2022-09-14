@@ -22,18 +22,21 @@ const Home = () => {
     fetchMovieData();
     return;
   }, []);
-
   return (
     <Box as="main" gridTemplateRows="auto 1fr" p={2}>
       <Box as="h2" p={3}>
         Trending today
       </Box>
       {/* <MainPage data={hits} moreDetails={fetchMovieById} location={location} /> */}
-      <SliderHomePage
-        data={hits}
-        moreDetails={fetchMovieById}
-        location={location}
-      />
+      {hits.length > 0 ? (
+        <SliderHomePage
+          data={hits}
+          moreDetails={fetchMovieById}
+          location={location}
+        />
+      ) : (
+        <h4>No images</h4>
+      )}
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>
