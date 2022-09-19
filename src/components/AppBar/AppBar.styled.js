@@ -5,6 +5,8 @@ import { Box } from 'components/Box';
 export const NavBox = styled.nav`
   position: relative;
   display: flex;
+  background-color: lightblue;
+  padding: ${p => p.theme.space[3]}px;
 `;
 
 export const NavDropBox = styled(Box)`

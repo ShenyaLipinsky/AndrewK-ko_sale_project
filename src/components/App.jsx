@@ -10,7 +10,7 @@ import Reviews from './Pages/FilmDetails/Reviews';
 // import Movies from './Pages/Movies/Movies';
 
 const Layout = lazy(() => import('./Layout/Layout'));
-const HeroSlider = lazy(() => import('./Hero/HeroSlider'));
+const Hero = lazy(() => import('./Hero/Hero'));
 
 const Home = lazy(() => import('./Pages/Home/Home'));
 const Movies = lazy(() => import('./Pages/Movies/Movies'));
@@ -26,7 +26,7 @@ export const App = () => {
           element={
             <>
               <Layout />
-              <HeroSlider />
+              <Hero />
               <Home />
               <Footer />
             </>

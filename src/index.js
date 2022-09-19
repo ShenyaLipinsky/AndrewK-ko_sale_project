@@ -10,8 +10,7 @@ import '../node_modules/modern-normalize/modern-normalize.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* goit-react-hw-05-movies */}
-    <BrowserRouter basename="/">
+    <BrowserRouter basename="/AndrewK-ko_sale_project">
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>

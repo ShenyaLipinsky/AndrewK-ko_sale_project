@@ -13,7 +13,7 @@ import { navItems } from './NavItems';
 
 const AppBar = () => {
   return (
-    <Box as="header" width="100vw" boxShadow="1px 1px 4px #000000">
+    <Box as="header" width="100vw" boxShadow="1px 1px 4px #000000" mb={3}>
       <NavBox>
         <NavLogo to="/">
           <img src="../Images/NoPhoto.jpg" alt="" width={3} />

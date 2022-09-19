@@ -1,11 +1,13 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Box } from '../Box';
+import { Box } from 'theme-ui';
+import HeroImage from './HeroImage';
 import HeroSliderList from './HeroSliderList';
 
-const HeroSlider = () => {
+const Hero = () => {
   return (
-    <Box>
+    <Box as="section">
+      <HeroImage />
       <HeroSliderList />
       <Suspense fallback={null}>
         <Outlet />
@@ -14,4 +16,4 @@ const HeroSlider = () => {
   );
 };
 
-export default HeroSlider;
+export default Hero;
