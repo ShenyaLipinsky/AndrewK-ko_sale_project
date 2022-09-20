@@ -16,7 +16,7 @@ const Footer = () => {
     <Box
       as="footer"
       display="flex"
-      position="absolute"
+      position="sticky"
       bottom={0}
       flexDirection="column"
       justify-content="space-around"
