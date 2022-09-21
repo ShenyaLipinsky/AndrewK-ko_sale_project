@@ -24,6 +24,7 @@ const Footer = () => {
       width="100vw"
       height={100}
       boxShadow="1px -1px 10px #000000"
+      backgroundColor="lightblue"
     >
       <NavBox>
         <NavLogo to="/">

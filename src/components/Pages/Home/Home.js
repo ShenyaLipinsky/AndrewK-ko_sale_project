@@ -5,6 +5,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Box } from '../../Box';
 import { fetchMovieById, fetchMovies } from '../../services/API-MovieDB';
 import SliderHomePage from './SliderHomePage';
+import { ProductBox } from './SliderHomePage.styled';
 
 const Home = () => {
   const [hits, setHits] = useState([]);
@@ -24,7 +25,7 @@ const Home = () => {
     return;
   }, []);
   return (
-    <Box as="main" gridTemplateRows="auto 1fr" p={2}>
+    <Box as="main" gridTemplateRows="auto 2fr" p={2}>
       <Box as="h2" p={3}>
         Trending today
       </Box>
@@ -38,7 +39,11 @@ const Home = () => {
       ) : (
         <h4>No images</h4>
       )}
-      <ProductCard/>
+      <ProductBox>
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+      </ProductBox>
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>

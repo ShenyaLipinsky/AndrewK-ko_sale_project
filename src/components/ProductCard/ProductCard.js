@@ -1,12 +1,16 @@
 import { Box } from 'theme-ui';
-import { ProductCardBox } from './ProductCard.styled';
+import {
+  ProductCardBox,
+  ProductCardImage,
+  ProductCardImageLink,
+} from './ProductCard.styled';
 
 const ProductCard = () => {
   return (
     <ProductCardBox>
-      <Box as="a" href="/">
-        <img src="../Images/NoPhoto.jpg" alt="product-title" />
-      </Box>
+      <ProductCardImageLink href="/">
+        <ProductCardImage src="../Images/NoPhoto.jpg" alt="product-title" />
+      </ProductCardImageLink>
       <Box>
         <a href="/">Some Title</a>
         <Box>

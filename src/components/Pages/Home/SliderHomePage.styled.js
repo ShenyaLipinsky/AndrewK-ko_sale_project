@@ -32,3 +32,10 @@ export const CarouselStyled = styled(Carousel)`
     }
   }
 `;
+export const ProductBox = styled.div`
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: 1fr 1fr;
+  padding: 8px;
+  justify-items: center;
+`;
