@@ -34,8 +34,15 @@ export const CarouselStyled = styled(Carousel)`
 `;
 export const ProductBox = styled.div`
   display: grid;
-  grid-gap: 15px;
-  grid-template-columns: 1fr 1fr;
-  padding: 8px;
+  max-width: ${p => `calc(100vw - ${p.theme.space[8]}px)`};
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-gap: ${p => `${p.theme.space[5]}px`};
   justify-items: center;
+  margin: auto;
+  /* display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly; */
+  /* margin: -15px; */
+  padding: 20px;
+  /* justify-items: center; */
 `;

@@ -1,24 +1,29 @@
 import { Box } from 'theme-ui';
 import {
   ProductCardBox,
+  ProductCardBtns,
+  ProductCardBtnsBox,
+  ProductCardDescr,
   ProductCardImage,
   ProductCardImageLink,
 } from './ProductCard.styled';
 
-const ProductCard = () => {
+const ProductCard = ({ price, cardDescription, image, title }) => {
+  console.log(price);
   return (
     <ProductCardBox>
       <ProductCardImageLink href="/">
-        <ProductCardImage src="../Images/NoPhoto.jpg" alt="product-title" />
+        <ProductCardImage src={image} alt="product-title" />
       </ProductCardImageLink>
-      <Box>
-        <a href="/">Some Title</a>
-        <Box>
-          <p>Small Description</p>
-        </Box>
-        <h3>Price:</h3>
-        <button>Add</button>
-      </Box>
+      <ProductCardDescr>
+        <a href="/">{title}</a>
+        <p>{cardDescription}</p>
+        <h3>Price: {price}</h3>
+      </ProductCardDescr>
+      <ProductCardBtnsBox>
+        <ProductCardBtns>Favorite</ProductCardBtns>
+        <ProductCardBtns>Add</ProductCardBtns>
+      </ProductCardBtnsBox>
     </ProductCardBox>
   );
 };

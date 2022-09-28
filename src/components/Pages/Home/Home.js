@@ -7,6 +7,8 @@ import { fetchMovieById, fetchMovies } from '../../services/API-MovieDB';
 import SliderHomePage from './SliderHomePage';
 import { ProductBox } from './SliderHomePage.styled';
 
+import { products } from 'db/products';
+
 const Home = () => {
   const [hits, setHits] = useState([]);
 
@@ -40,9 +42,17 @@ const Home = () => {
         <h4>No images</h4>
       )}
       <ProductBox>
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {products.map(({ id, image, title, short_descr, price }) => {
+          return (
+            <ProductCard
+              key={id}
+              image={image}
+              title={title}
+              cardDescription={short_descr}
+              price={price}
+            />
+          );
+        })}
       </ProductBox>
       <Suspense fallback={null}>
         <Outlet />
