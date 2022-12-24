@@ -6,11 +6,11 @@ import { Box } from '../../Box';
 import { fetchMovieById, fetchMovies } from '../../services/API-MovieDB';
 import SliderHomePage from './SliderHomePage';
 import { ProductBox } from './SliderHomePage.styled';
-
-import { products } from 'db/products';
+import { fetchProducts } from 'components/services/API-Products_DB';
 
 const Home = () => {
   const [hits, setHits] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const location = useLocation();
 
@@ -24,6 +24,16 @@ const Home = () => {
       }
     }
     fetchMovieData();
+
+    async function fetchProductsData() {
+      try {
+        const products = await fetchProducts();
+        setProducts(products);
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
+    fetchProductsData();
     return;
   }, []);
   return (
@@ -42,13 +52,24 @@ const Home = () => {
         <h4>No images</h4>
       )}
       <ProductBox>
-        {products.map(({ id, image, title, short_descr, price }) => {
+        {products.map(({ _id, image, title, short_description, price }) => {
+          if (image === 'No Image') {
+            return (
+              <ProductCard
+                key={_id}
+                image="No Image"
+                title={title}
+                cardDescription={short_description}
+                price={price}
+              />
+            );
+          }
           return (
             <ProductCard
-              key={id}
+              key={_id}
               image={image}
               title={title}
-              cardDescription={short_descr}
+              cardDescription={short_description}
               price={price}
             />
           );

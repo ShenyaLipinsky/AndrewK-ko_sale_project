@@ -23,6 +23,16 @@ export const ProductCardImage = styled.img`
   width: 100%;
   height: 100%;
 `;
+export const ProductCardNoImage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & svg {
+    width: 50%;
+    height: 50%;
+    color: #00000075;
+  }
+`;
 export const ProductCardDescr = styled.div`
   display: flex;
   flex-direction: column;
