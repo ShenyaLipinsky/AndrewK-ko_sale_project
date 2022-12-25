@@ -8,14 +8,12 @@ import {
   ProductCardImageLink,
 } from './ProductCard.styled';
 import { IoIosImage } from 'react-icons/io';
-import { IconContext } from 'react-icons';
 
-const ProductCard = ({ price, cardDescription, image, title }) => {
-  console.log(image);
+const ProductCard = ({ id, price, cardDescription, image, title }) => {
   if (image === 'No Image') {
     return (
       <ProductCardBox>
-        <ProductCardImageLink href="/">
+        <ProductCardImageLink href={`/${id}`}>
           <ProductCardNoImage>
             <IoIosImage />
           </ProductCardNoImage>

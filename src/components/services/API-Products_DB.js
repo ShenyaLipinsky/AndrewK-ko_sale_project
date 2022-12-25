@@ -2,12 +2,12 @@ const axios = require('axios').default;
 
 const URI = 'http://localhost:4000/api';
 
-export async function fetchProducts(endpoint = '/products', query) {
-  if (endpoint === null) {
-    return;
-  }
+export async function fetchProducts(page, limit) {
+  // if (endpoint === null) {
+  //   return;
+  // }
   const response = await axios
-    .get(`${URI}${endpoint}${query ? '/' + query : ''}`)
+    .get(`${URI}/products${page ? `/?limit=${limit}&page=${page}` : ''}`)
     .then(res => {
       return res.data;
     });
