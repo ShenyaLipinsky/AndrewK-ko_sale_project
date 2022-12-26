@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 
-const URI = 'http://localhost:4000/api';
+const URI = 'http://medclub.onrender.com/api';
 
 export async function fetchProducts(page, limit) {
   // if (endpoint === null) {

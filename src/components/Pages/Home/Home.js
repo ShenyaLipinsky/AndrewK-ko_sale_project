@@ -12,7 +12,7 @@ const Home = () => {
   const [hits, setHits] = useState([]);
   const [totalHist, setTotalHits] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit, setLimit] = useState('9');
+  const [limit, setLimit] = useState('10');
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState('1');
   const [disabledFwd, setDisabledFwd] = useState(false);
@@ -118,14 +118,14 @@ const Home = () => {
           </button>
           <select
             className="qtyOnPage"
-            defaultValue="9"
+            defaultValue="10"
             onChange={e => {
               setLimit(e.target.value);
             }}
           >
-            <option value="6">6</option>
-            <option value="9">9</option>
-            <option value="12">12</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
           </select>
           <button
             disabled={disabledFwd}
