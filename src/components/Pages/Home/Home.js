@@ -7,6 +7,7 @@ import { fetchMovieById, fetchMovies } from '../../services/API-MovieDB';
 import SliderHomePage from './SliderHomePage';
 import { ProductBox } from './SliderHomePage.styled';
 import { fetchProducts } from 'components/services/API-Products_DB';
+import Pagination from 'components/Pagination/Pagination';
 
 const Home = () => {
   const [hits, setHits] = useState([]);
@@ -54,7 +55,7 @@ const Home = () => {
       setDisabledFwd(false);
       setDisabledBwd(false);
     }
-    if (page === '1') {
+    if (parseInt(page) === 1) {
       setDisabledBwd(true);
     }
     if (totalPages <= 1) {
@@ -106,38 +107,14 @@ const Home = () => {
         ) : (
           <div>Loader...</div>
         )}
-        <div>
-          <button
-            disabled={disabledBwd}
-            onClick={() => {
-              let prevPage = parseInt(page) - 1;
-              setPage(prevPage.toString());
-            }}
-          >
-            {'<-'}
-          </button>
-          <select
-            className="qtyOnPage"
-            defaultValue="10"
-            onChange={e => {
-              setLimit(e.target.value);
-            }}
-          >
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-          </select>
-          <button
-            disabled={disabledFwd}
-            onClick={() => {
-              let nextPage = parseInt(page) + 1;
-              setPage(nextPage.toString());
-            }}
-          >
-            {'->'}
-          </button>
-        </div>
       </ProductBox>
+      <Pagination
+        disB={disabledBwd}
+        disF={disabledFwd}
+        setPage={setPage}
+        setLimit={setLimit}
+        page={page}
+      />
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>
