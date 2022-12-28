@@ -8,7 +8,7 @@ export const ProductCardBox = styled.div`
   padding: 8px;
   border-radius: 5px;
   margin: 15px;
-  border: 1px solid red;
+  border: 1px solid ${p => p.theme.colors.accent};
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {
     transform: scale(1.06);
@@ -45,13 +45,13 @@ export const ProductCardBtnsBox = styled.div`
 `;
 
 export const ProductCardBtns = styled.button`
-  background-color: pink;
+  background-color: ${p => p.theme.colors.primary_2};
   border: none;
   border-radius: 4px;
   padding: 4px;
   min-width: 70px;
   &:hover {
-    background-color: lightcoral;
+    background-color: ${p => p.theme.colors.hovered};
     cursor: pointer;
   }
 `;

@@ -11,7 +11,7 @@ export const theme = {
     primary_2: '#b2ebf2',
     secondary: '#e0f2f4',
     accent: '#00bcd4',
-    hovered: '#303f9f',
+    hovered: '#00bcd4',
     muted: '#f6f6f6',
   },
   sizes: [64, 128, 256, 512, 1024],

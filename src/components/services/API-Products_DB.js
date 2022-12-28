@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 
-const URI = 'http://medclub.onrender.com/api';
+const URI = 'https://medclub.onrender.com/api';
 
 export async function fetchProducts(page, limit) {
   // if (endpoint === null) {
@@ -10,7 +10,8 @@ export async function fetchProducts(page, limit) {
     .get(`${URI}/products${page ? `/?limit=${limit}&page=${page}` : ''}`)
     .then(res => {
       return res.data;
-    });
+    })
+    .catch(err => console.log(err));
   return response;
 }
 

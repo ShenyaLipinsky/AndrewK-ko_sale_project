@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import {
-  CarouselStyled,
-  // SliderCarousel,
-  SliderContainer,
-  // SliderLink,
-} from './SliderHomePage.styled';
+import { CarouselStyled, SliderContainer } from './SliderHomePage.styled';
 import 'react-multi-carousel/lib/styles.css';
 import { NavLink } from 'react-router-dom';
 import { SliderHomePageItem } from './SliderHomePageItem.styled';
@@ -104,7 +99,6 @@ export default class SliderHomePage extends Component {
               }
             )}
         </CarouselStyled>
-        {/* </SliderCarousel> */}
       </>
     );
   }

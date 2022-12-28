@@ -3,8 +3,9 @@ import {
   PaginationBtn,
   PaginationSelect,
 } from './Pagination.styled';
+import { FaLongArrowAltRight, FaLongArrowAltLeft } from 'react-icons/fa';
 
-const Pagination = ({ disF, disB, setPage, page, setLimit }) => {
+const Pagination = ({ disF, disB, setPage, page, totalHist, setLimit }) => {
   return (
     <PaginationBox>
       <PaginationBtn
@@ -15,13 +16,16 @@ const Pagination = ({ disF, disB, setPage, page, setLimit }) => {
           setPage(prevPage.toString());
         }}
       >
-        {'<-'}
+        <FaLongArrowAltLeft />
       </PaginationBtn>
       <PaginationSelect
         className="qtyOnPage"
         defaultValue="10"
         onChange={e => {
           setLimit(e.target.value);
+          if (totalHist <= parseInt(e.target.value)) {
+            setPage('1');
+          }
         }}
       >
         <option value="5">5</option>
@@ -36,7 +40,7 @@ const Pagination = ({ disF, disB, setPage, page, setLimit }) => {
           setPage(nextPage.toString());
         }}
       >
-        {'->'}
+        <FaLongArrowAltRight />
       </PaginationBtn>
     </PaginationBox>
   );

@@ -43,9 +43,11 @@ const Home = () => {
     fetchMovieData();
     return;
   }, []);
-
   useEffect(() => {
     fetchProductsData(page, limit);
+  }, [limit, page]);
+
+  useEffect(() => {
     setTotalPages(parseInt(totalHist) / parseInt(limit));
 
     if (totalPages === 1 && parseInt(page) === 1) {
@@ -113,6 +115,7 @@ const Home = () => {
         disF={disabledFwd}
         setPage={setPage}
         setLimit={setLimit}
+        totalHist={totalHist}
         page={page}
       />
       <Suspense fallback={null}>

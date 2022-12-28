@@ -17,9 +17,20 @@ export const PaginationBtn = styled.button`
   :disabled {
     background-color: ${p => p.theme.colors.primary};
     box-shadow: 0px 4px 10px 1px ${p => p.theme.colors.primary};
+    & svg {
+      color: ${p => p.theme.colors.primary_2};
+    }
   }
   :not(:disabled):hover {
-    background-color: ${p => p.theme.colors.accent};
+    background-color: ${p => p.theme.colors.hovered};
+    & svg {
+      color: ${p => p.theme.colors.primary_2};
+    }
+  }
+  & svg {
+    width: 100%;
+    height: 100%;
+    color: ${p => p.theme.colors.accent};
   }
 `;
 

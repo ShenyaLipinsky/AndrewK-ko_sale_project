@@ -5,7 +5,7 @@ import {
   NavDropBoxList,
   NavItem,
   NavItemList,
-  NavItemMore,
+  // NavItemMore,
   NavLogo,
 } from './Footer.styled';
 import { Box } from '../Box';
@@ -45,7 +45,7 @@ const Footer = () => {
                 {buttons.map(({ href, text }) => {
                   return (
                     <NavItemList key={href}>
-                      <NavItemMore to={href}>{text}</NavItemMore>
+                      {/* <NavItemMore to={href}>{text}</NavItemMore> */}
                     </NavItemList>
                   );
                 })}
