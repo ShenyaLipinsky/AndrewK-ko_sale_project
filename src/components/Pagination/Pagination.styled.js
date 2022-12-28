@@ -22,3 +22,16 @@ export const PaginationBtn = styled.button`
     background-color: ${p => p.theme.colors.accent};
   }
 `;
+
+export const PaginationSelect = styled.select`
+  width: 15%;
+  text-align: center;
+  height: 35px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  background-color: transparent;
+  & :optional {
+    background-color: red;
+  }
+`;
