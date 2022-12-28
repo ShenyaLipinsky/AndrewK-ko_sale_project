@@ -1,9 +1,10 @@
-import { PaginationBox } from './Pagination.styled';
+import { PaginationBox, PaginationBtn } from './Pagination.styled';
 
 const Pagination = ({ disF, disB, setPage, page, setLimit }) => {
   return (
     <PaginationBox>
-      <button
+      <PaginationBtn
+        type="button"
         disabled={disB}
         onClick={() => {
           let prevPage = parseInt(page) - 1;
@@ -11,7 +12,7 @@ const Pagination = ({ disF, disB, setPage, page, setLimit }) => {
         }}
       >
         {'<-'}
-      </button>
+      </PaginationBtn>
       <select
         className="qtyOnPage"
         defaultValue="10"
@@ -23,7 +24,8 @@ const Pagination = ({ disF, disB, setPage, page, setLimit }) => {
         <option value="10">10</option>
         <option value="15">15</option>
       </select>
-      <button
+      <PaginationBtn
+        type="button"
         disabled={disF}
         onClick={() => {
           let nextPage = parseInt(page) + 1;
@@ -31,7 +33,7 @@ const Pagination = ({ disF, disB, setPage, page, setLimit }) => {
         }}
       >
         {'->'}
-      </button>
+      </PaginationBtn>
     </PaginationBox>
   );
 };
