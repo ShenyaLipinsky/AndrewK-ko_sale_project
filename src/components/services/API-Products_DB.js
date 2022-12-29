@@ -9,32 +9,45 @@ export async function fetchProducts(page, limit) {
   const response = await axios
     .get(`${URI}/products${page ? `/?limit=${limit}&page=${page}` : ''}`)
     .then(res => {
+      console.log(res);
       return res.data;
     })
     .catch(err => console.log(err));
   return response;
 }
 
-// export async function fetchMovieById(id) {
-//   try {
-//     const { poster_path, original_title, vote_average, overview, genres } =
-//       await axios.get(`${URI}movie/${id}?api_key=${API_KEY}`).then(res => {
-//         return res.data;
-//       });
+export async function fetchProductById(id) {
+  try {
+    const {
+      title,
+      price,
+      description,
+      TM,
+      Instruction_description,
+      full_images,
+      image_of_size,
+      product_about,
+      recommended_products,
+    } = await axios.get(`${URI}/products/${id}`).then(res => {
+      return res.data;
+    });
 
-//     const posterPath = `https://image.tmdb.org/t/p/w500/${poster_path}`;
-//     return {
-//       posterPath,
-//       original_title,
-//       vote_average,
-//       overview,
-//       genres,
-//     };
-//   } catch (error) {
-//     console.log(error);
-//     return null;
-//   }
-// }
+    return {
+      title,
+      price,
+      description,
+      TM,
+      Instruction_description,
+      full_images,
+      image_of_size,
+      product_about,
+      recommended_products,
+    };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 
 // export async function fetchCrew(id) {
 //   const fetchCrew = await axios

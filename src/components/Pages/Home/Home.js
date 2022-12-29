@@ -6,7 +6,10 @@ import { Box } from '../../Box';
 import { fetchMovieById, fetchMovies } from '../../services/API-MovieDB';
 import SliderHomePage from './SliderHomePage';
 import { ProductBox } from './SliderHomePage.styled';
-import { fetchProducts } from 'components/services/API-Products_DB';
+import {
+  fetchProductById,
+  fetchProducts,
+} from 'components/services/API-Products_DB';
 import Pagination from 'components/Pagination/Pagination';
 
 const Home = () => {
@@ -32,6 +35,7 @@ const Home = () => {
   async function fetchProductsData(getPage, getLimit) {
     try {
       const products = await fetchProducts(getPage, getLimit);
+      console.log(products);
       setProducts(products.result);
       setTotalHits(products.total_items);
     } catch (error) {
@@ -93,6 +97,8 @@ const Home = () => {
                   title={title}
                   cardDescription={short_description}
                   price={price}
+                  moreDetails={fetchProductById}
+                  location={location}
                 />
               );
             }

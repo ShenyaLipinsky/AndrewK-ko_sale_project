@@ -47,15 +47,6 @@ export default class SliderHomePage extends Component {
 
     return (
       <>
-        {/* <SliderCarousel
-          autoPlay="true"
-          infiniteLoop={true}
-          showThumbs={false}
-          width="25%"
-          showStatus={false}
-          showIndicators={false}
-          interval={5000}
-        > */}
         <CarouselStyled
           swipeable={true}
           draggable={true}
