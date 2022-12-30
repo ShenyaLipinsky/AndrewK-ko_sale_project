@@ -9,7 +9,6 @@ export async function fetchProducts(page, limit) {
   const response = await axios
     .get(`${URI}/products${page ? `/?limit=${limit}&page=${page}` : ''}`)
     .then(res => {
-      console.log(res);
       return res.data;
     })
     .catch(err => console.log(err));

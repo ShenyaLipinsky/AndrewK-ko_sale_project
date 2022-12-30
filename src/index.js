@@ -10,7 +10,9 @@ import '../node_modules/modern-normalize/modern-normalize.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/AndrewK-ko_sale_project">
+    <BrowserRouter
+    // basename="/AndrewK-ko_sale_project"
+    >
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>

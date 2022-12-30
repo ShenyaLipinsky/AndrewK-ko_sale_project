@@ -1,6 +1,6 @@
 import { FilmImage } from 'components/Pages/FilmDetails/FilmDetails.styled';
 import propTypes from 'prop-types';
-import { Box } from '../../Box';
+import { Box } from '../Box';
 import { NavItem, NavLink } from './SliderHomePageItem.styled';
 
 const SliderHomePageItem = ({ data, moreDetails, location }) => {

@@ -2,8 +2,8 @@
 import ProductCard from 'components/ProductCard/ProductCard';
 import { Suspense, useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { Box } from '../../Box';
-import { fetchMovieById, fetchMovies } from '../../services/API-MovieDB';
+import { Box } from '../Box';
+import { fetchMovieById, fetchMovies } from '../services/API-MovieDB';
 import SliderHomePage from './SliderHomePage';
 import { ProductBox } from './SliderHomePage.styled';
 import {
@@ -12,7 +12,7 @@ import {
 } from 'components/services/API-Products_DB';
 import Pagination from 'components/Pagination/Pagination';
 
-const Home = () => {
+const Home = ({ moreDetails, location }) => {
   const [hits, setHits] = useState([]);
   const [totalHist, setTotalHits] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
@@ -22,7 +22,7 @@ const Home = () => {
   const [disabledFwd, setDisabledFwd] = useState(false);
   const [disabledBwd, setDisabledBwd] = useState(true);
 
-  const location = useLocation();
+  // const location = useLocation();
 
   async function fetchMovieData() {
     try {
@@ -35,7 +35,6 @@ const Home = () => {
   async function fetchProductsData(getPage, getLimit) {
     try {
       const products = await fetchProducts(getPage, getLimit);
-      console.log(products);
       setProducts(products.result);
       setTotalHits(products.total_items);
     } catch (error) {
@@ -109,6 +108,8 @@ const Home = () => {
                 title={title}
                 cardDescription={short_description}
                 price={price}
+                moreDetails={fetchProductById}
+                location={location}
               />
             );
           })
