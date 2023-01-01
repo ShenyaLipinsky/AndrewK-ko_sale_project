@@ -4,7 +4,7 @@ import { fetchCrew } from '../../services/API-MovieDB';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box } from 'theme-ui';
-import { CastItem } from './FilmDetails.styled';
+import { CastItem } from './ProductDetails.styled';
 // import { crewDataPagination } from 'components/services/Pagination';
 
 const Cast = () => {

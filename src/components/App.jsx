@@ -3,9 +3,9 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Footer from './Footer/Footer';
 // import HeroSlider from './Hero/HeroSlider';
 // import Layout from './Layout/Layout';
-import Cast from './Pages/FilmDetails/Cast';
-import FilmDetails from './Pages/FilmDetails/FilmDetails';
-import Reviews from './Pages/FilmDetails/Reviews';
+import Cast from './Pages/ProductDetails/Cast';
+import ProductDetails from './Pages/ProductDetails/ProductDetails';
+import Reviews from './Pages/ProductDetails/Reviews';
 // import Home from './Pages/Home/Home';
 // import Movies from './Pages/Movies/Movies';
 
@@ -30,16 +30,8 @@ export const App = () => {
           </>
         }
       >
-        <Route
-          path="/"
-          element={
-            // <>
-            //   <Hero />
-            //   <Home />
-            // </>
-            <Products />
-          }
-        />
+        <Route path="/" element={<Products />} />
+        <Route path=":id" element={<ProductDetails />} />
       </Route>
       {/* ) : ( */}
       {/* <Route path="/" element={<Layout />}>

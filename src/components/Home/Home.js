@@ -13,12 +13,14 @@ import {
 import Pagination from 'components/Pagination/Pagination';
 
 const Home = ({ moreDetails, location }) => {
+  const preloadLimit = 10;
+  const preloadPage = 1;
   const [hits, setHits] = useState([]);
   const [totalHist, setTotalHits] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit, setLimit] = useState('10');
+  const [limit, setLimit] = useState(preloadLimit.toString());
   const [products, setProducts] = useState([]);
-  const [page, setPage] = useState('1');
+  const [page, setPage] = useState(preloadPage.toString());
   const [disabledFwd, setDisabledFwd] = useState(false);
   const [disabledBwd, setDisabledBwd] = useState(true);
 

@@ -4,7 +4,7 @@ import { fetchReviews } from '../../services/API-MovieDB';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box } from 'components/Box';
-import { ReviewItem } from './FilmDetails.styled';
+import { ReviewItem } from './ProductDetails.styled';
 
 const Reviews = () => {
   const { id } = useParams();

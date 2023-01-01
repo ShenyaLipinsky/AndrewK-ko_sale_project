@@ -3,6 +3,7 @@ import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { SearchBox } from '../SearchBox/SearchBox';
 import { fetchMovieById, searchMovies } from 'components/services/API-MovieDB';
 import MainPage from 'components/MainPage/MainPage';
+import { fetchProductById } from 'components/services/API-Products_DB';
 const Hero = lazy(() => import('../../Hero/Hero'));
 
 const Home = lazy(() => import('../../Home/Home'));
@@ -35,9 +36,11 @@ const Products = () => {
             state={{ from: location }}
           /> */}
         <Hero />
-        <Home moreDetails={fetchMovieById}
+        <Home
+          moreDetails={fetchProductById}
           location={location}
-          state={{ from: location }} />
+          state={{ from: location }}
+        />
         <Suspense fallback={null}>
           <Outlet />
         </Suspense>
