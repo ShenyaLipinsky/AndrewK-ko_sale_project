@@ -22,7 +22,7 @@ export async function fetchProductById(id) {
       price,
       description,
       TM,
-      Instruction_description,
+      instruction_description,
       full_images,
       image_of_size,
       product_about,
@@ -36,7 +36,7 @@ export async function fetchProductById(id) {
       price,
       description,
       TM,
-      Instruction_description,
+      instruction_description,
       full_images,
       image_of_size,
       product_about,
@@ -48,23 +48,38 @@ export async function fetchProductById(id) {
   }
 }
 
-// export async function fetchCrew(id) {
-//   const fetchCrew = await axios
-//     .get(`${URI}movie/${id}/credits?api_key=${API_KEY}`)
-//     .then(res => {
-//       return res.data.crew;
-//     });
+export async function fetchInstruction(id) {
+  try {
+    const { instruction_description } = await axios
+      .get(`${URI}/products/${id}`)
+      .then(res => {
+        return res.data;
+      });
 
-//   const crewInfo = fetchCrew.map(member => {
-//     const { profile_path, name, job, id } = member;
-//     return { profile_path, name, job, id };
-//   });
+    return {
+      instruction_description,
+    };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+export async function fetchTableOfSizes(id) {
+  try {
+    const { image_of_size } = await axios
+      .get(`${URI}/products/${id}`)
+      .then(res => {
+        return res.data;
+      });
 
-//   const filterCrew = new Map(crewInfo.map(crew => [crew.id, crew]));
-//   const filteredCrew = [...filterCrew.values()];
-
-//   return filteredCrew;
-// }
+    return {
+      image_of_size,
+    };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 // export async function fetchReviews(id) {
 //   const fetchReviews = await axios
 //     .get(`${URI}movie/${id}/reviews?api_key=${API_KEY}`)

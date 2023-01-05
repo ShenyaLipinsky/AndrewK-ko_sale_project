@@ -3,7 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Footer from './Footer/Footer';
 // import HeroSlider from './Hero/HeroSlider';
 // import Layout from './Layout/Layout';
-import Cast from './Pages/ProductDetails/Cast';
+import Instruction from './Pages/ProductDetails/Instruction';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
 import Reviews from './Pages/ProductDetails/Reviews';
 // import Home from './Pages/Home/Home';
@@ -31,7 +31,9 @@ export const App = () => {
         }
       >
         <Route path="/" element={<Products />} />
-        <Route path=":id" element={<ProductDetails />} />
+        <Route path=":id" element={<ProductDetails />}>
+          <Route path="instruction" element={<Instruction />} />
+        </Route>
       </Route>
       {/* ) : ( */}
       {/* <Route path="/" element={<Layout />}>

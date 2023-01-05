@@ -111,7 +111,7 @@ const ProductDetails = () => {
         width="100vw"
       >
         <AdditionalInfoTitle>Additional information</AdditionalInfoTitle>
-        <BackLinkBtn to="cast" state={{ from: backLinkHref }}>
+        <BackLinkBtn to="instruction" state={{ from: backLinkHref }}>
           Cast
         </BackLinkBtn>
         <BackLinkBtn to="reviews" state={{ from: backLinkHref }}>
