@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { Box } from 'components/Box';
+import { Container } from 'App.styled';
 
-export const NavBox = styled.nav`
-  position: relative;
+export const NavBox = styled(Container)`
   display: flex;
-  background-color: lightblue;
+  position: relative;
   padding: ${p => p.theme.space[3]}px;
 `;
 

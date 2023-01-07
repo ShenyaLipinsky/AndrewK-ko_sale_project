@@ -1,6 +1,7 @@
+import { Container } from 'App.styled';
 import styled from 'styled-components';
 
-export const PaginationBox = styled.div`
+export const PaginationBox = styled(Container)`
   display: flex;
   justify-content: space-around;
   align-items: center;

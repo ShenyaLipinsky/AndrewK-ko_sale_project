@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
 import {
+  FooterStamp,
   NavBox,
   NavDropBox,
   NavDropBoxList,
@@ -10,21 +11,22 @@ import {
 } from './Footer.styled';
 import { Box } from '../Box';
 import { navItems } from '../AppBar/NavItems';
+import { Container } from 'App.styled';
 
 const Footer = () => {
   return (
     <Box
       as="footer"
       display="flex"
-      // position="sticky"
-      // bottom={0}
+      position="fixed"
+      bottom={0}
       flexDirection="column"
-      justify-content="space-around"
+      justify-content="space-between"
       alignItems="center"
       width="100vw"
       height={100}
       boxShadow="1px -1px 10px #000000"
-      backgroundColor="lightblue"
+      bg="primary_2"
     >
       <NavBox>
         <NavLogo to="/">
@@ -54,11 +56,11 @@ const Footer = () => {
           );
         })}
       </NavBox>
-      <Box>
-        <h4>
+      <Container>
+        <FooterStamp>
           Copyright © 2022 ________ LLC. All the respective rights reserved.
-        </h4>
-      </Box>
+        </FooterStamp>
+      </Container>
     </Box>
   );
 };

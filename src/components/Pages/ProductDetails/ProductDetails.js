@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { Box } from 'components/Box';
 import {
+  AdditionalInfoBtn,
   AdditionalInfoTitle,
   BackLinkBtn,
   FilmImage,
@@ -22,6 +23,7 @@ import {
 import { fetchProductById } from 'components/services/API-Products_DB';
 import { ProductCardNoImage } from 'components/ProductCard/ProductCard.styled';
 import { IoIosImage } from 'react-icons/io';
+import { Container } from 'App.styled';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -64,8 +66,10 @@ const ProductDetails = () => {
   console.log(productDetails);
   return (
     <>
-      <Box as="main" p={3} boxShadow="1px 1px 4px #000000">
-        <BackLinkBtn to={backLinkHref}>Back</BackLinkBtn>
+      <Box as="main" boxShadow="1px 1px 4px #000000">
+        <Container>
+          <BackLinkBtn to={backLinkHref}>Back</BackLinkBtn>
+        </Container>
         <MainContentBox>
           <SliderBox>
             {full_images.length === 0 ? (
@@ -104,19 +108,27 @@ const ProductDetails = () => {
       </Box>
       <Box
         as="div"
-        display="flex"
-        flexDirection="column"
-        p={3}
+        // display="flex"
+        // flexDirection="column"
+        // p={3}
         boxShadow="1px 1px 4px #000000"
         width="100vw"
       >
-        <AdditionalInfoTitle>Additional information</AdditionalInfoTitle>
-        <BackLinkBtn to="instruction" state={{ from: backLinkHref }}>
-          Cast
-        </BackLinkBtn>
-        <BackLinkBtn to="reviews" state={{ from: backLinkHref }}>
-          Reviews
-        </BackLinkBtn>
+        <Container>
+          <AdditionalInfoTitle>Additional information</AdditionalInfoTitle>
+          <Box
+            as="div"
+            display="flex"
+            justifyContent="space-between"
+          >
+            <AdditionalInfoBtn to="instruction" state={{ from: backLinkHref }}>
+              Instruction
+            </AdditionalInfoBtn>
+            <AdditionalInfoBtn to="reviews" state={{ from: backLinkHref }}>
+              Reviews
+            </AdditionalInfoBtn>
+          </Box>
+        </Container>
       </Box>
       <Suspense fallback={null}>
         <Outlet />

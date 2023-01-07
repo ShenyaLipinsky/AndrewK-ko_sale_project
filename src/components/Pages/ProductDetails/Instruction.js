@@ -5,6 +5,11 @@ import { useParams } from 'react-router-dom';
 import { Box } from 'theme-ui';
 import { CastItem } from './ProductDetails.styled';
 import { fetchInstruction } from 'components/services/API-Products_DB';
+import {
+  InstructionBox,
+  InstructionImg,
+  InstructionText,
+} from './Instruction.styled';
 
 const Instruction = () => {
   const { id } = useParams();
@@ -23,25 +28,18 @@ const Instruction = () => {
   const { instruction_description } = instructionDetails;
   const image = instruction_description[0];
   const description = instruction_description[1];
-  console.log(instruction_description);
   return (
-    <div>
+    <InstructionBox>
       {image === 'No Image' ? (
-        <p> {description}</p>
+        <InstructionText> {description}</InstructionText>
       ) : (
         <>
-          <img src={image} alt="Instruction image" />
-          <p> {description}</p>
+          <InstructionImg src={image} alt="Instruction image" />
+          <InstructionText> {description}</InstructionText>
         </>
       )}
-    </div>
+    </InstructionBox>
   );
-};
-Instruction.propTypes = {
-  id: propTypes.number,
-  name: propTypes.string,
-  job: propTypes.string,
-  profile_path: propTypes.string,
 };
 
 export default Instruction;

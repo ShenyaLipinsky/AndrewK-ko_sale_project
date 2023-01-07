@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
-import { SearchBox } from '../SearchBox/SearchBox';
+import { SearchBox } from '../../SearchBox/SearchBox';
 import { fetchMovieById, searchMovies } from 'components/services/API-MovieDB';
 import MainPage from 'components/MainPage/MainPage';
 import { fetchProductById } from 'components/services/API-Products_DB';
@@ -26,7 +26,6 @@ const Products = () => {
 
   return (
     <main>
-      <SearchBox value={queueParam} onSubmit={changeSearchValue} />
       {/* {foundedFilms.length > 0 && ( */}
       <>
         {/* <MainPage
@@ -36,6 +35,7 @@ const Products = () => {
             state={{ from: location }}
           /> */}
         <Hero />
+        <SearchBox value={queueParam} onSubmit={changeSearchValue} />
         <Home
           moreDetails={fetchProductById}
           location={location}

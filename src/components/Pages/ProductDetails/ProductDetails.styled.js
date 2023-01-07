@@ -1,3 +1,4 @@
+import { Container } from 'App.styled';
 import { ProductCardBtns } from 'components/ProductCard/ProductCard.styled';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -24,7 +25,7 @@ export const BackLinkBtn = styled(NavLink)`
     color: ${p => p.theme.colors.white};
   }
 `;
-export const MainContentBox = styled.div`
+export const MainContentBox = styled(Container)`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -109,9 +110,11 @@ export const FilmGenresItem = styled.li`
 export const AdditionalInfoTitle = styled.h3`
   margin-bottom: ${p => p.theme.space[3]}px;
 `;
-export const CastItem = styled.li`
-  margin-bottom: ${p => p.theme.space[3]}px;
+export const AdditionalInfoBtn = styled(BackLinkBtn)`
+  max-width: none;
+  width: calc(50% - 30px);
 `;
+
 export const ReviewItem = styled.li`
   margin-bottom: ${p => p.theme.space[3]}px;
   border-bottom: 1px solid black;

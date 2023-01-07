@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import { AppBox } from '../App.styled';
 import Footer from './Footer/Footer';
 // import HeroSlider from './Hero/HeroSlider';
 // import Layout from './Layout/Layout';
@@ -39,10 +40,10 @@ export const App = () => {
       {/* <Route path="/" element={<Layout />}>
          <Route path="movies" element={<Movies />} />
          <Route path="movies/:id" element={<FilmDetails />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
-           </Route>
-         </Route> */}
+         <Route path="cast" element={<Cast />} />
+         <Route path="reviews" element={<Reviews />} />
+         </Route>
+        </Route> */}
       {/* )} */}
     </Routes>
   );

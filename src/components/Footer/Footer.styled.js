@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { Box } from 'components/Box';
+import { Container } from 'App.styled';
 
-export const NavBox = styled.nav`
+export const NavBox = styled(Container)`
   position: relative;
   display: flex;
-  width: 100vw;
   justify-content: space-around;
 `;
 
@@ -108,4 +108,9 @@ export const NavLogo = styled(NavLink)`
     color: ${p => p.theme.colors.primary};
     background-color: ${p => p.theme.colors.hovered};
   }
+`;
+
+export const FooterStamp = styled.h4`
+  width: 100%;
+  text-align: center;
 `;

@@ -5,12 +5,12 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Box } from '../Box';
 import { fetchMovieById, fetchMovies } from '../services/API-MovieDB';
 import SliderHomePage from './SliderHomePage';
-import { ProductBox } from './SliderHomePage.styled';
 import {
   fetchProductById,
   fetchProducts,
 } from 'components/services/API-Products_DB';
 import Pagination from 'components/Pagination/Pagination';
+import { ProductBox } from './Home.styled';
 
 const Home = ({ moreDetails, location }) => {
   const preloadLimit = 10;
@@ -72,8 +72,8 @@ const Home = ({ moreDetails, location }) => {
   }, [limit, page, totalHist, totalPages]);
 
   return (
-    <Box as="main" gridTemplateRows="auto 2fr" p={2}>
-      <Box as="h2" p={3}>
+    <Box as="main" gridTemplateRows="auto 2fr" p={3}>
+      <Box as="h2" mb={3}>
         Trending today
       </Box>
       {/* <MainPage data={hits} moreDetails={fetchMovieById} location={location} /> */}
