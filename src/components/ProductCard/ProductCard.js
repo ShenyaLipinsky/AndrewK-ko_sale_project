@@ -32,7 +32,7 @@ const ProductCard = ({ id, price, cardDescription, image, title }) => {
   }
   return (
     <ProductCardBox>
-      <ProductCardImageLink href="/">
+      <ProductCardImageLink href={`/${id}`}>
         <ProductCardImage src={image} alt={title} />
       </ProductCardImageLink>
       <ProductCardDescr>

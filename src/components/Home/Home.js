@@ -106,6 +106,7 @@ const Home = ({ moreDetails, location }) => {
             return (
               <ProductCard
                 key={_id}
+                id={_id}
                 image={image}
                 title={title}
                 cardDescription={short_description}

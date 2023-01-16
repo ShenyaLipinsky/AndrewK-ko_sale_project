@@ -6,6 +6,7 @@ export const PaginationBox = styled(Container)`
   justify-content: space-around;
   align-items: center;
   padding: 20px 0;
+  margin-bottom: 100px;
 `;
 export const PaginationBtn = styled.button`
   cursor: pointer;
