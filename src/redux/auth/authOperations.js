@@ -69,7 +69,7 @@ const fetchCurrentUser = createAsyncThunk(
     }
     token.set(savedToken);
     try {
-      const response = await axios.get('users/current');
+      const response = await axios.get('users/current', state.auth.user.email);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -77,13 +77,12 @@ const fetchCurrentUser = createAsyncThunk(
   }
 );
 
-const logOut = createAsyncThunk('users/logout', async () => {
+const logOut = createAsyncThunk('users/logout', async credentials => {
   try {
-    await axios.post('users/logout');
+    await axios.get('users/logout', credentials);
     token.unset();
     return;
   } catch (error) {
-    // console.log(error);
     Notiflix.Notify.failure(`${error.message}`, notiflixOptions);
   }
 });

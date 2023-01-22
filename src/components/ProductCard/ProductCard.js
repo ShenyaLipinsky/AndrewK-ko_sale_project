@@ -8,11 +8,25 @@ import {
   ProductCardImageLink,
 } from './ProductCard.styled';
 import { IoIosImage } from 'react-icons/io';
+import { useDispatch, useSelector } from 'react-redux';
+import { authSelectors } from 'redux/auth/authSlice';
+import { authOperations } from 'redux/auth/authOperations';
 
 const ProductCard = ({ id, price, cardDescription, image, title }) => {
+  const dispatch = useDispatch();
+
+  let isAdmin = useSelector(authSelectors.getIsAdmin);
+  let userId = useSelector(authSelectors.getUserId);
+  let userEmail = useSelector(authSelectors.getUserEmail);
+
+  //   const handleClickLogOut = () => {
+  //     dispatch(authOperations.logOut(userId));
+  // };
+
   if (image === 'No Image') {
     return (
       <ProductCardBox>
+        {isAdmin && <ProductCardBtns>Edit</ProductCardBtns>}
         <ProductCardImageLink href={`/${id}`}>
           <ProductCardNoImage>
             <IoIosImage />
@@ -32,6 +46,8 @@ const ProductCard = ({ id, price, cardDescription, image, title }) => {
   }
   return (
     <ProductCardBox>
+      {isAdmin && <ProductCardBtns>Edit</ProductCardBtns>}
+
       <ProductCardImageLink href={`/${id}`}>
         <ProductCardImage src={image} alt={title} />
       </ProductCardImageLink>

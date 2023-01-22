@@ -10,6 +10,7 @@ const initialState = {
     email: null,
   },
   token: null,
+  id: null,
   isLoggedIn: false,
 };
 
@@ -20,11 +21,13 @@ const authSlice = createSlice({
     [authOperations.register.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
+      state.id = action.payload.id;
       state.isLoggedIn = true;
     },
     [authOperations.logIn.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
+      state.id = action.payload.id;
       state.isLoggedIn = true;
     },
     [authOperations.logOut.pending](state) {
@@ -36,14 +39,16 @@ const authSlice = createSlice({
         email: null,
       };
       state.token = null;
+      state.id = null;
       state.isLoggedIn = false;
     },
     [authOperations.logOut.rejected](state) {
       state.isLoggedIn = true;
     },
     [authOperations.fetchCurrentUser.fulfilled](state, action) {
-      state.user = action.payload;
+      state.user = action.payload.user;
       state.isLoggedIn = true;
+      state.id = action.payload.id;
     },
   },
 });
@@ -59,10 +64,14 @@ export const authReducer = persistReducer(persistConfig, authSlice.reducer);
 //------------------------------ SELECTORS ------------------------------//
 
 const getIsLoggedIn = state => state.auth.isLoggedIn;
+const getIsAdmin = state => state.auth.user.permissions;
 const getUserEmail = state => state.auth.user.email;
+const getUserId = state => state.auth.id;
 
 export const authSelectors = {
   getUserEmail,
+  getIsAdmin,
   getIsLoggedIn,
+  getUserId,
 };
 //------------------------------ OPERATIONS ------------------------------//

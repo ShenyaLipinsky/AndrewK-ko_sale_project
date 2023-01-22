@@ -15,8 +15,8 @@ import { contactsApi, filterReducer, filter } from './contactsSlice';
 export const store = configureStore({
   reducer: {
     [authSlice.name]: authReducer,
-    [filter.type]: filterReducer,
-    [contactsApi.reducerPath]: contactsApi.reducer,
+    // [filter.type]: filterReducer,
+    // [contactsApi.reducerPath]: contactsApi.reducer,
   },
 
   // middleware: getDefaultMiddleware => [

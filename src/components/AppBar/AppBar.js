@@ -12,12 +12,20 @@ import {
 } from './AppBar.styled';
 import { Box } from '../Box';
 import { navItems } from './NavItems';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authSelectors } from 'redux/auth/authSlice';
+import { authOperations } from 'redux/auth/authOperations';
 
 const AppBar = () => {
+  const dispatch = useDispatch();
+
   let loggedIn = useSelector(authSelectors.getIsLoggedIn);
+  let userId = useSelector(authSelectors.getUserId);
   let userEmail = useSelector(authSelectors.getUserEmail);
+
+  const handleClickLogOut = () => {
+    dispatch(authOperations.logOut(userId));
+  };
 
   return (
     <Box
@@ -58,7 +66,7 @@ const AppBar = () => {
           {loggedIn ? (
             <>
               <span>{userEmail}</span>
-              <LogoutBtn>Вийти</LogoutBtn>
+              <LogoutBtn onClick={() => handleClickLogOut()}>Вийти</LogoutBtn>
             </>
           ) : (
             <>
