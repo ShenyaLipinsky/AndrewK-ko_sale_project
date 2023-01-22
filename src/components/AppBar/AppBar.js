@@ -1,18 +1,24 @@
 import propTypes from 'prop-types';
 import {
+  LogoutBtn,
   NavBox,
   NavDropBox,
   NavDropBoxList,
   NavItem,
   NavItemList,
   NavItemMore,
+  NavLoginBox,
   NavLogo,
 } from './AppBar.styled';
 import { Box } from '../Box';
 import { navItems } from './NavItems';
-import { Container } from 'App.styled';
+import { useSelector } from 'react-redux';
+import { authSelectors } from 'redux/auth/authSlice';
 
 const AppBar = () => {
+  let loggedIn = useSelector(authSelectors.getIsLoggedIn);
+  let userEmail = useSelector(authSelectors.getUserEmail);
+
   return (
     <Box
       as="header"
@@ -48,6 +54,19 @@ const AppBar = () => {
             </NavDropBox>
           );
         })}
+        <NavLoginBox>
+          {loggedIn ? (
+            <>
+              <span>{userEmail}</span>
+              <LogoutBtn>Вийти</LogoutBtn>
+            </>
+          ) : (
+            <>
+              <NavItem to="login">Логін</NavItem>
+              <NavItem to="register">Реєстрація</NavItem>
+            </>
+          )}
+        </NavLoginBox>
       </NavBox>
     </Box>
   );

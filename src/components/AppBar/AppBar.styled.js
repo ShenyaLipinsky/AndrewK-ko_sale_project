@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { Box } from 'components/Box';
 import { Container } from 'App.styled';
@@ -7,6 +7,17 @@ export const NavBox = styled(Container)`
   display: flex;
   position: relative;
   padding: ${p => p.theme.space[3]}px;
+`;
+
+export const NavLoginBox = styled.div`
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  span {
+    font-size: ${p => p.theme.fontSizes.s};
+    font-weight: ${p => p.theme.fontWeights.bold};
+    color: ${p => p.theme.colors.secondaryText};
+  }
 `;
 
 export const NavDropBox = styled(Box)`
@@ -38,29 +49,35 @@ export const NavDropBoxList = styled(Box)`
   z-index: 2;
 `;
 
-export const NavItem = styled(NavLink)`
+const NavItemsBasicStyles = css`
   gap: ${p => p.theme.space[3]}px;
   padding: ${p => p.theme.space[3]}px;
   border-radius: ${p => p.theme.radii.normal};
   text-decoration: none;
+  text-align: center;
   color: ${p => p.theme.colors.text};
   background-color: ${p => p.theme.colors.secondary};
   min-width: 60px;
   margin-left: ${p => p.theme.space[3]}px;
-
-  &.active {
-    background-color: ${p => p.theme.colors.accent};
-    color: ${p => p.theme.colors.white};
-  }
   :hover:not(.active),
   :focus-visible:not(.active) {
     color: ${p => p.theme.colors.primary};
     background-color: ${p => p.theme.colors.hovered};
   }
+`;
+
+export const NavItem = styled(NavLink)`
+  ${NavItemsBasicStyles}
+
+  &.active {
+    background-color: ${p => p.theme.colors.accent};
+    color: ${p => p.theme.colors.white};
+  }
   :first-child {
     margin-left: 0;
   }
 `;
+
 export const NavItemList = styled.li`
   /* padding: ${p => p.theme.space[3]}px; */
   display: flex;
@@ -108,4 +125,10 @@ export const NavLogo = styled(NavLink)`
     color: ${p => p.theme.colors.primary};
     background-color: ${p => p.theme.colors.hovered};
   }
+`;
+
+export const LogoutBtn = styled.button`
+  ${NavItemsBasicStyles}
+  border: none;
+  cursor: pointer;
 `;

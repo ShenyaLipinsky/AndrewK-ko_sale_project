@@ -1,33 +1,38 @@
+import { Suspense } from 'react';
+import { useEffect } from 'react';
 import { lazy } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { authOperations } from 'redux/auth/authOperations';
+import { authSelectors } from 'redux/auth/authSlice';
 import { AppBox } from '../App.styled';
-import Footer from './Footer/Footer';
-// import HeroSlider from './Hero/HeroSlider';
-// import Layout from './Layout/Layout';
+import LogIn from './LogIn/LogIn';
 import Instruction from './Pages/ProductDetails/Instruction';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
-import Reviews from './Pages/ProductDetails/Reviews';
-// import Home from './Pages/Home/Home';
-// import Movies from './Pages/Movies/Movies';
+import Registration from './Registration/Registration';
 
 const Layout = lazy(() => import('./Layout/Layout'));
-const Hero = lazy(() => import('./Hero/Hero'));
-
-const Home = lazy(() => import('./Home/Home'));
+const Footer = lazy(() => import('./Footer/Footer'));
 const Products = lazy(() => import('./Pages/Products/Products'));
 
 export const App = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
+  let loggedIn = useSelector(authSelectors.getIsLoggedIn);
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
 
   return (
     <Routes>
-      {/* {location.pathname === '/' ? ( */}
       <Route
         path="/"
         element={
           <>
-            <Layout />
-            <Footer />
+            <Suspense fallback="...Loading">
+              <Layout />
+              <Footer />
+            </Suspense>
           </>
         }
       >
@@ -35,16 +40,12 @@ export const App = () => {
         <Route path=":id" element={<ProductDetails />}>
           <Route path="instruction" element={<Instruction />} />
         </Route>
+        <Route
+          path="login"
+          element={loggedIn ? <Navigate to="/" replace={true} /> : <LogIn />}
+        />
+        <Route path="register" element={<Registration />} />
       </Route>
-      {/* ) : ( */}
-      {/* <Route path="/" element={<Layout />}>
-         <Route path="movies" element={<Movies />} />
-         <Route path="movies/:id" element={<FilmDetails />}>
-         <Route path="cast" element={<Cast />} />
-         <Route path="reviews" element={<Reviews />} />
-         </Route>
-        </Route> */}
-      {/* )} */}
     </Routes>
   );
 };
