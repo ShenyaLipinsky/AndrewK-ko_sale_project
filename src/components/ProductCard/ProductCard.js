@@ -8,25 +8,50 @@ import {
   ProductCardImageLink,
 } from './ProductCard.styled';
 import { IoIosImage } from 'react-icons/io';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { authSelectors } from 'redux/auth/authSlice';
-import { authOperations } from 'redux/auth/authOperations';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import ModalAddTransaction from 'components/ModalAddTransaction';
 
-const ProductCard = ({ id, price, cardDescription, image, title }) => {
-  const dispatch = useDispatch();
+const ProductCard = ({
+  id,
+  price,
+  cardDescription,
+  image,
+  title,
+  moreDetails,
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalInfo, setModalInfo] = useState({});
+
+  useEffect(() => {
+    if (isModalOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'visible';
+  }, [isModalOpen]);
 
   let isAdmin = useSelector(authSelectors.getIsAdmin);
-  let userId = useSelector(authSelectors.getUserId);
-  let userEmail = useSelector(authSelectors.getUserEmail);
-
-  //   const handleClickLogOut = () => {
-  //     dispatch(authOperations.logOut(userId));
-  // };
 
   if (image === 'No Image') {
     return (
       <ProductCardBox>
-        {isAdmin && <ProductCardBtns>Edit</ProductCardBtns>}
+        {isAdmin && (
+          <ProductCardBtns
+            onClick={async () => {
+              console.log(moreDetails(id));
+              await setModalInfo(moreDetails(id));
+              setIsModalOpen(true);
+            }}
+          >
+            Edit
+          </ProductCardBtns>
+        )}
+        {isModalOpen && (
+          <ModalAddTransaction
+            data={modalInfo}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )}
         <ProductCardImageLink href={`/${id}`}>
           <ProductCardNoImage>
             <IoIosImage />
@@ -46,7 +71,19 @@ const ProductCard = ({ id, price, cardDescription, image, title }) => {
   }
   return (
     <ProductCardBox>
-      {isAdmin && <ProductCardBtns>Edit</ProductCardBtns>}
+      {isAdmin && (
+        <ProductCardBtns
+          onClick={() => {
+            setIsModalOpen(true);
+            console.log('Click');
+          }}
+        >
+          Edit
+        </ProductCardBtns>
+      )}
+      {isModalOpen && (
+        <ModalAddTransaction onClose={() => setIsModalOpen(false)} />
+      )}
 
       <ProductCardImageLink href={`/${id}`}>
         <ProductCardImage src={image} alt={title} />
