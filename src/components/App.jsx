@@ -36,13 +36,14 @@ export const App = () => {
           </>
         }
       >
-        <Route path="/" element={<Products />} />
+        <Route path="/" element={<Navigate to="all" replace={true} />} />
+        <Route path="/all" element={<Products />} />
         <Route path=":id" element={<ProductDetails />}>
           <Route path="instruction" element={<Instruction />} />
         </Route>
         <Route
           path="login"
-          element={loggedIn ? <Navigate to="/" replace={true} /> : <LogIn />}
+          element={loggedIn ? <Navigate to="/all" replace={true} /> : <LogIn />}
         />
         <Route path="register" element={<Registration />} />
       </Route>

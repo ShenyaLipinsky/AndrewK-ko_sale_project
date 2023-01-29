@@ -18,21 +18,29 @@ export async function fetchProducts(page, limit) {
 export async function fetchProductById(id) {
   try {
     const {
-      title,
-      price,
-      description,
       TM,
-      instruction_description,
+      title,
+      category,
+      description,
       full_images,
+      image,
       image_of_size,
+      instruction_description,
+      popularity,
+      price,
       product_about,
       recommended_products,
+      short_description,
     } = await axios.get(`${URI}/products/${id}`).then(res => {
       return res.data;
     });
 
     return {
       title,
+      short_description,
+      popularity,
+      image,
+      category,
       price,
       description,
       TM,

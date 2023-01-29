@@ -16,16 +16,17 @@ export const Overlay = styled.div`
   @media (${breakpoints.tablet}) {
     background-color: rgba(0, 0, 0, 0.25);
   }
-  z-index: 1200;
+  /* z-index: 1200; */
 `;
 
 export const ModalWindow = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   margin: 0 auto;
   padding: ${p => p.theme.space[4]}px;
   width: 100%;
-  height: 100%;
+  max-height: 100%;
   font-family: ${p => p.theme.fonts.primary};
   font-style: normal;
   font-weight: 400;
@@ -34,12 +35,17 @@ export const ModalWindow = styled.div`
   text-align: center;
   background-color: ${p => p.theme.colors.primary};
   position: relative;
-  top: 60px;
+  overflow-y: auto;
+  /* top: 60px; */
 
-  @media (${breakpoints.tablet}) {
+  @media screen and (${breakpoints.tablet}) {
     width: 540px;
     max-height: 603px;
     border-radius: 20px;
+  }
+  @media screen and (${breakpoints.laptop}) {
+    width: 80%;
+    max-height: 80%;
   }
 `;
 
@@ -57,7 +63,7 @@ export const CloseButton = styled(CloseOutlined)`
 
 export const Title = styled.h2`
   margin-bottom: ${p => p.theme.space[8]}px;
-  font-size: ${p => p.theme.fontSizes.xxl};
+  font-size: ${p => p.theme.fontSizes.xl};
   font-weight: ${p => p.theme.fontWeights.normal};
   line-height: ${p => p.theme.lineHeights.body};
   color: ${p => p.theme.colors.black};
@@ -74,45 +80,57 @@ export const StyledForm = styled(Form)`
   justify-content: center;
   align-items: center;
   width: 100%;
-
-  @media (${breakpoints.tablet}) {
-    flex-flow: wrap;
-  }
 `;
 export const InputBox = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 280px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* width: 280px; */
 
-  @media (${breakpoints.tablet}) {
-    flex-direction: row;
-    flex-flow: wrap;
-    width: 394px;
-  }
+  /* @media (${breakpoints.tablet}) { */
+  /* flex-direction: row;
+    flex-flow: wrap; */
+  /* width: 394px; */
+  /* } */
+`;
+export const InputGroupBox = styled.div`
+  padding: 8px;
 `;
 
 export const InputWrapper = styled.div`
-  margin-bottom: ${p => p.theme.space[8]}px;
+  margin-bottom: ${p => p.theme.space[3]}px;
+  /* width: 50%; */
+  display: flex;
+  align-items: center;
+`;
+export const InputLabel = styled.label`
+  width: 25%;
+  font-size: ${p => p.theme.fontSizes.l};
+  color: #000;
 `;
 
 export const InputCategory = styled.div`
-  margin-bottom: ${p => p.theme.space[8]}px;
+  display: flex;
+  margin-bottom: ${p => p.theme.space[2]}px;
   width: 100%;
-
-  border-bottom: ${p => p.theme.borders.normal} ${p => p.theme.colors.border};
   height: 32px;
-
-  @media (${breakpoints.tablet}) {
-    width: 394px;
+  & > div {
+    color: ${p => p.theme.colors.black};
+    width: 85%;
   }
+
+  /* @media (${breakpoints.tablet}) {
+    width: 394px;
+  } */
 `;
 
 export const InputAmount = styled(Field)`
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  padding: 0 ${p => p.theme.space[4]}px;
+  margin-left: auto;
+  margin-right: auto;
   font-family: ${p => p.theme.fonts.primary};
   font-weight: ${p => p.theme.fontWeights.normal};
   font-size: ${p => p.theme.fontSizes.l};
@@ -121,7 +139,7 @@ export const InputAmount = styled(Field)`
   outline: 0;
   border: none;
   border-bottom: ${p => p.theme.borders.normal} ${p => p.theme.colors.border};
-  width: 100%;
+  width: 394px;
   height: 32px;
 
   &::placeholder {
@@ -131,17 +149,15 @@ export const InputAmount = styled(Field)`
     line-height: ${p => p.theme.lineHeights.body};
     color: ${p => p.theme.colors.shadow};
   }
-
+  /* 
   @media (${breakpoints.tablet}) {
-    width: 181px;
-    margin-right: 32px;
     text-align: center;
     margin-bottom: 0;
 
     &::placeholder {
       text-align: center;
     }
-  }
+  } */
 `;
 
 export const InputDate = styled.div`

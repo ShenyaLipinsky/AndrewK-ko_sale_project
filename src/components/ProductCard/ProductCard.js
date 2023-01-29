@@ -32,15 +32,18 @@ const ProductCard = ({
 
   let isAdmin = useSelector(authSelectors.getIsAdmin);
 
+  const handleEditClick = async id => {
+    setModalInfo(await moreDetails(id));
+    setIsModalOpen(true);
+  };
+
   if (image === 'No Image') {
     return (
       <ProductCardBox>
         {isAdmin && (
           <ProductCardBtns
-            onClick={async () => {
-              console.log(moreDetails(id));
-              await setModalInfo(moreDetails(id));
-              setIsModalOpen(true);
+            onClick={() => {
+              handleEditClick(id);
             }}
           >
             Edit
@@ -74,15 +77,17 @@ const ProductCard = ({
       {isAdmin && (
         <ProductCardBtns
           onClick={() => {
-            setIsModalOpen(true);
-            console.log('Click');
+            handleEditClick(id);
           }}
         >
           Edit
         </ProductCardBtns>
       )}
       {isModalOpen && (
-        <ModalAddTransaction onClose={() => setIsModalOpen(false)} />
+        <ModalAddTransaction
+          data={modalInfo}
+          onClose={() => setIsModalOpen(false)}
+        />
       )}
 
       <ProductCardImageLink href={`/${id}`}>

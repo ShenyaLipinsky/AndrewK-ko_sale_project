@@ -36,7 +36,7 @@ export const selectStyles = typeTransaction => {
 
     placeholder: data => ({
       ...data,
-      color: '#bdbdbd',
+      color: '#000',
       margin: 0,
       fontSize: 18,
       lineHeight: 1,
@@ -90,7 +90,7 @@ export const selectStyles = typeTransaction => {
     option: (data, { isFocused, isSelected }) => ({
       ...data,
       background: isFocused || isSelected ? '#ffffff' : 'transparent',
-      color: isFocused || isSelected ? optionColor : '#000000',
+      color: isFocused || isSelected ? optionColor : '#000',
       cursor: 'pointer',
       padding: '14px 20px',
       fontSize: 18,

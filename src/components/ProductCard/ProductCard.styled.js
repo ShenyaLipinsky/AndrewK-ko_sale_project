@@ -17,11 +17,13 @@ export const ProductCardBox = styled.div`
 `;
 export const ProductCardImageLink = styled.a`
   width: 100%;
-  height: 160px;
+  height: 140px;
+  padding: 6px;
 `;
 export const ProductCardImage = styled.img`
-  width: 100%;
+  /* width: 100%; */
   height: 100%;
+  margin: 0 auto;
 `;
 export const ProductCardNoImage = styled.div`
   display: flex;

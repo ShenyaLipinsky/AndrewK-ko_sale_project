@@ -4,6 +4,10 @@ export const navItems = [
     text: 'Продукція',
     buttons: [
       {
+        href: 'all',
+        text: 'Всі товари',
+      },
+      {
         href: 'ortho',
         text: 'Ортопедична і бандажна продукція',
       },

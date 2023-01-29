@@ -29,6 +29,8 @@ import {
   InputComment,
   PrimaryButton,
   SecondaryButton,
+  InputGroupBox,
+  InputLabel,
 } from './ModalAddTransaction.styled';
 // import {
 //   Switcher,
@@ -66,16 +68,30 @@ const transactionSchema = yup.object().shape({
 });
 
 const ModalAddTransaction = ({ onClose, data }) => {
-  const [sum, setSum] = useState();
-  const [comment, setComment] = useState();
-  const [category, setCategory] = useState();
+  console.log(data);
+  const [title, setTitle] = useState(data.title);
+  const [tradeMark, setTradeMark] = useState(data.TM);
+  const [category, setCategory] = useState(data.category);
+  const [cardDescription, setCardDescription] = useState(data.description);
+  const [cardImage, setCardImage] = useState(data.image);
+  const [sum, setSum] = useState(data.price);
+  const [shortDescription, setShortDescription] = useState(
+    data.short_description
+  );
+
+  const [productAbout, setProductAbout] = useState(data.product_about);
   const [typeTransaction, setTypeTransaction] = useState('expense');
   const { t } = useTranslation();
-  console.log(data);
+
   const initialValues = {
     sum: '',
+    title: '',
     category: '',
-    comment: '',
+    tradeMark: '',
+    cardDescription: '',
+    cardImage: '',
+    shortDescription: '',
+    productAbout: '',
     date: new Date(),
     type: false,
   };
@@ -84,28 +100,57 @@ const ModalAddTransaction = ({ onClose, data }) => {
 
   const categories = navItems[0].buttons;
 
+  useEffect(() => {
+    categories.map(({ href, text }) => {
+      if (data.category === href) {
+        return setCategory(text);
+      }
+      return data.category;
+    });
+  }, [categories, data.category]);
   // useEffect(() => {
   //   dispatch(getCategories());
   // }, [dispatch]);
 
   const handleChange = e => {
-    const { name, value } = e.target;
+    console.log(e);
+    if (!e.target) {
+      setCategory(e.InputLabel[0]);
+    } else {
+      const { name, value } = e.target;
+      switch (name) {
+        case 'sum':
+          setSum(value);
+          break;
 
-    switch (name) {
-      case 'sum':
-        setSum(value);
-        break;
+        case 'title':
+          setTitle(value);
+          break;
 
-      case 'category':
-        setCategory(value);
-        break;
+        case 'category':
+          setCategory(value);
+          break;
 
-      case 'comment':
-        setComment(value);
-        break;
+        case 'tradeMark':
+          setTradeMark(value);
+          break;
+        case 'cardDescription':
+          setCardDescription(value);
+          break;
+        case 'cardImage':
+          setCardImage(value);
+          break;
+        case 'shortDescription':
+          setShortDescription(value);
+          break;
 
-      default:
-        break;
+        case 'productAbout':
+          setProductAbout(value);
+          break;
+
+        default:
+          break;
+      }
     }
   };
 
@@ -116,12 +161,30 @@ const ModalAddTransaction = ({ onClose, data }) => {
   //   setTypeTransaction('expense');
   // };
 
-  const handleSubmit = ({ sum, category, comment, date }, { resetForm }) => {
+  const handleSubmit = (
+    {
+      sum,
+      category,
+      title,
+      productAbout,
+      tradeMark,
+      cardDescription,
+      shortDescription,
+      cardImage,
+      date,
+    },
+    { resetForm }
+  ) => {
     //   dispatch(
     //     addTransaction({
-    //       sum,
+    //       title,
     //       category,
-    //       comment,
+    //       tradeMark,
+    //       cardDescription,
+    //       shortDescription,
+    //       cardImage,
+    //       sum,
+    //       productAbout,
     //       date,
     //       type: typeTransaction,
     //     })
@@ -160,7 +223,12 @@ const ModalAddTransaction = ({ onClose, data }) => {
           render={() => <CloseButton onClick={() => onClose()} />}
         />
 
-        <Title>{t('ModalAdd.Category')}</Title>
+        <Title>
+          {
+            // t('ModalAdd.Category')
+            'Редагування товару'
+          }
+        </Title>
 
         <Formik
           initialValues={initialValues}
@@ -176,7 +244,7 @@ const ModalAddTransaction = ({ onClose, data }) => {
                 </Income> */}
 
               {/* <SwitchBox>
-                  <label htmlFor="type">
+                  <InputLabel htmlFor="type">
                     <Switch
                       name="type"
                       type="checkbox"
@@ -192,7 +260,7 @@ const ModalAddTransaction = ({ onClose, data }) => {
                         <MinusOutlined style={{ fontSize: '22px' }} />
                       </StyledButton>
                     )}
-                  </label>
+                  </InputLabel>
                 </SwitchBox> */}
 
               {/* <Expense checked={typeTransaction === 'expense'}>
@@ -201,45 +269,134 @@ const ModalAddTransaction = ({ onClose, data }) => {
               {/* </Switcher> */}
 
               <InputBox>
-                <InputCategory>
-                  <Select
-                    name="category"
-                    key={typeTransaction}
-                    components={<DownOutlined />}
-                    options={categories
-                      // .filter(elem => elem.type === typeTransaction)
-                      .map(({ href }) => ({
-                        value: href,
-                        label: [t(`categoryName.${href}`)],
-                      }))}
-                    styles={selectStyles(typeTransaction)}
-                    placeholder={t('ModalAdd.Category')}
-                    value={category}
-                    onChange={option => {
-                      setFieldValue('category', option.value);
-                    }}
-                    isSearchable={false}
-                  />
-                  {/* {touched.category && errors.category && (
+                <InputGroupBox>
+                  <h4>Картка товару: </h4>
+                  <InputWrapper>
+                    <InputLabel htmlFor="Title">Арт: </InputLabel>
+                    <Field
+                      name="title"
+                      value={title}
+                      placeholder={
+                        // t('ModalAdd.placeholderComent')
+                        data.title
+                      }
+                      onChange={handleChange}
+                      as={InputComment}
+                      maxLength={20}
+                    />
+                  </InputWrapper>
+                  <InputWrapper>
+                    <InputLabel htmlFor="ShortDescription">Опис: </InputLabel>
+                    <Field
+                      name="shortDescription"
+                      value={shortDescription}
+                      placeholder={
+                        // t('ModalAdd.placeholderComent')
+                        data.short_description
+                      }
+                      onChange={handleChange}
+                      as={InputComment}
+                    />
+                  </InputWrapper>
+                  <InputWrapper>
+                    <InputLabel htmlFor="CardImage">Зображ: </InputLabel>
+                    <Field
+                      name="cardImage"
+                      value={cardImage}
+                      placeholder={
+                        // t('ModalAdd.placeholderComent')
+                        data.image
+                      }
+                      onChange={handleChange}
+                      as={InputComment}
+                    />
+                  </InputWrapper>
+
+                  <InputWrapper>
+                    <InputLabel htmlFor="Sum">Ціна: </InputLabel>
+                    <InputAmount
+                      name="sum"
+                      type="number"
+                      min="0.01"
+                      step="0.01"
+                      value={sum}
+                      onChange={handleChange}
+                      placeholder={data.price}
+                    />
+                    {/* {touched.sum && errors.sum && <FormError name="sum" />} */}
+                  </InputWrapper>
+                </InputGroupBox>
+                <InputGroupBox>
+                  <h4>Повний опис товару: </h4>
+                  <InputWrapper>
+                    <InputLabel htmlFor="TradeMark">ТМ: </InputLabel>
+                    <Field
+                      name="tradeMark"
+                      value={tradeMark}
+                      placeholder={
+                        // t('ModalAdd.placeholderComent')
+                        data.TM
+                      }
+                      onChange={handleChange}
+                      as={InputComment}
+                      maxLength={30}
+                    />
+                  </InputWrapper>
+                  <InputCategory>
+                    <InputLabel htmlFor="Category">Категорія: </InputLabel>
+                    <Select
+                      name="category"
+                      key={typeTransaction}
+                      components={<DownOutlined />}
+                      options={categories
+                        // .filter(elem => elem.type === typeTransaction)
+                        .map(({ href, text }) => ({
+                          value: href,
+                          InputLabel: [
+                            // t(`categoryName.${href}`),
+                            text,
+                          ],
+                        }))}
+                      styles={selectStyles(typeTransaction)}
+                      placeholder={
+                        // categories.find(({ href, text }, index, data) => {
+                        //   if (data.href === href) {
+                        //     return text;
+                        //   }
+                        //   return data.category;
+                        // })
+                        category
+                      }
+                      value={category}
+                      onChange={
+                        // option => {
+                        // setFieldValue('category', option.value);
+                        // }
+                        handleChange
+                      }
+                      isSearchable={false}
+                    />
+                    {/* {touched.category && errors.category && (
                     <FormError name="category" />
                   )} */}
-                </InputCategory>
+                  </InputCategory>
+                  <InputWrapper>
+                    <InputLabel htmlFor="CardDescription">Найменув:</InputLabel>
+                    <Field
+                      name="cardDescription"
+                      value={cardDescription}
+                      placeholder={
+                        // t('ModalAdd.placeholderComent')
+                        data.description
+                      }
+                      onChange={handleChange}
+                      as={InputComment}
+                      maxLength={30}
+                    />
+                  </InputWrapper>
 
-                <InputWrapper>
-                  <label htmlFor="sum" />
-                  <InputAmount
-                    name="sum"
-                    type="number"
-                    min="0.01"
-                    step="0.01"
-                    value={sum}
-                    placeholder="0.00"
-                  />
-                  {/* {touched.sum && errors.sum && <FormError name="sum" />} */}
-                </InputWrapper>
-
-                {/* <InputWrapper>
-                  <label htmlFor="date" />
+                  {/* <InputWrapper>
+                  <InputLabel htmlFor="date" />
                   <InputDate>
                     <Field name="date">
                       {({ field, form: { isSubmitting } }) => (
@@ -253,34 +410,39 @@ const ModalAddTransaction = ({ onClose, data }) => {
                           isValidDate={validDate}
                           input={true}
                           closeOnSelect
-                        />
-                      )}
+                          />
+                          )}
                     </Field>
-
+                    
                     <CalendarIcon />
-                  </InputDate>
-                  {touched.date && errors.date && <FormError name="date" />}
-                </InputWrapper> */}
+                    </InputDate>
+                    {touched.date && errors.date && <FormError name="date" />}
+                  </InputWrapper> */}
 
-                <InputWrapper>
-                  <label htmlFor="comment" />
-                  <Field
-                    name="comment"
-                    value={comment}
-                    placeholder={t('ModalAdd.placeholderComent')}
-                    as={InputComment}
-                    maxLength={30}
-                  />
-                </InputWrapper>
+                  <InputWrapper>
+                    <InputLabel htmlFor="ProductAbout">Про товар:</InputLabel>
+                    <Field
+                      name="productAbout"
+                      value={productAbout}
+                      placeholder={
+                        data.product_about
+                        // t('ModalAdd.placeholderComent')
+                      }
+                      onChange={handleChange}
+                      as={InputComment}
+                    />
+                  </InputWrapper>
+                </InputGroupBox>
               </InputBox>
+              <InputGroupBox>
+                <PrimaryButton type="primary" htmlType="submit">
+                  {t('ModalAdd.ButtonAdd')}
+                </PrimaryButton>
 
-              <PrimaryButton type="primary" htmlType="submit">
-                {t('ModalAdd.ButtonAdd')}
-              </PrimaryButton>
-
-              <SecondaryButton htmlType="button" onClick={() => onClose()}>
-                {t('ModalAdd.ButtonCensel')}
-              </SecondaryButton>
+                <SecondaryButton htmlType="button" onClick={() => onClose()}>
+                  {t('ModalAdd.ButtonCensel')}
+                </SecondaryButton>
+              </InputGroupBox>
             </StyledForm>
           )}
         </Formik>
