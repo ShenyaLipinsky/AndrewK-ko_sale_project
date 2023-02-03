@@ -81,6 +81,7 @@ export const StyledForm = styled(Form)`
   align-items: center;
   width: 100%;
 `;
+
 export const InputBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -99,15 +100,44 @@ export const InputGroupBox = styled.div`
 `;
 
 export const InputWrapper = styled.div`
+  position: relative;
   margin-bottom: ${p => p.theme.space[3]}px;
   /* width: 50%; */
   display: flex;
   align-items: center;
 `;
+export const InputImageButtonAdd = styled.button`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  right: -32px;
+  bottom: 23px;
+`;
+
+export const InputImageButtonRemove = styled.button`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  right: -32px;
+  bottom: 2px;
+`;
+
 export const InputLabel = styled.label`
   width: 25%;
   font-size: ${p => p.theme.fontSizes.l};
   color: #000;
+`;
+export const FullImagesInputBox = styled.div`
+  width: 100%;
+  & > div {
+    display: flex;
+  }
 `;
 
 export const InputCategory = styled.div`
@@ -202,8 +232,8 @@ export const InputComment = styled.textarea`
   border: none;
   border-bottom: ${p => p.theme.borders.normal} ${p => p.theme.colors.border};
   width: 100%;
-  height: 84px;
-  resize: none;
+  height: 32px;
+  resize: vertical;
   &::placeholder {
     font-family: ${p => p.theme.fonts.primary};
     font-weight: ${p => p.theme.fontWeights.normal};
@@ -214,9 +244,9 @@ export const InputComment = styled.textarea`
 
   @media (${breakpoints.tablet}) {
     padding: 0 ${p => p.theme.space[1]}px;
-    overflow: hidden;
+    overflow-y: auto;
     width: 394px;
-    height: 32px;
+    /* height: 32px; */
   }
 `;
 
@@ -254,9 +284,9 @@ export const SecondaryButton = styled.button`
   font-weight: ${p => p.theme.fontWeights.normal};
   font-size: ${p => p.theme.fontSizes.l};
   text-transform: uppercase;
-  color: ${p => p.theme.colors.secondary};
+  color: ${p => p.theme.colors.black};
   background-color: transparent;
-  border: ${p => p.theme.borders.normal} ${p => p.theme.colors.secondary};
+  border: ${p => p.theme.borders.normal} ${p => p.theme.colors.accent};
   border-radius: ${p => p.theme.radii.medium};
   outline: none;
 

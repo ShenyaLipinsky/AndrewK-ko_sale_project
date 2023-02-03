@@ -72,7 +72,12 @@ const fetchCurrentUser = createAsyncThunk(
       const response = await axios.get('users/current', state.auth.user.email);
       return response.data;
     } catch (error) {
-      console.log(error);
+      if (error.response.status === 401) {
+        Notiflix.Notify.failure(`Login time has expired`, notiflixOptions);
+      } else {
+        Notiflix.Notify.failure(`${error.message}`, notiflixOptions);
+      }
+      return thunkApi.rejectWithValue();
     }
   }
 );

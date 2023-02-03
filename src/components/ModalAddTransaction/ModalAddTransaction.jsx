@@ -31,6 +31,9 @@ import {
   SecondaryButton,
   InputGroupBox,
   InputLabel,
+  FullImagesInputBox,
+  InputImageButtonAdd,
+  InputImageButtonRemove,
 } from './ModalAddTransaction.styled';
 // import {
 //   Switcher,
@@ -78,8 +81,17 @@ const ModalAddTransaction = ({ onClose, data }) => {
   const [shortDescription, setShortDescription] = useState(
     data.short_description
   );
-
   const [productAbout, setProductAbout] = useState(data.product_about);
+  const [fullImages, setFullImages] = useState(data.full_images);
+  const [imageOfSize, setImageOfSize] = useState(data.image_of_size[0]);
+  const [sizing, setSizing] = useState(data.image_of_size[1]);
+  const [imageOfInstruction, setImageOfInstruction] = useState(
+    data.instruction_description[0]
+  );
+  const [instruction, setInstruction] = useState(
+    data.instruction_description[1]
+  );
+
   const [typeTransaction, setTypeTransaction] = useState('expense');
   const { t } = useTranslation();
 
@@ -92,6 +104,11 @@ const ModalAddTransaction = ({ onClose, data }) => {
     cardImage: '',
     shortDescription: '',
     productAbout: '',
+    fullImages: [],
+    imageOfSize: '',
+    sizing: '',
+    imageOfInstruction: '',
+    instruction: '',
     date: new Date(),
     type: false,
   };
@@ -113,11 +130,24 @@ const ModalAddTransaction = ({ onClose, data }) => {
   // }, [dispatch]);
 
   const handleChange = e => {
-    console.log(e);
+    // console.log(e);
     if (!e.target) {
       setCategory(e.InputLabel[0]);
+    } else if (e.target.name === 'fullImages') {
+      const { value } = e.target;
+      setFullImages(prevState => {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        const newState = prevState.map((el, idx, __) => {
+          if (idx === index) {
+            return (el = fullImages[index] = value);
+          }
+          return el;
+        });
+        return newState;
+      });
     } else {
       const { name, value } = e.target;
+      console.log(e);
       switch (name) {
         case 'sum':
           setSum(value);
@@ -134,18 +164,37 @@ const ModalAddTransaction = ({ onClose, data }) => {
         case 'tradeMark':
           setTradeMark(value);
           break;
+
         case 'cardDescription':
           setCardDescription(value);
           break;
+
         case 'cardImage':
           setCardImage(value);
           break;
+
         case 'shortDescription':
           setShortDescription(value);
           break;
 
         case 'productAbout':
           setProductAbout(value);
+          break;
+
+        case 'imageOfSize':
+          setImageOfSize(value);
+          break;
+
+        case 'sizing':
+          setSizing(value);
+          break;
+
+        case 'instruction':
+          setInstruction(value);
+          break;
+
+        case 'imageOfInstruction':
+          setImageOfInstruction(value);
           break;
 
         default:
@@ -171,6 +220,11 @@ const ModalAddTransaction = ({ onClose, data }) => {
       cardDescription,
       shortDescription,
       cardImage,
+      fullImages,
+      imageOfSize,
+      sizing,
+      imageOfInstruction,
+      instruction,
       date,
     },
     { resetForm }
@@ -185,6 +239,11 @@ const ModalAddTransaction = ({ onClose, data }) => {
     //       cardImage,
     //       sum,
     //       productAbout,
+    //       fullImages,
+    //       imageOfSize,
+    //       sizing,
+    //       imageOfInstruction,
+    //       instruction,
     //       date,
     //       type: typeTransaction,
     //     })
@@ -432,15 +491,112 @@ const ModalAddTransaction = ({ onClose, data }) => {
                       as={InputComment}
                     />
                   </InputWrapper>
+                  <InputWrapper>
+                    <FullImagesInputBox>
+                      {fullImages.map((item, index, __) => {
+                        return (
+                          <div key={`${item}${index}`}>
+                            <InputLabel htmlFor="FullImages">
+                              {`Зображ ${index + 1}:`}
+                            </InputLabel>
+                            <Field
+                              name="fullImages"
+                              data-index={index}
+                              value={fullImages[index]}
+                              placeholder={
+                                data.full_images[index]
+                                // t('ModalAdd.placeholderComent')
+                              }
+                              onChange={handleChange}
+                              as={InputComment}
+                            />
+                          </div>
+                        );
+                      })}
+                    </FullImagesInputBox>
+                    <InputImageButtonAdd
+                      onClick={() => {
+                        fullImages.push('');
+                      }}
+                    >
+                      +
+                    </InputImageButtonAdd>
+                    <InputImageButtonRemove
+                      onClick={() => {
+                        if (fullImages.length === 1) {
+                          return;
+                        }
+                        fullImages.pop();
+                      }}
+                    >
+                      -
+                    </InputImageButtonRemove>
+                  </InputWrapper>
+                  <InputWrapper>
+                    <InputLabel htmlFor="ImageOfSize">Таб. підб.:</InputLabel>
+                    <Field
+                      name="imageOfSize"
+                      value={imageOfSize}
+                      placeholder={
+                        data.image_of_size[0]
+                        // t('ModalAdd.placeholderComent')
+                      }
+                      onChange={handleChange}
+                      as={InputComment}
+                    />
+                  </InputWrapper>
+                  <InputWrapper>
+                    <InputLabel htmlFor="Sizing">Опис підбору:</InputLabel>
+                    <Field
+                      name="sizing"
+                      value={sizing}
+                      placeholder={
+                        data.image_of_size[1]
+                        // t('ModalAdd.placeholderComent')
+                      }
+                      onChange={handleChange}
+                      as={InputComment}
+                    />
+                  </InputWrapper>
+                  <InputWrapper>
+                    <InputLabel htmlFor="ImageOfInstruction">
+                      Таб. інстр.:
+                    </InputLabel>
+                    <Field
+                      name="imageOfInstruction"
+                      value={imageOfInstruction}
+                      placeholder={
+                        data.instruction_description[0]
+                        // t('ModalAdd.placeholderComent')
+                      }
+                      onChange={handleChange}
+                      as={InputComment}
+                    />
+                  </InputWrapper>
+                  <InputWrapper>
+                    <InputLabel htmlFor="Instruction">Інструкція:</InputLabel>
+                    <Field
+                      name="instruction"
+                      value={instruction}
+                      placeholder={
+                        data.instruction_description[1]
+                        // t('ModalAdd.placeholderComent')
+                      }
+                      onChange={handleChange}
+                      as={InputComment}
+                    />
+                  </InputWrapper>
                 </InputGroupBox>
               </InputBox>
               <InputGroupBox>
                 <PrimaryButton type="primary" htmlType="submit">
-                  {t('ModalAdd.ButtonAdd')}
+                  {/* {t('ModalAdd.ButtonAdd')} */}
+                  Змінити
                 </PrimaryButton>
 
                 <SecondaryButton htmlType="button" onClick={() => onClose()}>
-                  {t('ModalAdd.ButtonCensel')}
+                  {/* {t('ModalAdd.ButtonCensel')} */}
+                  Відміна
                 </SecondaryButton>
               </InputGroupBox>
             </StyledForm>

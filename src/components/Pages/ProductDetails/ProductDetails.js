@@ -53,7 +53,7 @@ const ProductDetails = () => {
     );
   }
   const {
-    Instruction_description,
+    instruction_description,
     TM,
     title,
     description,
@@ -116,16 +116,12 @@ const ProductDetails = () => {
       >
         <Container>
           <AdditionalInfoTitle>Additional information</AdditionalInfoTitle>
-          <Box
-            as="div"
-            display="flex"
-            justifyContent="space-between"
-          >
+          <Box as="div" display="flex" justifyContent="space-between">
             <AdditionalInfoBtn to="instruction" state={{ from: backLinkHref }}>
               Instruction
             </AdditionalInfoBtn>
-            <AdditionalInfoBtn to="reviews" state={{ from: backLinkHref }}>
-              Reviews
+            <AdditionalInfoBtn to="sizing" state={{ from: backLinkHref }}>
+              Sizing
             </AdditionalInfoBtn>
           </Box>
         </Container>

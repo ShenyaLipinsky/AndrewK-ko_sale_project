@@ -50,6 +50,15 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.id = action.payload.id;
     },
+    [authOperations.fetchCurrentUser.rejected](state, action) {
+      state.user = {
+        name: null,
+        email: null,
+      };
+      state.token = null;
+      state.id = null;
+      state.isLoggedIn = false;
+    },
   },
 });
 export default authSlice;

@@ -9,6 +9,7 @@ import { AppBox } from '../App.styled';
 import LogIn from './LogIn/LogIn';
 import Instruction from './Pages/ProductDetails/Instruction';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
+import TableOfSize from './Pages/ProductDetails/TableOfSize';
 import Registration from './Registration/Registration';
 
 const Layout = lazy(() => import('./Layout/Layout'));
@@ -40,6 +41,7 @@ export const App = () => {
         <Route path="/all" element={<Products />} />
         <Route path=":id" element={<ProductDetails />}>
           <Route path="instruction" element={<Instruction />} />
+          <Route path="sizing" element={<TableOfSize />} />
         </Route>
         <Route
           path="login"
