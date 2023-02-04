@@ -38,6 +38,23 @@ export const ModalWindow = styled.div`
   overflow-y: auto;
   /* top: 60px; */
 
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 8px 1px ${p => p.theme.colors.primary_2};
+    :hover {
+      box-shadow: inset 0 0 8px 20px ${p => p.theme.colors.primary_2};
+    }
+  }
+
   @media screen and (${breakpoints.tablet}) {
     width: 540px;
     max-height: 603px;
@@ -53,7 +70,7 @@ export const CloseButton = styled(CloseOutlined)`
   font-size: 16px;
 
   position: absolute;
-  top: 20px;
+  top: 35px;
   right: 20px;
 
   &:hover {

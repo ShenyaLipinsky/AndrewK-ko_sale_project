@@ -52,6 +52,8 @@ import { PlusOutlined, MinusOutlined, DownOutlined } from '@ant-design/icons';
 // } from '../../redux';
 import './rdt-styles.css';
 import { navItems } from 'components/AppBar/NavItems';
+import { addProduct } from 'components/services/API-Products_DB';
+import { productsOperations } from 'redux/products/productsOperations';
 
 const modalRoot = document.getElementById('modal-root');
 
@@ -75,6 +77,7 @@ const ModalAddTransaction = ({ onClose, data }) => {
   const [title, setTitle] = useState(data.title);
   const [tradeMark, setTradeMark] = useState(data.TM);
   const [category, setCategory] = useState(data.category);
+  const [categoryHref, setCategoryHref] = useState('');
   const [cardDescription, setCardDescription] = useState(data.description);
   const [cardImage, setCardImage] = useState(data.image);
   const [sum, setSum] = useState(data.price);
@@ -96,7 +99,7 @@ const ModalAddTransaction = ({ onClose, data }) => {
   const { t } = useTranslation();
 
   const initialValues = {
-    sum: '',
+    sum: 0,
     title: '',
     category: '',
     tradeMark: '',
@@ -209,46 +212,28 @@ const ModalAddTransaction = ({ onClose, data }) => {
   //   }
   //   setTypeTransaction('expense');
   // };
+  const getCategoryHref = categories.find(el => category === el.text);
 
-  const handleSubmit = (
-    {
-      sum,
-      category,
-      title,
-      productAbout,
-      tradeMark,
-      cardDescription,
-      shortDescription,
-      cardImage,
-      fullImages,
-      imageOfSize,
-      sizing,
-      imageOfInstruction,
-      instruction,
-      date,
-    },
-    { resetForm }
-  ) => {
-    //   dispatch(
-    //     addTransaction({
-    //       title,
-    //       category,
-    //       tradeMark,
-    //       cardDescription,
-    //       shortDescription,
-    //       cardImage,
-    //       sum,
-    //       productAbout,
-    //       fullImages,
-    //       imageOfSize,
-    //       sizing,
-    //       imageOfInstruction,
-    //       instruction,
-    //       date,
-    //       type: typeTransaction,
-    //     })
-    //   );
-    //   onClose();
+  const handleSubmit = () => {
+    let body = {
+      price: parseInt(sum),
+      category: getCategoryHref.href,
+      title: title,
+      product_about: productAbout,
+      TM: tradeMark,
+      description: cardDescription,
+      short_description: shortDescription,
+      image: cardImage,
+      full_images: fullImages,
+      image_of_size: [imageOfSize, sizing],
+      instruction_description: [imageOfInstruction, instruction],
+      recommended_products: [
+        '63a6d59ce7069a51ffe5b139',
+        '63a6d5bde7069a51ffe5b145',
+      ],
+    };
+    dispatch(productsOperations.add(body));
+    // onClose();
   };
 
   useEffect(() => {
@@ -292,10 +277,10 @@ const ModalAddTransaction = ({ onClose, data }) => {
         <Formik
           initialValues={initialValues}
           validationSchema={transactionSchema}
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
           onChange={handleChange}
         >
-          {({ setFieldValue, touched, errors }) => (
+          {({ touched, errors }) => (
             <StyledForm autoComplete="off">
               {/* <Switcher>
                 <Income checked={typeTransaction === 'income'}>
@@ -589,7 +574,18 @@ const ModalAddTransaction = ({ onClose, data }) => {
                 </InputGroupBox>
               </InputBox>
               <InputGroupBox>
-                <PrimaryButton type="primary" htmlType="submit">
+                <PrimaryButton
+                  type="submit"
+                  htmlType="button"
+                  onClick={
+                    // handleSubmit
+                    () => {
+                      console.log('Click');
+                      handleSubmit();
+                      console.log('Click2');
+                    }
+                  }
+                >
                   {/* {t('ModalAdd.ButtonAdd')} */}
                   Змінити
                 </PrimaryButton>

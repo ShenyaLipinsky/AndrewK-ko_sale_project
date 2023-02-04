@@ -1,3 +1,5 @@
+import { createGlobalStyle } from 'styled-components';
+
 const axios = require('axios').default;
 
 const URI = 'https://medclub.onrender.com/api';
@@ -88,26 +90,17 @@ export async function fetchTableOfSizes(id) {
     return null;
   }
 }
-// export async function fetchReviews(id) {
-//   const fetchReviews = await axios
-//     .get(`${URI}movie/${id}/reviews?api_key=${API_KEY}`)
-//     .then(res => {
-//       return res.data.results;
-//     });
 
-//   const reviewInfo = fetchReviews.map(review => {
-//     const { author, content, id } = review;
-//     return { author, content, id };
-//   });
-//   return reviewInfo;
-// }
+export async function addProduct(body) {
+  try {
+    const response = await axios.post(`${URI}/products/`, body).then(res => {
+      console.log(res);
+      return res.data;
+    });
 
-// export async function searchMovies(queue) {
-//   const searchMovies = await axios
-//     .get(`${URI}search/movie?api_key=${API_KEY}&query=${queue}`)
-//     .then(res => {
-//       return res.data.results;
-//     });
-
-//   return searchMovies;
-// }
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
