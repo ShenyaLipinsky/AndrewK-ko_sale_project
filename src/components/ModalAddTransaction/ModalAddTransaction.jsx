@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { useDispatch } from 'react-redux/es/exports';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
@@ -34,6 +34,8 @@ import {
   FullImagesInputBox,
   InputImageButtonAdd,
   InputImageButtonRemove,
+  InputRecommendedBtnAdd,
+  InputRecommendedBtnRemove,
 } from './ModalAddTransaction.styled';
 // import {
 //   Switcher,
@@ -52,8 +54,10 @@ import { PlusOutlined, MinusOutlined, DownOutlined } from '@ant-design/icons';
 // } from '../../redux';
 import './rdt-styles.css';
 import { navItems } from 'components/AppBar/NavItems';
-import { addProduct } from 'components/services/API-Products_DB';
+import { fetchProducts } from 'components/services/API-Products_DB';
 import { productsOperations } from 'redux/products/productsOperations';
+import { createGlobalStyle } from 'styled-components';
+import { OffcanvasTitle } from 'react-bootstrap';
 
 const modalRoot = document.getElementById('modal-root');
 
@@ -73,11 +77,10 @@ const transactionSchema = yup.object().shape({
 });
 
 const ModalAddTransaction = ({ onClose, data }) => {
-  console.log(data);
+  // console.log(data);
   const [title, setTitle] = useState(data.title);
   const [tradeMark, setTradeMark] = useState(data.TM);
   const [category, setCategory] = useState(data.category);
-  const [categoryHref, setCategoryHref] = useState('');
   const [cardDescription, setCardDescription] = useState(data.description);
   const [cardImage, setCardImage] = useState(data.image);
   const [sum, setSum] = useState(data.price);
@@ -94,10 +97,15 @@ const ModalAddTransaction = ({ onClose, data }) => {
   const [instruction, setInstruction] = useState(
     data.instruction_description[1]
   );
+  const [recommended, setRecommended] = useState([]);
+  const [checkedRecommended, setCheckedRecommended] = useState(
+    data.recommended_products === undefined ? [''] : data.recommended_products
+  );
+  const [checkedRecomTitle, setCheckedRecomTitle] = useState([]);
 
-  const [typeTransaction, setTypeTransaction] = useState('expense');
+  const [typeTransaction, setTypeTransaction] = useState('income');
+
   const { t } = useTranslation();
-
   const initialValues = {
     sum: 0,
     title: '',
@@ -112,13 +120,26 @@ const ModalAddTransaction = ({ onClose, data }) => {
     sizing: '',
     imageOfInstruction: '',
     instruction: '',
-    date: new Date(),
-    type: false,
+    recommended: [],
   };
 
   const dispatch = useDispatch();
 
   const categories = navItems[0].buttons;
+  const getCategoryHref = categories.find(el => category === el.text);
+
+  useEffect(() => {
+    const recommendedProducts = async () => {
+      await fetchProducts()
+        .then(res =>
+          res.result.map(({ title, _id }) => {
+            return { title, _id };
+          })
+        )
+        .then(setRecommended);
+    };
+    recommendedProducts();
+  }, []);
 
   useEffect(() => {
     categories.map(({ href, text }) => {
@@ -128,14 +149,66 @@ const ModalAddTransaction = ({ onClose, data }) => {
       return data.category;
     });
   }, [categories, data.category]);
+
+  useEffect(() => {
+    if (recommended === undefined || recommended.length === 0) {
+      return;
+    }
+    let newTitleArray = checkedRecommended.map(elem => {
+      const newTitle = recommended.find(el => elem === el._id);
+      if (newTitle === undefined) {
+        return 'Виберіть рекомендовані товари';
+      }
+      return newTitle.title;
+    });
+    return setCheckedRecomTitle(newTitleArray);
+  }, [checkedRecommended, recommended]);
   // useEffect(() => {
   //   dispatch(getCategories());
   // }, [dispatch]);
 
   const handleChange = e => {
-    // console.log(e);
+    console.log(e);
     if (!e.target) {
-      setCategory(e.InputLabel[0]);
+      const { name } = e;
+      switch (name) {
+        case 'category':
+          setCategory(e.label);
+          break;
+
+        case 'recommended':
+          const { label, value } = e;
+
+          let contains = function (array, item) {
+            return !!~array.indexOf(item);
+          };
+
+          if (checkedRecommended.length === 0) {
+            setCheckedRecommended([e.value]);
+            return;
+          }
+
+          if (contains(checkedRecommended, e.value)) {
+            return;
+          }
+
+          setCheckedRecommended(prevState => {
+            const newState = e.value;
+            prevState.map((el, idx, __) => {
+              if (el === '') {
+                prevState.pop();
+              }
+              return e.value;
+            });
+            console.log('NewState', newState);
+
+            return [...prevState, newState];
+          });
+          break;
+
+        default:
+          break;
+      }
     } else if (e.target.name === 'fullImages') {
       const { value } = e.target;
       setFullImages(prevState => {
@@ -160,9 +233,9 @@ const ModalAddTransaction = ({ onClose, data }) => {
           setTitle(value);
           break;
 
-        case 'category':
-          setCategory(value);
-          break;
+        // case 'category':
+        //   setCategory(value);
+        //   break;
 
         case 'tradeMark':
           setTradeMark(value);
@@ -212,7 +285,6 @@ const ModalAddTransaction = ({ onClose, data }) => {
   //   }
   //   setTypeTransaction('expense');
   // };
-  const getCategoryHref = categories.find(el => category === el.text);
 
   const handleSubmit = () => {
     let body = {
@@ -227,10 +299,7 @@ const ModalAddTransaction = ({ onClose, data }) => {
       full_images: fullImages,
       image_of_size: [imageOfSize, sizing],
       instruction_description: [imageOfInstruction, instruction],
-      recommended_products: [
-        '63a6d59ce7069a51ffe5b139',
-        '63a6d5bde7069a51ffe5b145',
-      ],
+      recommended_products: checkedRecommended,
     };
     dispatch(productsOperations.add(body));
     // onClose();
@@ -392,32 +461,17 @@ const ModalAddTransaction = ({ onClose, data }) => {
                       name="category"
                       key={typeTransaction}
                       components={<DownOutlined />}
-                      options={categories
-                        // .filter(elem => elem.type === typeTransaction)
-                        .map(({ href, text }) => ({
-                          value: href,
-                          InputLabel: [
-                            // t(`categoryName.${href}`),
-                            text,
-                          ],
-                        }))}
+                      options={categories.map(({ href, text }) => ({
+                        name: 'category',
+                        value: href,
+                        label:
+                          // t(`categoryName.${href}`),
+                          text,
+                      }))}
                       styles={selectStyles(typeTransaction)}
-                      placeholder={
-                        // categories.find(({ href, text }, index, data) => {
-                        //   if (data.href === href) {
-                        //     return text;
-                        //   }
-                        //   return data.category;
-                        // })
-                        category
-                      }
+                      placeholder={category}
                       value={category}
-                      onChange={
-                        // option => {
-                        // setFieldValue('category', option.value);
-                        // }
-                        handleChange
-                      }
+                      onChange={handleChange}
                       isSearchable={false}
                     />
                     {/* {touched.category && errors.category && (
@@ -571,6 +625,64 @@ const ModalAddTransaction = ({ onClose, data }) => {
                       as={InputComment}
                     />
                   </InputWrapper>
+                  {checkedRecommended.map((item, index, __) => {
+                    console.log(index, checkedRecomTitle[index]);
+                    return (
+                      <InputCategory key={`${item}${index}`}>
+                        <InputLabel htmlFor="Recommended">
+                          Рекоменд.:
+                        </InputLabel>
+                        <Select
+                          name="recommended"
+                          // key={typeTransaction}
+                          components={<DownOutlined />}
+                          options={recommended
+                            // .filter(elem => elem.type === typeTransaction)
+                            .map(({ _id, title }) => ({
+                              name: 'recommended',
+                              value: _id,
+                              label:
+                                // t(`categoryName.${href}`),
+                                title,
+                            }))}
+                          styles={selectStyles(typeTransaction)}
+                          placeholder={checkedRecomTitle[index]}
+                          value={checkedRecomTitle[index]}
+                          onChange={
+                            // option => {
+                            // setFieldValue('category', option.value);
+                            // }
+                            handleChange
+                          }
+                          isSearchable={false}
+                        />
+                        {/* {touched.category && errors.category && (
+                              <FormError name="category" />
+                               )} */}
+                        <InputRecommendedBtnAdd
+                          onClick={() => {
+                            checkedRecommended.push('');
+                          }}
+                        >
+                          +
+                        </InputRecommendedBtnAdd>
+                        <InputRecommendedBtnRemove
+                          onClick={() => {
+                            if (checkedRecommended.length === 1) {
+                              checkedRecommended.pop();
+                              checkedRecomTitle.pop();
+                              checkedRecommended.push('');
+                              return;
+                            }
+                            checkedRecommended.pop();
+                            checkedRecomTitle.pop();
+                          }}
+                        >
+                          -
+                        </InputRecommendedBtnRemove>
+                      </InputCategory>
+                    );
+                  })}
                 </InputGroupBox>
               </InputBox>
               <InputGroupBox>

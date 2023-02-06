@@ -16,7 +16,7 @@ export const Overlay = styled.div`
   @media (${breakpoints.tablet}) {
     background-color: rgba(0, 0, 0, 0.25);
   }
-  /* z-index: 1200; */
+  z-index: 1200;
 `;
 
 export const ModalWindow = styled.div`
@@ -114,6 +114,11 @@ export const InputBox = styled.div`
 `;
 export const InputGroupBox = styled.div`
   padding: 8px;
+  & > div {
+    :last-child {
+      position: relative;
+    }
+  }
 `;
 
 export const InputWrapper = styled.div`
@@ -144,11 +149,18 @@ export const InputImageButtonRemove = styled.button`
   right: -32px;
   bottom: 2px;
 `;
+export const InputRecommendedBtnRemove = styled(InputImageButtonRemove)`
+  bottom: -3px;
+`;
+
+export const InputRecommendedBtnAdd = styled(InputImageButtonAdd)`
+  bottom: 18px;
+`;
 
 export const InputLabel = styled.label`
   width: 25%;
   font-size: ${p => p.theme.fontSizes.l};
-  color: #000;
+  color: #000000;
 `;
 export const FullImagesInputBox = styled.div`
   width: 100%;
@@ -161,9 +173,8 @@ export const InputCategory = styled.div`
   display: flex;
   margin-bottom: ${p => p.theme.space[2]}px;
   width: 100%;
-  height: 32px;
+  height: 36px;
   & > div {
-    color: ${p => p.theme.colors.black};
     width: 85%;
   }
 
