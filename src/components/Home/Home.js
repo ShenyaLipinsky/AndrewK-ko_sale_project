@@ -11,6 +11,7 @@ import {
 } from 'components/services/API-Products_DB';
 import Pagination from 'components/Pagination/Pagination';
 import { ProductBox } from './Home.styled';
+import WrappedLoader from 'components/ProductCardLoader/ProductCardLoader';
 
 const Home = ({ moreDetails, location }) => {
   const preloadLimit = 10;
@@ -70,7 +71,6 @@ const Home = ({ moreDetails, location }) => {
     }
     return;
   }, [limit, page, totalHist, totalPages]);
-
   return (
     <Box as="main" gridTemplateRows="auto 2fr" p={3}>
       <Box as="h2" mb={3}>
@@ -117,7 +117,13 @@ const Home = ({ moreDetails, location }) => {
             );
           })
         ) : (
-          <div>Loader...</div>
+          <>
+            {Array(10)
+              .fill(true)
+              .map((_, i) => (
+                <WrappedLoader key={i} />
+              ))}
+          </>
         )}
       </ProductBox>
       <Pagination
