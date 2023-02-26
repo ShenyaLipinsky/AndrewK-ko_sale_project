@@ -25,6 +25,7 @@
     "react-dom": "^18.1.0",
     "react-i18next": "^12.1.4",
     "react-icons": "^4.7.1",
+    "react-image-gallery": "^1.2.11",
     "react-loader-spinner": "^5.1.5",
     "react-loading-skeleton": "^3.1.1",
     "react-media": "^1.10.0",

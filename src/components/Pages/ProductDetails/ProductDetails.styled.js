@@ -32,7 +32,25 @@ export const MainContentBox = styled(Container)`
 `;
 export const SliderBox = styled.div`
   width: calc(50% - 30px);
-  /* height: 45%; */
+
+  & .image-gallery {
+    height: 100%;
+    &-content {
+      height: inherit;
+    }
+    &-slide-wrapper {
+      height: 316px;
+    }
+    &-thumbnail {
+      height: 80px;
+    }
+  }
+  & .image-gallery-left-nav > svg,
+  .image-gallery-right-nav > svg {
+    display: block;
+    height: 60px;
+    width: 40px;
+  }
 `;
 export const InfoBox = styled.ul`
   display: flex;

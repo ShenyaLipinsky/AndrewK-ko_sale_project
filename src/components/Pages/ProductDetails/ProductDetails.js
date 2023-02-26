@@ -25,9 +25,13 @@ import { ProductCardNoImage } from 'components/ProductCard/ProductCard.styled';
 import { IoIosImage } from 'react-icons/io';
 import { Container } from 'App.styled';
 
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
+
 const ProductDetails = () => {
   const { id } = useParams();
   const [productDetails, setProductDetails] = useState();
+  const [remakedArray, setRemakedArray] = useState([]);
   const location = useLocation();
   useEffect(() => {
     async function fetchProductData() {
@@ -39,6 +43,18 @@ const ProductDetails = () => {
     }
     fetchProductData();
   }, [id]);
+
+  // useEffect(() => {
+  //   const { full_images } = productDetails;
+  //    full_images.map(el => {
+  //     setRemakedArray({
+  //       original: el,
+  //       thumbnail: el,
+  //     });
+  //     return remakedArray;
+  //   });
+  // }, [productDetails, remakedArray]);
+
   if (productDetails === undefined) {
     return;
   }
@@ -64,6 +80,15 @@ const ProductDetails = () => {
     product_about,
   } = productDetails;
   console.log(productDetails);
+  // const { full_images } = productDetails;
+  const newArrayImages = full_images.map(el => {
+    const newObj = {
+      original: el,
+      thumbnail: el,
+    };
+    return newObj;
+  });
+  console.log(newArrayImages);
   return (
     <>
       <Box as="main" boxShadow="1px 1px 4px #000000">
@@ -76,10 +101,16 @@ const ProductDetails = () => {
               <ProductCardNoImage>
                 <IoIosImage />
               </ProductCardNoImage>
+            ) : full_images[0] === 'No Image' ? (
+              <ProductCardNoImage>
+                <IoIosImage />
+              </ProductCardNoImage>
             ) : (
-              full_images.map((el, index) => {
-                return <FilmImage src={`${el}`} alt="poster" key={index} />;
-              })
+              <ImageGallery
+                items={newArrayImages}
+                autoPlay={true}
+                slideInterval={5000}
+              />
             )}
           </SliderBox>
           <InfoBox>
