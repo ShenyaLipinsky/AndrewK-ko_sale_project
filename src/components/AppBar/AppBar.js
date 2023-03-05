@@ -15,8 +15,41 @@ import { navItems } from './NavItems';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelectors } from 'redux/auth/authSlice';
 import { authOperations } from 'redux/auth/authOperations';
+import CartIcon from 'components/Cart/CartIcon';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const AppBar = () => {
+  const [cartItemsCount, setCartItemsCount] = useState(
+    JSON.parse(localStorage.getItem('cart')).length
+  );
+  const [cartItems, setCartItems] = useState(
+    JSON.parse(localStorage.getItem('cart'))
+  );
+  const [cartCounter, setCartCounter] = useState(
+    JSON.parse(localStorage.getItem('cart')).length
+  );
+
+  useEffect(() => {
+    // Получаем данные из локального хранилища при монтировании компонента
+    const localCardData = JSON.parse(localStorage.getItem('cart'));
+    if (localCardData) {
+      setCartItems(localCardData);
+      const itemCount = localCardData.length;
+      setCartItemsCount(itemCount);
+    } else {
+      localStorage.setItem('cart', JSON.stringify([]));
+      setCartItems([]);
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(cartItemsCount, cartItems);
+  //   if (cartItems.length === cartItemsCount) {
+  //     setCartCounter(cartItemsCount);
+  //   }
+  // }, [cartItems, cartItemsCount]);
+
   const dispatch = useDispatch();
 
   let loggedIn = useSelector(authSelectors.getIsLoggedIn);
@@ -63,6 +96,13 @@ const AppBar = () => {
           );
         })}
         <NavLoginBox>
+          <CartIcon
+            setCartItems={setCartItems}
+            setCartItemsCount={setCartItemsCount}
+            cartItems={cartItems}
+            cartItemsCount={cartItemsCount}
+            cartCounter={cartCounter}
+          />
           {loggedIn ? (
             <>
               <span>{userEmail}</span>
