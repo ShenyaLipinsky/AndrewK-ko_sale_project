@@ -3,9 +3,10 @@ import { useEffect } from 'react';
 import { lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import getStoredState from 'redux-persist/es/getStoredState';
 import { authOperations } from 'redux/auth/authOperations';
 import { authSelectors } from 'redux/auth/authSlice';
-import { AppBox } from '../App.styled';
+import { loadCart, saveCart, updateQuantity } from 'redux/cart/cartSlice';
 import LogIn from './LogIn/LogIn';
 import Instruction from './Pages/ProductDetails/Instruction';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
@@ -18,8 +19,19 @@ const Products = lazy(() => import('./Pages/Products/Products'));
 
 export const App = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadCart());
+  }, [dispatch]);
+
+  function handleUpdateQuantity(id, quantity) {
+    dispatch(updateQuantity({ id, quantity }));
+    dispatch(saveCart(getStoredState().cart));
+  }
+
   const location = useLocation();
   let loggedIn = useSelector(authSelectors.getIsLoggedIn);
+
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
   }, [dispatch]);

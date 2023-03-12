@@ -11,11 +11,12 @@ import {
 import authSlice, { authReducer } from '../redux/auth/authSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { contactsApi, filterReducer, filter } from './contactsSlice';
+import cartSlice, { cartReducer, loadCart } from './cart/cartSlice';
 
 export const store = configureStore({
   reducer: {
     [authSlice.name]: authReducer,
-
+    [cartSlice.name]: cartReducer,
     // [filter.type]: filterReducer,
     // [contactsApi.reducerPath]: contactsApi.reducer,
   },
@@ -35,6 +36,7 @@ export const store = configureStore({
     ];
   },
 });
+store.dispatch(loadCart());
 export const persistor = persistStore(store);
 
 setupListeners(store.dispatch);

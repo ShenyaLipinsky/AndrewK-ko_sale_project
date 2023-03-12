@@ -12,43 +12,56 @@ import {
 } from './AppBar.styled';
 import { Box } from '../Box';
 import { navItems } from './NavItems';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { authSelectors } from 'redux/auth/authSlice';
 import { authOperations } from 'redux/auth/authOperations';
 import CartIcon from 'components/Cart/CartIcon';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { isEqual } from 'lodash';
 
 const AppBar = () => {
-  const [cartItemsCount, setCartItemsCount] = useState(
-    JSON.parse(localStorage.getItem('cart')).length
-  );
-  const [cartItems, setCartItems] = useState(
-    JSON.parse(localStorage.getItem('cart'))
-  );
-  const [cartCounter, setCartCounter] = useState(
-    JSON.parse(localStorage.getItem('cart')).length
-  );
+  // const [cartItemsCount, setCartItemsCount] = useState(0);
+  // const [cartItems, setCartItems] = useState();
+  // const [cartCounter, setCartCounter] = useState();
 
-  useEffect(() => {
-    // Получаем данные из локального хранилища при монтировании компонента
-    const localCardData = JSON.parse(localStorage.getItem('cart'));
-    if (localCardData) {
-      setCartItems(localCardData);
-      const itemCount = localCardData.length;
-      setCartItemsCount(itemCount);
-    } else {
-      localStorage.setItem('cart', JSON.stringify([]));
-      setCartItems([]);
-    }
-  }, []);
+  // const useCartState = () => {
+  //   return [useStore().getState().cart][0];
+  // };
+  // const cartState = useCartState();
+  // console.log(
+  //   Object.keys(cartState)
+  //     .filter(key => key !== '_persist')
+  //     .map(key => {
+  //       return { ...cartState[key], id: key };
+  //     }),
+  //   cartCounter
+  // );
+  // useEffect(() => {
+  //   // Получаем данные из локального хранилища при монтировании компонента
+
+  //   if (localStorage.getItem('cart') === undefined || null) {
+  //     localStorage.setItem('cart', JSON.stringify([]));
+  //   }
+
+  //   let localCardData = JSON.parse(localStorage.getItem('cart'));
+
+  //   if (localCardData) {
+  //     localStorage.setItem('cart', JSON.stringify(localCardData));
+  //     setCartItems(localCardData);
+  //     let objectSize = localCardData.length;
+  //     setCartItemsCount(objectSize);
+  //   } else {
+  //     localStorage.setItem('cart', JSON.stringify([]));
+  //     setCartItems([]);
+  //   }
+  // }, []);
 
   // useEffect(() => {
-  //   console.log(cartItemsCount, cartItems);
-  //   if (cartItems.length === cartItemsCount) {
-  //     setCartCounter(cartItemsCount);
+  //   const localCartData = JSON.parse(localStorage.getItem('cart'));
+  //   if (localCartData && !isEqual(localCartData, cartItems)) {
+  //     setCartCounter(localCartData.length);
   //   }
-  // }, [cartItems, cartItemsCount]);
+  // }, [cartItems]);
 
   const dispatch = useDispatch();
 
@@ -97,11 +110,11 @@ const AppBar = () => {
         })}
         <NavLoginBox>
           <CartIcon
-            setCartItems={setCartItems}
-            setCartItemsCount={setCartItemsCount}
-            cartItems={cartItems}
-            cartItemsCount={cartItemsCount}
-            cartCounter={cartCounter}
+          // setCartItems={setCartItems}
+          // setCartItemsCount={setCartItemsCount}
+          // cartItems={cartItems}
+          // cartItemsCount={cartItemsCount}
+          // cartCounter={cartCounter}
           />
           {loggedIn ? (
             <>
