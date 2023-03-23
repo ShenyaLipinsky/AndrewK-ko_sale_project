@@ -73,7 +73,7 @@ const cartSlice = createSlice({
     },
     // Очистка корзины
     clearCart: state => {
-      return {};
+      return [];
     },
   },
   extraReducers: builder => {
