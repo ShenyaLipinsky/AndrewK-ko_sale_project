@@ -1,19 +1,17 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { SearchBox } from '../../SearchBox/SearchBox';
-import { fetchMovieById, searchMovies } from 'components/services/API-MovieDB';
-import MainPage from 'components/MainPage/MainPage';
+import { searchMovies } from 'components/services/API-MovieDB';
 import { fetchProductById } from 'components/services/API-Products_DB';
 const Hero = lazy(() => import('../../Hero/Hero'));
 
 const Home = lazy(() => import('../../Home/Home'));
 
-const Products = () => {
+const Products = ({ handleUpdateCartQuantity }) => {
   const location = useLocation();
   const [foundedFilms, setFoundedFilms] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const queueParam = searchParams.get('query') ?? '';
-
   useEffect(() => {
     if (queueParam === '') {
       return;
@@ -37,6 +35,7 @@ const Products = () => {
         <Hero />
         <SearchBox value={queueParam} onSubmit={changeSearchValue} />
         <Home
+          handleUpdateCartQuantity={handleUpdateCartQuantity}
           moreDetails={fetchProductById}
           location={location}
           state={{ from: location }}

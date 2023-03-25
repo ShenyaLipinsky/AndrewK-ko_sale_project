@@ -1,5 +1,7 @@
+import { isEqual } from 'lodash';
 import { Suspense } from 'react';
 import { useEffect } from 'react';
+import { useState } from 'react';
 import { lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
@@ -18,24 +20,58 @@ const Footer = lazy(() => import('./Footer/Footer'));
 const Products = lazy(() => import('./Pages/Products/Products'));
 
 export const App = () => {
-  const dispatch = useDispatch();
+  const [cartItems, setCartItems] = useState();
+  const [cartCounter, setCartCounter] = useState(0);
 
-  useEffect(() => {
-    dispatch(loadCart());
-  }, [dispatch]);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  let loggedIn = useSelector(authSelectors.getIsLoggedIn);
+
+  function handleUpdateCartQuantity() {
+    const localCartData = JSON.parse(localStorage.getItem('cart'));
+    if (localCartData && !isEqual(localCartData, cartItems)) {
+      setCartCounter(localCartData.length);
+    }
+  }
 
   function handleUpdateQuantity(id, quantity) {
     dispatch(updateQuantity({ id, quantity }));
     dispatch(saveCart(getStoredState().cart));
   }
 
-  const location = useLocation();
-  let loggedIn = useSelector(authSelectors.getIsLoggedIn);
+  useEffect(() => {
+    dispatch(loadCart());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
   }, [dispatch]);
 
+  useEffect(() => {
+    // Получаем данные из локального хранилища при монтировании компонента
+
+    if (localStorage.getItem('cart') === undefined || null) {
+      localStorage.setItem('cart', JSON.stringify([]));
+    }
+
+    let localCardData = JSON.parse(localStorage.getItem('cart'));
+
+    if (localCardData) {
+      localStorage.setItem('cart', JSON.stringify(localCardData));
+      setCartItems(localCardData);
+      setCartCounter(localCardData.length);
+    } else {
+      localStorage.setItem('cart', JSON.stringify([]));
+      setCartItems([]);
+    }
+    console.log(localCardData);
+  }, []);
+  useEffect(() => {
+    const localCartData = JSON.parse(localStorage.getItem('cart'));
+    if (localCartData && !isEqual(localCartData, cartItems)) {
+      setCartCounter(localCartData.length);
+    }
+  }, [cartItems]);
   return (
     <Routes>
       <Route
@@ -43,14 +79,19 @@ export const App = () => {
         element={
           <>
             <Suspense fallback="...Loading">
-              <Layout />
+              <Layout cartCounter={cartCounter} />
               <Footer />
             </Suspense>
           </>
         }
       >
         <Route path="/" element={<Navigate to="all" replace={true} />} />
-        <Route path="/all" element={<Products />} />
+        <Route
+          path="/all"
+          element={
+            <Products handleUpdateCartQuantity={handleUpdateCartQuantity} />
+          }
+        />
         <Route path=":id" element={<ProductDetails />}>
           <Route path="instruction" element={<Instruction />} />
           <Route path="sizing" element={<TableOfSize />} />

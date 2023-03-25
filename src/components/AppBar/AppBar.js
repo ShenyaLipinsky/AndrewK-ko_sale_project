@@ -19,50 +19,7 @@ import CartIcon from 'components/Cart/CartIcon';
 import { useState, useEffect } from 'react';
 import { isEqual } from 'lodash';
 
-const AppBar = () => {
-  // const [cartItemsCount, setCartItemsCount] = useState(0);
-  // const [cartItems, setCartItems] = useState();
-  // const [cartCounter, setCartCounter] = useState();
-
-  // const useCartState = () => {
-  //   return [useStore().getState().cart][0];
-  // };
-  // const cartState = useCartState();
-  // console.log(
-  //   Object.keys(cartState)
-  //     .filter(key => key !== '_persist')
-  //     .map(key => {
-  //       return { ...cartState[key], id: key };
-  //     }),
-  //   cartCounter
-  // );
-  // useEffect(() => {
-  //   // Получаем данные из локального хранилища при монтировании компонента
-
-  //   if (localStorage.getItem('cart') === undefined || null) {
-  //     localStorage.setItem('cart', JSON.stringify([]));
-  //   }
-
-  //   let localCardData = JSON.parse(localStorage.getItem('cart'));
-
-  //   if (localCardData) {
-  //     localStorage.setItem('cart', JSON.stringify(localCardData));
-  //     setCartItems(localCardData);
-  //     let objectSize = localCardData.length;
-  //     setCartItemsCount(objectSize);
-  //   } else {
-  //     localStorage.setItem('cart', JSON.stringify([]));
-  //     setCartItems([]);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   const localCartData = JSON.parse(localStorage.getItem('cart'));
-  //   if (localCartData && !isEqual(localCartData, cartItems)) {
-  //     setCartCounter(localCartData.length);
-  //   }
-  // }, [cartItems]);
-
+const AppBar = ({ cartCounter }) => {
   const dispatch = useDispatch();
 
   let loggedIn = useSelector(authSelectors.getIsLoggedIn);
@@ -110,11 +67,11 @@ const AppBar = () => {
         })}
         <NavLoginBox>
           <CartIcon
-          // setCartItems={setCartItems}
-          // setCartItemsCount={setCartItemsCount}
-          // cartItems={cartItems}
-          // cartItemsCount={cartItemsCount}
-          // cartCounter={cartCounter}
+            // setCartItems={setCartItems}
+            // setCartItemsCount={setCartItemsCount}
+            // cartItems={cartItems}
+            // cartItemsCount={cartItemsCount}
+            cartCounter={cartCounter}
           />
           {loggedIn ? (
             <>

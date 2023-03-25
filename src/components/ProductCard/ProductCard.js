@@ -13,7 +13,7 @@ import { authSelectors } from 'redux/auth/authSlice';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import ModalAddTransaction from 'components/ModalAddTransaction';
-import { addItem, removeItem } from 'redux/cart/cartSlice';
+import { addItem, removeItem, updateQuantity } from 'redux/cart/cartSlice';
 
 const ProductCard = ({
   id,
@@ -22,12 +22,12 @@ const ProductCard = ({
   image,
   title,
   moreDetails,
+  handleUpdateCartQuantity,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
 
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart);
 
   useEffect(() => {
     if (isModalOpen) document.body.style.overflow = 'hidden';
@@ -41,38 +41,56 @@ const ProductCard = ({
     setIsModalOpen(true);
   };
 
-  // const handleAddToCart = () => {
-  //   dispatch(addItem({ id, title, price, quantity: 1 }));
-  //   let cartData = JSON.parse(localStorage.getItem('persist:cart')) || '{}';
-  //   if (cartData) {
-  //     let newData = Object.keys(cartData)
-  //       .map(key => {
-  //         if (key === '_persist') {
-  //           return null;
-  //         }
-  //         return { [key]: cartData[key] };
-  //       })
-  //       .filter(el => el !== null);
-  //     console.log(newData);
-  //     localStorage.setItem('cart', JSON.stringify(newData));
-  //   } else {
-  //     localStorage.setItem('cart', JSON.stringify([]));
-  //   }
-  // };
-
   const handleAddToCart = () => {
-    dispatch(addItem({ id, title, price, quantity: 1 }));
     dispatch((dispatch, getState) => {
       const cartData = getState().cart;
-      const newData = Object.keys(cartData)
+      const itemIndex = Object.keys(cartData)
         .filter(key => key !== '_persist')
-        .map(key => {
-          return { ...cartData[key], id: key };
-        })
-        .filter(item => item !== null);
-
-      localStorage.setItem('cart', JSON.stringify(newData));
+        .findIndex(key => cartData[key].id === id);
+      dispatch(addItem({ id, title, price, quantity: 1 }));
+      console.log(itemIndex);
+      if (itemIndex >= 0) {
+        // Элемент уже есть в корзине
+        const newData = Object.keys(cartData)
+          .filter(key => key !== '_persist')
+          .map(key => {
+            if (key === cartData[key].id) {
+              return { ...cartData[key], quantity: cartData[key].quantity + 1 };
+            }
+            return { ...cartData[key] };
+          });
+        localStorage.setItem('cart', JSON.stringify(newData));
+      } else {
+        // Элемента еще нет в корзине
+        const existingItem = Object.keys(cartData)
+          .filter(key => key !== '_persist')
+          .find(key => cartData[key].id === id);
+        if (existingItem) {
+          // Товар уже есть в корзине, нужно увеличить количество
+          const newData = Object.keys(cartData)
+            .filter(key => key !== '_persist')
+            .map(key => {
+              if (key === existingItem) {
+                return {
+                  ...cartData[key],
+                  quantity: cartData[key].quantity + 1,
+                };
+              }
+              return { ...cartData[key] };
+            });
+          localStorage.setItem('cart', JSON.stringify(newData));
+        } else {
+          // Элемента еще нет в корзине
+          const newData = Object.keys(cartData)
+            .filter(key => key !== '_persist')
+            .map(key => ({ ...cartData[key] }))
+            .concat([{ id, title, price, quantity: 1 }]);
+          localStorage.setItem('cart', JSON.stringify(newData));
+          console.log('new');
+        }
+      }
     });
+    handleUpdateCartQuantity();
   };
 
   const handleRemoveItem = () => {

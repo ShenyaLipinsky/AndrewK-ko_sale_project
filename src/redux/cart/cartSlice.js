@@ -3,6 +3,29 @@ import persistReducer from 'redux-persist/es/persistReducer';
 import storage from 'redux-persist/lib/storage';
 
 // Создание thunk для загрузки корзины с бэкенда
+// export const loadCart = createAsyncThunk(
+//   'cart/loadCart',
+//   async (_, { getState }) => {
+//     const { auth } = getState();
+//     if (auth.isAuthenticated) {
+//       const response = await fetch('https://medclub.onrender.com/cart', {
+//         headers: {
+//           Authorization: `Bearer ${auth.token}`,
+//         },
+//       });
+//       if (response.ok) {
+//         const data = await response.json();
+//         return data;
+//       } else {
+//         throw new Error('Failed to load cart');
+//       }
+//     } else {
+//       const data = JSON.parse(localStorage.getItem('cart')) || [];
+//       return data;
+//     }
+//   }
+// );
+
 export const loadCart = createAsyncThunk(
   'cart/loadCart',
   async (_, { getState }) => {
@@ -21,10 +44,19 @@ export const loadCart = createAsyncThunk(
       }
     } else {
       const data = JSON.parse(localStorage.getItem('cart')) || [];
-      return data;
+      const groupedData = data.reduce((acc, item) => {
+        if (acc[item.id]) {
+          acc[item.id].quantity += item.quantity;
+        } else {
+          acc[item.id] = { ...item };
+        }
+        return acc;
+      }, {});
+      return Object.values(groupedData);
     }
   }
 );
+
 // Сохранение корзины на сервере
 const saveCart = createAsyncThunk(
   'cart/saveCart',
@@ -48,13 +80,13 @@ const saveCart = createAsyncThunk(
 // Создание slice для корзины
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: {},
+  initialState: [],
   reducers: {
     // Добавление товара в корзину
     addItem: (state, action) => {
       const { id, title, price, quantity } = action.payload;
       if (!state[id]) {
-        state[id] = { title, price, quantity };
+        state[id] = { title, price, quantity, id };
       } else {
         state[id].quantity += quantity;
       }
