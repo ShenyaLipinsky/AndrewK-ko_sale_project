@@ -7,7 +7,7 @@ const Hero = lazy(() => import('../../Hero/Hero'));
 
 const Home = lazy(() => import('../../Home/Home'));
 
-const Products = ({ handleUpdateCartQuantity }) => {
+const Products = ({ handleUpdateCartQuantity, handleUpdateCartItems }) => {
   const location = useLocation();
   const [foundedFilms, setFoundedFilms] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -36,6 +36,7 @@ const Products = ({ handleUpdateCartQuantity }) => {
         <SearchBox value={queueParam} onSubmit={changeSearchValue} />
         <Home
           handleUpdateCartQuantity={handleUpdateCartQuantity}
+          handleUpdateCartItems={handleUpdateCartItems}
           moreDetails={fetchProductById}
           location={location}
           state={{ from: location }}

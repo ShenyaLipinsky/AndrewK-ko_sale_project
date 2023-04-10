@@ -34,6 +34,13 @@ export const App = () => {
     }
   }
 
+  function handleUpdateCartItems() {
+    const localCartData = JSON.parse(localStorage.getItem('cart'));
+    if (localCartData && !isEqual(localCartData, cartItems)) {
+      setCartItems(localCartData);
+    }
+  }
+
   function handleUpdateQuantity(id, quantity) {
     dispatch(updateQuantity({ id, quantity }));
     dispatch(saveCart(getStoredState().cart));
@@ -79,7 +86,7 @@ export const App = () => {
         element={
           <>
             <Suspense fallback="...Loading">
-              <Layout cartCounter={cartCounter} />
+              <Layout cartCounter={cartCounter} cartItems={cartItems} />
               <Footer />
             </Suspense>
           </>
@@ -89,7 +96,10 @@ export const App = () => {
         <Route
           path="/all"
           element={
-            <Products handleUpdateCartQuantity={handleUpdateCartQuantity} />
+            <Products
+              handleUpdateCartQuantity={handleUpdateCartQuantity}
+              handleUpdateCartItems={handleUpdateCartItems}
+            />
           }
         />
         <Route path=":id" element={<ProductDetails />}>

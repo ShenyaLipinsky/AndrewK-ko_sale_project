@@ -13,7 +13,12 @@ import Pagination from 'components/Pagination/Pagination';
 import { ProductBox } from './Home.styled';
 import WrappedLoader from 'components/ProductCardLoader/ProductCardLoader';
 
-const Home = ({ moreDetails, location, handleUpdateCartQuantity }) => {
+const Home = ({
+  moreDetails,
+  location,
+  handleUpdateCartQuantity,
+  handleUpdateCartItems,
+}) => {
   const preloadLimit = 10;
   const preloadPage = 1;
   const [hits, setHits] = useState([]);
@@ -101,6 +106,7 @@ const Home = ({ moreDetails, location, handleUpdateCartQuantity }) => {
                   moreDetails={fetchProductById}
                   location={location}
                   handleUpdateCartQuantity={handleUpdateCartQuantity}
+                  handleUpdateCartItems={handleUpdateCartItems}
                 />
               );
             }
@@ -115,6 +121,7 @@ const Home = ({ moreDetails, location, handleUpdateCartQuantity }) => {
                 moreDetails={fetchProductById}
                 location={location}
                 handleUpdateCartQuantity={handleUpdateCartQuantity}
+                handleUpdateCartItems={handleUpdateCartItems}
               />
             );
           })

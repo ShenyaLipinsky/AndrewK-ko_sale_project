@@ -132,3 +132,25 @@ export const LogoutBtn = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+export const CartDetailsBox = styled.div`
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: -450%;
+  width: 250px;
+  height: 290px;
+  padding: ${p => p.theme.space[3]}px;
+  background-color: ${p => p.theme.colors.whiteBlur};
+  border-radius: ${p => p.theme.radii.large};
+  overflow-y: scroll;
+  transform: translate(0px, 35px);
+  transition: ease-in-out 0.7s;
+`;
+
+export const CartBox = styled.div`
+  position: relative;
+  :hover ${CartDetailsBox} {
+    opacity: 1;
+  }
+`;

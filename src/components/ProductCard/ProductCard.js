@@ -23,6 +23,7 @@ const ProductCard = ({
   title,
   moreDetails,
   handleUpdateCartQuantity,
+  handleUpdateCartItems,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
@@ -86,11 +87,11 @@ const ProductCard = ({
             .map(key => ({ ...cartData[key] }))
             .concat([{ id, title, price, quantity: 1 }]);
           localStorage.setItem('cart', JSON.stringify(newData));
-          console.log('new');
         }
       }
     });
     handleUpdateCartQuantity();
+    handleUpdateCartItems();
   };
 
   const handleRemoveItem = () => {

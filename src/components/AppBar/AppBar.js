@@ -1,5 +1,7 @@
 import propTypes from 'prop-types';
 import {
+  CartBox,
+  CartDetailsBox,
   LogoutBtn,
   NavBox,
   NavDropBox,
@@ -19,7 +21,8 @@ import CartIcon from 'components/Cart/CartIcon';
 import { useState, useEffect } from 'react';
 import { isEqual } from 'lodash';
 
-const AppBar = ({ cartCounter }) => {
+const AppBar = ({ cartCounter, cartItems }) => {
+  const [cartLoadedItems, setCartLoadedItems] = useState([]);
   const dispatch = useDispatch();
 
   let loggedIn = useSelector(authSelectors.getIsLoggedIn);
@@ -29,6 +32,10 @@ const AppBar = ({ cartCounter }) => {
   const handleClickLogOut = () => {
     dispatch(authOperations.logOut(userId));
   };
+
+  useEffect(() => {
+    setCartLoadedItems(cartItems);
+  }, [cartItems]);
 
   return (
     <Box
@@ -66,13 +73,31 @@ const AppBar = ({ cartCounter }) => {
           );
         })}
         <NavLoginBox>
-          <CartIcon
-            // setCartItems={setCartItems}
-            // setCartItemsCount={setCartItemsCount}
-            // cartItems={cartItems}
-            // cartItemsCount={cartItemsCount}
-            cartCounter={cartCounter}
-          />
+          <CartBox>
+            <CartIcon
+              // setCartItems={setCartItems}
+              // setCartItemsCount={setCartItemsCount}
+              // cartItems={cartItems}
+              // cartItemsCount={cartItemsCount}
+              cartCounter={cartCounter}
+            />
+            <CartDetailsBox>
+              <h2>Ваша корзина</h2>
+              <div>
+                <ul>
+                  {cartLoadedItems.map(({ title, price, quantity }) => {
+                    return (
+                      <li>
+                        <h3>{title}</h3>
+                        <p>{price}</p>
+                        <p>{quantity}</p>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </CartDetailsBox>
+          </CartBox>
           {loggedIn ? (
             <>
               <span>{userEmail}</span>
