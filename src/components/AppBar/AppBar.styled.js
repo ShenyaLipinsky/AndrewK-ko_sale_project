@@ -144,12 +144,16 @@ export const CartDetailsBox = styled.div`
   background-color: ${p => p.theme.colors.whiteBlur};
   border-radius: ${p => p.theme.radii.large};
   overflow-y: scroll;
-  transform: translate(0px, 35px);
+  transform: translate(0px, 20px);
   transition: ease-in-out 0.7s;
 `;
 
 export const CartBox = styled.div`
   position: relative;
+  overflow: hidden;
+  :hover {
+    overflow: visible;
+  }
   :hover ${CartDetailsBox} {
     opacity: 1;
   }
