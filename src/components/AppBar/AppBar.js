@@ -19,7 +19,7 @@ import { authSelectors } from 'redux/auth/authSlice';
 import { authOperations } from 'redux/auth/authOperations';
 import CartIcon from 'components/Cart/CartIcon';
 import { useState, useEffect } from 'react';
-import { isEqual, toInteger } from 'lodash';
+import { isEqual } from 'lodash';
 
 const AppBar = ({ cartCounter, cartItems }) => {
   const [cartLoadedItems, setCartLoadedItems] = useState([]);
@@ -28,8 +28,6 @@ const AppBar = ({ cartCounter, cartItems }) => {
   let loggedIn = useSelector(authSelectors.getIsLoggedIn);
   let userId = useSelector(authSelectors.getUserId);
   let userEmail = useSelector(authSelectors.getUserEmail);
-
-  const initValueReducer = 0;
 
   const handleClickLogOut = () => {
     dispatch(authOperations.logOut(userId));
@@ -87,7 +85,7 @@ const AppBar = ({ cartCounter, cartItems }) => {
               <h2>Ваша корзина</h2>
               <div>
                 <ul>
-                  {cartLoadedItems?.map(({ title, price, quantity }) => {
+                  {cartLoadedItems.map(({ title, price, quantity }) => {
                     return (
                       <li>
                         <h3>{title}</h3>
@@ -97,17 +95,6 @@ const AppBar = ({ cartCounter, cartItems }) => {
                     );
                   })}
                 </ul>
-                <p>
-                  Сумма замовлення:{' '}
-                  <span>
-                    {cartLoadedItems?.reduce(
-                      (acc = 0, { price, quantity }) =>
-                        toInteger(acc) + toInteger(price) * toInteger(quantity),
-                      initValueReducer
-                    )}
-                  </span>
-                </p>
-                <button>Замовити</button>
               </div>
             </CartDetailsBox>
           </CartBox>
