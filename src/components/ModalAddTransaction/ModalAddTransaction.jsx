@@ -56,8 +56,6 @@ import './rdt-styles.css';
 import { navItems } from 'components/AppBar/NavItems';
 import { fetchProducts } from 'components/services/API-Products_DB';
 import { productsOperations } from 'redux/products/productsOperations';
-import { createGlobalStyle } from 'styled-components';
-import { OffcanvasTitle } from 'react-bootstrap';
 
 const modalRoot = document.getElementById('modal-root');
 

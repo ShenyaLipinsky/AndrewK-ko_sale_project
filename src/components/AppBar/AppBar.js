@@ -23,6 +23,8 @@ import { isEqual, toInteger } from 'lodash';
 
 const AppBar = ({ cartCounter, cartItems }) => {
   const [cartLoadedItems, setCartLoadedItems] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalInfo, setModalInfo] = useState({});
   const dispatch = useDispatch();
 
   let loggedIn = useSelector(authSelectors.getIsLoggedIn);
@@ -31,13 +33,23 @@ const AppBar = ({ cartCounter, cartItems }) => {
 
   const initValueReducer = 0;
 
-  const handleClickLogOut = () => {
-    dispatch(authOperations.logOut(userId));
-  };
+  useEffect(() => {
+    if (isModalOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'visible';
+  }, [isModalOpen]);
 
   useEffect(() => {
     setCartLoadedItems(cartItems);
   }, [cartItems]);
+
+  const handleClickLogOut = () => {
+    dispatch(authOperations.logOut(userId));
+  };
+
+  const handleBuyClick = async data => {
+    setModalInfo(data);
+    setIsModalOpen(true);
+  };
 
   return (
     <Box
@@ -107,7 +119,14 @@ const AppBar = ({ cartCounter, cartItems }) => {
                     )}
                   </span>
                 </p>
-                <button>Замовити</button>
+                <button
+                  onClick={() => {
+                    handleBuyClick(cartLoadedItems);
+                  }}
+                >
+                  Замовити
+                </button>
+                {isModalOpen && <div>Модалка</div>}
               </div>
             </CartDetailsBox>
           </CartBox>
