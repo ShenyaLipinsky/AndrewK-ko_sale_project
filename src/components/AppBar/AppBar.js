@@ -20,6 +20,7 @@ import { authOperations } from 'redux/auth/authOperations';
 import CartIcon from 'components/Cart/CartIcon';
 import { useState, useEffect } from 'react';
 import { isEqual, toInteger } from 'lodash';
+import ModalCartCheckout from 'components/ModalCartCheckout/ModalCartCheckout';
 
 const AppBar = ({ cartCounter, cartItems }) => {
   const [cartLoadedItems, setCartLoadedItems] = useState([]);
@@ -126,7 +127,12 @@ const AppBar = ({ cartCounter, cartItems }) => {
                 >
                   Замовити
                 </button>
-                {isModalOpen && <div>Модалка</div>}
+                {isModalOpen && (
+                  <ModalCartCheckout
+                    data={modalInfo}
+                    onClose={() => setIsModalOpen(false)}
+                  />
+                )}
               </div>
             </CartDetailsBox>
           </CartBox>
