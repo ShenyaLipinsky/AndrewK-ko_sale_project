@@ -5,6 +5,7 @@ import {
   InputLabel,
   InputWrapper,
   ModalWindow,
+  CloseButton,
   Overlay,
   PrimaryButton,
   SecondaryButton,
@@ -13,10 +14,10 @@ import {
 } from 'components/ModalAddTransaction/ModalAddTransaction.styled';
 import { Field, Formik } from 'formik';
 import { useEffect } from 'react';
-import { CloseButton } from 'react-bootstrap';
 import { createPortal } from 'react-dom';
 import Media from 'react-media';
 import { useDispatch } from 'react-redux';
+import { StyledBox } from './ModalCartCheckout.styled';
 
 const modalRoot = document.getElementById('modal-root');
 
@@ -78,7 +79,7 @@ const ModalCartCheckout = ({ onClose, data }) => {
         <Title>
           {
             // t('ModalAdd.Category')
-            'Редагування товару'
+            'Ваше замовлення:'
           }
         </Title>
 
@@ -88,24 +89,20 @@ const ModalCartCheckout = ({ onClose, data }) => {
         //   onChange={handleChange}
         >
           {({ touched, errors }) => (
-            <StyledForm autoComplete="off">
+            <StyledBox>
               <InputBox>
                 <InputGroupBox>
-                  <h4>Картка товару: </h4>
                   <InputWrapper>
-                    <InputLabel htmlFor="Title">Арт: </InputLabel>
-                    <Field
-                      name="title"
-                      //   value={data.title}
-                      placeholder={
-                        // t('ModalAdd.placeholderComent')
-                        // data.title
-                        'lol'
-                      }
-                      //   onChange={handleChange}
-                      as={InputComment}
-                      maxLength={20}
-                    />
+                    <ul>
+                      {data.map(({ title, price, quantity }) => {
+                        return (
+                          <li>
+                            <p>{title}</p> <p>{price}</p>
+                            <p>{quantity}</p>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </InputWrapper>
                 </InputGroupBox>
               </InputBox>
@@ -127,7 +124,7 @@ const ModalCartCheckout = ({ onClose, data }) => {
                   Відміна
                 </SecondaryButton>
               </InputGroupBox>
-            </StyledForm>
+            </StyledBox>
           )}
         </Formik>
       </ModalWindow>
