@@ -1,9 +1,5 @@
 import {
-  InputBox,
-  InputComment,
-  InputGroupBox,
   InputLabel,
-  InputWrapper,
   ModalWindow,
   CloseButton,
   Overlay,
@@ -17,12 +13,25 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Media from 'react-media';
 import { useDispatch } from 'react-redux';
-import { StyledBox } from './ModalCartCheckout.styled';
+import {
+  StyledBox,
+  InputBox,
+  InputGroupBox,
+  InputWrapper,
+  ChartList,
+  ChartListItem,
+  InputComment,
+} from './ModalCartCheckout.styled';
+import { useState } from 'react';
 
 const modalRoot = document.getElementById('modal-root');
 
 const ModalCartCheckout = ({ onClose, data }) => {
   console.log(data);
+
+  const [UserName, setUserName] = useState();
+  const [SecondName, setSecondName] = useState();
+  const [ThirdName, setThirdName] = useState();
 
   const dispatch = useDispatch();
 
@@ -44,6 +53,38 @@ const ModalCartCheckout = ({ onClose, data }) => {
   //     dispatch(productsOperations.add(body));
   //     // onClose();
   //   };
+
+  const handleChange = e => {
+    console.log(e);
+    // if (!e.target) {
+    // const { name } = e;
+    // switch (name) {
+    //   case 'category':
+    //     setuse(e.label);
+    //     break;
+
+    //   default:
+    //     break;
+    // }
+    // } else {
+    const { name, value } = e.target;
+    switch (name) {
+      case 'UserName':
+        setUserName(value);
+        break;
+      case 'UserSecondName':
+        setSecondName(value);
+        break;
+      case 'UserThirdName':
+        setThirdName(value);
+        break;
+
+      default:
+        break;
+    }
+    // }
+    console.log(UserName);
+  };
 
   useEffect(() => {
     const handleKeyDown = e => {
@@ -93,16 +134,68 @@ const ModalCartCheckout = ({ onClose, data }) => {
               <InputBox>
                 <InputGroupBox>
                   <InputWrapper>
-                    <ul>
+                    <ChartList>
+                      <ChartListItem>
+                        <p>Товар</p>
+                        <p>Ціна</p>
+                        <p>К-ть</p>
+                        <p>Дії</p>
+                      </ChartListItem>
                       {data.map(({ title, price, quantity }) => {
                         return (
-                          <li>
-                            <p>{title}</p> <p>{price}</p>
+                          <ChartListItem>
+                            <p>{title}</p>
+                            <p>{price}</p>
                             <p>{quantity}</p>
-                          </li>
+                            <div>
+                              <button>+</button>
+                              <button>-</button>
+                            </div>
+                          </ChartListItem>
                         );
                       })}
-                    </ul>
+                    </ChartList>
+                  </InputWrapper>
+                  <InputWrapper>
+                    <InputLabel htmlFor="UserName">Ім'я: </InputLabel>
+                    <Field
+                      name="UserName"
+                      placeholder={
+                        // t('ModalAdd.placeholderComent')
+                        "Введіть ім'я"
+                      }
+                      required={true}
+                      onChange={handleChange}
+                      as={InputComment}
+                    />
+                  </InputWrapper>
+                  <InputWrapper>
+                    <InputLabel htmlFor="UserSecondName">Прізвище: </InputLabel>
+                    <Field
+                      name="UserSecondName"
+                      placeholder={
+                        // t('ModalAdd.placeholderComent')
+                        'Введіть прізвище'
+                      }
+                      required={true}
+                      onChange={handleChange}
+                      as={InputComment}
+                    />
+                  </InputWrapper>
+                  <InputWrapper>
+                    <InputLabel htmlFor="UserThirdName">
+                      По батькові:
+                    </InputLabel>
+                    <Field
+                      name="UserThirdName"
+                      placeholder={
+                        // t('ModalAdd.placeholderComent')
+                        `Введіть ${"ім'я"} по-батькові (не обов'язково)`
+                      }
+                      required={true}
+                      onChange={handleChange}
+                      as={InputComment}
+                    />
                   </InputWrapper>
                 </InputGroupBox>
               </InputBox>
