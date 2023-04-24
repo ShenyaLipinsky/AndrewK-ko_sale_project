@@ -51,7 +51,14 @@ export const ChartListItem = styled.li`
   }
 `;
 
-export const InputComment = styled.textarea`
+export const InputLabel = styled.label`
+  width: 25%;
+  font-size: ${p => p.theme.fontSizes.l};
+  color: #000000;
+  text-align: start;
+`;
+
+export const InputComment = styled.input`
   padding: 0 ${p => p.theme.space[4]}px;
   font-family: ${p => p.theme.fonts.primary};
   font-weight: ${p => p.theme.fontWeights.normal};
@@ -61,7 +68,7 @@ export const InputComment = styled.textarea`
   background-color: transparent;
   border: none;
   border-bottom: ${p => p.theme.borders.normal} ${p => p.theme.colors.border};
-  width: 100%;
+  width: 55%;
   height: 36px;
   resize: none;
   overflow: auto;
