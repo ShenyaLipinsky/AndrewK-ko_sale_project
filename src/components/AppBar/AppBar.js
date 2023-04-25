@@ -122,7 +122,7 @@ const AppBar = ({ cartCounter, cartItems }) => {
                 </p>
                 <button
                   onClick={() => {
-                    handleBuyClick(cartLoadedItems);
+                    handleBuyClick(cartLoadedItems, userEmail);
                   }}
                 >
                   Замовити
@@ -130,6 +130,7 @@ const AppBar = ({ cartCounter, cartItems }) => {
                 {isModalOpen && (
                   <ModalCartCheckout
                     data={modalInfo}
+                    email={userEmail}
                     onClose={() => setIsModalOpen(false)}
                   />
                 )}

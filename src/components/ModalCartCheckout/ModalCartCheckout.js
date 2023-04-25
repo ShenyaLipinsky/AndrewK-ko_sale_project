@@ -26,35 +26,28 @@ import { useState } from 'react';
 
 const modalRoot = document.getElementById('modal-root');
 
-const ModalCartCheckout = ({ onClose, data }) => {
-  console.log(data);
+const ModalCartCheckout = ({ onClose, data, email = '' }) => {
+  console.log(data, email);
 
   const [UserName, setUserName] = useState();
   const [SecondName, setSecondName] = useState();
-  const [ThirdName, setThirdName] = useState();
-  const [UserMail, setUserMail] = useState();
+  const [ThirdName, setThirdName] = useState('');
+  const [UserMail, setUserMail] = useState(email);
   const [UserPhone, setUserPhone] = useState();
 
   const dispatch = useDispatch();
 
-  //   const handleSubmit = () => {
-  //     let body = {
-  //       price: parseInt(sum),
-  //       category: getCategoryHref.href,
-  //       title: title,
-  //       product_about: productAbout,
-  //       TM: tradeMark,
-  //       description: cardDescription,
-  //       short_description: shortDescription,
-  //       image: cardImage,
-  //       full_images: fullImages,
-  //       image_of_size: [imageOfSize, sizing],
-  //       instruction_description: [imageOfInstruction, instruction],
-  //       recommended_products: checkedRecommended,
-  //     };
-  //     dispatch(productsOperations.add(body));
-  //     // onClose();
-  //   };
+  const handleSubmit = () => {
+    let body = {
+      userName: UserName,
+      userSecondName: SecondName,
+      userThirdName: ThirdName,
+      userEmail: UserMail,
+      userPhone: UserPhone,
+    };
+    // dispatch(productsOperations.add(body));
+    // onClose();
+  };
 
   const handleChange = e => {
     console.log(e);
@@ -220,6 +213,7 @@ const ModalCartCheckout = ({ onClose, data }) => {
                         'Введіть вашу поштову скриньку'
                       }
                       required={true}
+                      value={UserMail}
                       onChange={handleChange}
                       as={InputComment}
                     />
@@ -247,7 +241,13 @@ const ModalCartCheckout = ({ onClose, data }) => {
                   onClick={() => {
                     //   handleSubmit();
                     console.log('click on submit');
-                    console.log(UserName, SecondName, ThirdName);
+                    console.log(
+                      UserName,
+                      SecondName,
+                      ThirdName,
+                      UserMail,
+                      UserPhone
+                    );
                   }}
                 >
                   {/* {t('ModalAdd.ButtonAdd')} */}
