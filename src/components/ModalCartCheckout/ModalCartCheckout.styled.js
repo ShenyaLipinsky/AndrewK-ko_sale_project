@@ -6,6 +6,14 @@ export const StyledBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  & > div:last-child {
+    display: flex;
+    justify-content: space-evenly;
+    & > button {
+      padding: ${p => p.theme.space[3]}px;
+      border-radius: 5px;
+    }
+  }
 `;
 
 export const InputBox = styled.div`
@@ -41,6 +49,10 @@ export const ChartList = styled.ul`
 export const ChartListItem = styled.li`
   justify-content: space-between;
   display: flex;
+  &:last-child {
+    padding-top: ${p => p.theme.space[5]}px;
+    justify-content: flex-end;
+  }
   & > p {
     width: 25%;
     text-align: start;

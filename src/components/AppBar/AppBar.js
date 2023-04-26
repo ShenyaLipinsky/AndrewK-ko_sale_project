@@ -33,7 +33,11 @@ const AppBar = ({ cartCounter, cartItems }) => {
   let userEmail = useSelector(authSelectors.getUserEmail);
 
   const initValueReducer = 0;
-
+  const totalPrice = cartLoadedItems?.reduce(
+    (acc = 0, { price, quantity }) =>
+      toInteger(acc) + toInteger(price) * toInteger(quantity),
+    initValueReducer
+  );
   useEffect(() => {
     if (isModalOpen) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'visible';
@@ -111,14 +115,7 @@ const AppBar = ({ cartCounter, cartItems }) => {
                   })}
                 </ul>
                 <p>
-                  Сумма замовлення:{' '}
-                  <span>
-                    {cartLoadedItems?.reduce(
-                      (acc = 0, { price, quantity }) =>
-                        toInteger(acc) + toInteger(price) * toInteger(quantity),
-                      initValueReducer
-                    )}
-                  </span>
+                  Сумма замовлення: <span>{totalPrice}</span>
                 </p>
                 <button
                   onClick={() => {
@@ -131,6 +128,7 @@ const AppBar = ({ cartCounter, cartItems }) => {
                   <ModalCartCheckout
                     data={modalInfo}
                     email={userEmail}
+                    totalPrice={totalPrice}
                     onClose={() => setIsModalOpen(false)}
                   />
                 )}

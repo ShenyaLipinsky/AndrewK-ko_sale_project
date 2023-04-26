@@ -79,6 +79,10 @@ export const CloseButton = styled(CloseOutlined)`
 `;
 
 export const Title = styled.h2`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
   margin-bottom: ${p => p.theme.space[8]}px;
   font-size: ${p => p.theme.fontSizes.xl};
   font-weight: ${p => p.theme.fontWeights.normal};

@@ -26,7 +26,7 @@ import { useState } from 'react';
 
 const modalRoot = document.getElementById('modal-root');
 
-const ModalCartCheckout = ({ onClose, data, email = '' }) => {
+const ModalCartCheckout = ({ onClose, data, email = '', totalPrice }) => {
   console.log(data, email);
 
   const [UserName, setUserName] = useState();
@@ -157,6 +157,11 @@ const ModalCartCheckout = ({ onClose, data, email = '' }) => {
                           </ChartListItem>
                         );
                       })}
+                      <ChartListItem>
+                        <p>
+                          Всього: <span>{totalPrice}</span>
+                        </p>
+                      </ChartListItem>
                     </ChartList>
                   </InputWrapper>
                   <InputWrapper>
