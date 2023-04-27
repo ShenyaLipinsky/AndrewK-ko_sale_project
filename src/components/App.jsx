@@ -8,7 +8,12 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import getStoredState from 'redux-persist/es/getStoredState';
 import { authOperations } from 'redux/auth/authOperations';
 import { authSelectors } from 'redux/auth/authSlice';
-import { loadCart, saveCart, updateQuantity } from 'redux/cart/cartSlice';
+import {
+  addItem,
+  loadCart,
+  saveCart,
+  updateQuantity,
+} from 'redux/cart/cartSlice';
 import LogIn from './LogIn/LogIn';
 import Instruction from './Pages/ProductDetails/Instruction';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
@@ -86,7 +91,12 @@ export const App = () => {
         element={
           <>
             <Suspense fallback="...Loading">
-              <Layout cartCounter={cartCounter} cartItems={cartItems} />
+              <Layout
+                cartCounter={cartCounter}
+                cartItems={cartItems}
+                handleUpdateCartQuantity={handleUpdateCartQuantity}
+                handleUpdateCartItems={handleUpdateCartItems}
+              />
               <Footer />
             </Suspense>
           </>

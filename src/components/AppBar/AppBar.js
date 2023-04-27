@@ -22,7 +22,12 @@ import { useState, useEffect } from 'react';
 import { isEqual, toInteger } from 'lodash';
 import ModalCartCheckout from 'components/ModalCartCheckout/ModalCartCheckout';
 
-const AppBar = ({ cartCounter, cartItems }) => {
+const AppBar = ({
+  cartCounter,
+  cartItems,
+  handleUpdateCartItems,
+  handleUpdateCartQuantity,
+}) => {
   const [cartLoadedItems, setCartLoadedItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
@@ -104,9 +109,9 @@ const AppBar = ({ cartCounter, cartItems }) => {
               <h2>Ваша корзина</h2>
               <div>
                 <ul>
-                  {cartLoadedItems?.map(({ title, price, quantity }) => {
+                  {cartLoadedItems?.map(({ title, price, quantity }, i) => {
                     return (
-                      <li>
+                      <li key={i}>
                         <h3>{title}</h3>
                         <p>{price}</p>
                         <p>{quantity}</p>
@@ -130,6 +135,8 @@ const AppBar = ({ cartCounter, cartItems }) => {
                     email={userEmail}
                     totalPrice={totalPrice}
                     onClose={() => setIsModalOpen(false)}
+                    handleUpdateCartQuantity={handleUpdateCartQuantity}
+                    handleUpdateCartItems={handleUpdateCartItems}
                   />
                 )}
               </div>

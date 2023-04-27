@@ -23,16 +23,24 @@ import {
   InputComment,
 } from './ModalCartCheckout.styled';
 import { useState } from 'react';
+import { addItem } from 'redux/cart/cartSlice';
 
 const modalRoot = document.getElementById('modal-root');
 
-const ModalCartCheckout = ({ onClose, data, email = '', totalPrice }) => {
+const ModalCartCheckout = ({
+  onClose,
+  data,
+  email = '',
+  totalPrice,
+  handleUpdateCartItems,
+  handleUpdateCartQuantity,
+}) => {
   console.log(data, email);
 
   const [UserName, setUserName] = useState();
   const [SecondName, setSecondName] = useState();
   const [ThirdName, setThirdName] = useState('');
-  const [UserMail, setUserMail] = useState(email);
+  const [UserMail, setUserMail] = useState(email || '');
   const [UserPhone, setUserPhone] = useState();
 
   const dispatch = useDispatch();
@@ -48,6 +56,57 @@ const ModalCartCheckout = ({ onClose, data, email = '', totalPrice }) => {
     // dispatch(productsOperations.add(body));
     // onClose();
   };
+  // const handleAddToCart = ({ id, price, title }) => {
+  //   dispatch((dispatch, getState) => {
+  //     const cartData = getState().cart;
+  //     const itemIndex = Object.keys(cartData)
+  //       .filter(key => key !== '_persist')
+  //       .findIndex(key => cartData[key].id === id);
+  //     dispatch(addItem({ id, title, price, quantity: 1 }));
+  //     console.log(itemIndex);
+  //     if (itemIndex >= 0) {
+  //       // Элемент уже есть в корзине
+  //       const newData = Object.keys(cartData)
+  //         .filter(key => key !== '_persist')
+  //         .map(key => {
+  //           if (key === cartData[key].id) {
+  //             return { ...cartData[key], quantity: cartData[key].quantity + 1 };
+  //           }
+  //           return { ...cartData[key] };
+  //         });
+  //       localStorage.setItem('cart', JSON.stringify(newData));
+  //     } else {
+  //       // Элемента еще нет в корзине
+  //       const existingItem = Object.keys(cartData)
+  //         .filter(key => key !== '_persist')
+  //         .find(key => cartData[key].id === id);
+  //       if (existingItem) {
+  //         // Товар уже есть в корзине, нужно увеличить количество
+  //         const newData = Object.keys(cartData)
+  //           .filter(key => key !== '_persist')
+  //           .map(key => {
+  //             if (key === existingItem) {
+  //               return {
+  //                 ...cartData[key],
+  //                 quantity: cartData[key].quantity + 1,
+  //               };
+  //             }
+  //             return { ...cartData[key] };
+  //           });
+  //         localStorage.setItem('cart', JSON.stringify(newData));
+  //       } else {
+  //         // Элемента еще нет в корзине
+  //         const newData = Object.keys(cartData)
+  //           .filter(key => key !== '_persist')
+  //           .map(key => ({ ...cartData[key] }))
+  //           .concat([{ id, title, price, quantity: 1 }]);
+  //         localStorage.setItem('cart', JSON.stringify(newData));
+  //       }
+  //     }
+  //   });
+  //   handleUpdateCartQuantity();
+  //   handleUpdateCartItems();
+  // };
 
   const handleChange = e => {
     console.log(e);
@@ -138,20 +197,24 @@ const ModalCartCheckout = ({ onClose, data, email = '', totalPrice }) => {
                 <InputGroupBox>
                   <InputWrapper>
                     <ChartList>
-                      <ChartListItem>
+                      <ChartListItem key="header_list">
                         <p>Товар</p>
                         <p>Ціна</p>
                         <p>К-ть</p>
                         <p>Дії</p>
                       </ChartListItem>
-                      {data.map(({ title, price, quantity }) => {
+                      {data.map(({ id, title, price, quantity }, i) => {
                         return (
-                          <ChartListItem>
+                          <ChartListItem key={i}>
                             <p>{title}</p>
                             <p>{price}</p>
                             <p>{quantity}</p>
                             <div>
-                              <button>+</button>
+                              <button
+                              // onClick={handleAddToCart}
+                              >
+                                +
+                              </button>
                               <button>-</button>
                             </div>
                           </ChartListItem>
