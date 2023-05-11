@@ -127,20 +127,7 @@ const ProductCard = ({
           <h3>Price: {price}</h3>
         </ProductCardDescr>
         <ProductCardBtnsBox>
-          <ProductCardBtns
-            // onClick={
-            //   () => {
-            //   const cartData = JSON.parse(localStorage.getItem('cart'));
-            //   if (cartData) {
-            //     let newData = [...cartData, { quantity: 1, id }];
-            //     localStorage.setItem('cart', JSON.stringify(newData));
-            //   }
-            // }
-            // }
-            onClick={handleAddToCart}
-          >
-            Favorite
-          </ProductCardBtns>
+          <ProductCardBtns onClick={handleAddToCart}>Favorite</ProductCardBtns>
           <ProductCardBtns>Add</ProductCardBtns>
         </ProductCardBtnsBox>
       </ProductCardBox>

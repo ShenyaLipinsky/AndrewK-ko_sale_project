@@ -21,7 +21,7 @@ export const loadCart = createAsyncThunk(
         throw new Error('Failed to load cart');
       }
     } else {
-      const data = JSON.parse(localStorage.getItem('cart')) || [];
+      const data = JSON.parse(localStorage.getItem('cart')) || {};
       const groupedData = data.reduce((acc, item) => {
         if (acc[item.id]) {
           acc[item.id].quantity += item.quantity;
@@ -30,7 +30,8 @@ export const loadCart = createAsyncThunk(
         }
         return acc;
       }, {});
-      return Object.values(groupedData);
+      console.log(Object.values(groupedData));
+      return groupedData;
     }
   }
 );
@@ -58,7 +59,7 @@ const saveCart = createAsyncThunk(
 // Создание slice для корзины
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: [],
+  initialState: {},
   reducers: {
     // Добавление товара в корзину
     addItem: (state, action) => {
@@ -77,13 +78,14 @@ const cartSlice = createSlice({
     // Изменение количества товара в корзине
     updateQuantity: (state, action) => {
       const { id, quantity } = action.payload;
+      console.log(state[id]);
       if (state[id]) {
-        state[id].quantity = quantity;
+        state[id].quantity += quantity;
       }
     },
     // Очистка корзины
     clearCart: state => {
-      return [];
+      return {};
     },
   },
   extraReducers: builder => {

@@ -23,7 +23,7 @@ import {
   InputComment,
 } from './ModalCartCheckout.styled';
 import { useState } from 'react';
-import { addItem } from 'redux/cart/cartSlice';
+import { addItem, loadCart, updateQuantity } from 'redux/cart/cartSlice';
 
 const modalRoot = document.getElementById('modal-root');
 
@@ -35,13 +35,12 @@ const ModalCartCheckout = ({
   handleUpdateCartItems,
   handleUpdateCartQuantity,
 }) => {
-  console.log(data, email);
-
   const [UserName, setUserName] = useState();
   const [SecondName, setSecondName] = useState();
   const [ThirdName, setThirdName] = useState('');
   const [UserMail, setUserMail] = useState(email || '');
   const [UserPhone, setUserPhone] = useState();
+  const [dataProducts, setDataProducts] = useState(data);
 
   const dispatch = useDispatch();
 
@@ -56,53 +55,68 @@ const ModalCartCheckout = ({
     // dispatch(productsOperations.add(body));
     // onClose();
   };
+  useEffect(() => {
+    dispatch(loadCart());
+  }, [dispatch]);
+  const handleAddToCart = ({ id, price, title }) => {
+    dispatch((dispatch, getState) => {
+      const cartData = getState().cart;
+      console.log(cartData);
+
+      const convertedObject = Object.values(cartData)
+        .filter(key => key.id)
+        .map(el => {
+          return el;
+        })
+        .reduce((prev, current) => ({ ...prev, [current.id]: current }), {});
+
+      // const itemIndex = Object.keys(convertedObject).findIndex(
+      //   key => cartData[key] === id
+      // );
+
+      const itemIndex = Object.values(convertedObject).findIndex(
+        item => item.id === id
+      );
+
+      // dispatch(updateQuantity({ id, quantity: 1 }));
+      console.log(convertedObject, id, itemIndex);
+
+      if (itemIndex === -1) {
+        dispatch(addItem({ id, price, title, quantity: 1 }));
+      } else {
+        dispatch(updateQuantity({ id, quantity: 1 }));
+      }
+      // Элемент уже есть в корзине
+      const newData = Object.keys(cartData)
+        .filter(key => key !== '_persist')
+        .map(key => getState().cart[key]);
+      console.log(newData);
+      localStorage.setItem('cart', JSON.stringify(newData));
+      setDataProducts(newData);
+    });
+    handleUpdateCartQuantity();
+    handleUpdateCartItems();
+  };
+
   // const handleAddToCart = ({ id, price, title }) => {
   //   dispatch((dispatch, getState) => {
   //     const cartData = getState().cart;
   //     const itemIndex = Object.keys(cartData)
   //       .filter(key => key !== '_persist')
   //       .findIndex(key => cartData[key].id === id);
-  //     dispatch(addItem({ id, title, price, quantity: 1 }));
-  //     console.log(itemIndex);
-  //     if (itemIndex >= 0) {
-  //       // Элемент уже есть в корзине
-  //       const newData = Object.keys(cartData)
-  //         .filter(key => key !== '_persist')
-  //         .map(key => {
-  //           if (key === cartData[key].id) {
-  //             return { ...cartData[key], quantity: cartData[key].quantity + 1 };
-  //           }
-  //           return { ...cartData[key] };
-  //         });
-  //       localStorage.setItem('cart', JSON.stringify(newData));
+
+  //     if (itemIndex === -1) {
+  //       dispatch(addItem({ id, price, title, quantity: 1 }));
   //     } else {
-  //       // Элемента еще нет в корзине
-  //       const existingItem = Object.keys(cartData)
-  //         .filter(key => key !== '_persist')
-  //         .find(key => cartData[key].id === id);
-  //       if (existingItem) {
-  //         // Товар уже есть в корзине, нужно увеличить количество
-  //         const newData = Object.keys(cartData)
-  //           .filter(key => key !== '_persist')
-  //           .map(key => {
-  //             if (key === existingItem) {
-  //               return {
-  //                 ...cartData[key],
-  //                 quantity: cartData[key].quantity + 1,
-  //               };
-  //             }
-  //             return { ...cartData[key] };
-  //           });
-  //         localStorage.setItem('cart', JSON.stringify(newData));
-  //       } else {
-  //         // Элемента еще нет в корзине
-  //         const newData = Object.keys(cartData)
-  //           .filter(key => key !== '_persist')
-  //           .map(key => ({ ...cartData[key] }))
-  //           .concat([{ id, title, price, quantity: 1 }]);
-  //         localStorage.setItem('cart', JSON.stringify(newData));
-  //       }
+  //       dispatch(updateQuantity({ id, quantity: 1 }));
   //     }
+
+  //     const newData = Object.keys(getState().cart)
+  //       .filter(key => key !== '_persist')
+  //       .map(key => getState().cart[key]);
+
+  //     localStorage.setItem('cart', JSON.stringify(newData));
+  //     setDataProducts(newData);
   //   });
   //   handleUpdateCartQuantity();
   //   handleUpdateCartItems();
@@ -203,15 +217,17 @@ const ModalCartCheckout = ({
                         <p>К-ть</p>
                         <p>Дії</p>
                       </ChartListItem>
-                      {data.map(({ id, title, price, quantity }, i) => {
+                      {dataProducts.map(({ id, title, price, quantity }, i) => {
                         return (
-                          <ChartListItem key={i}>
+                          <ChartListItem key={`id:${id}`}>
                             <p>{title}</p>
                             <p>{price}</p>
                             <p>{quantity}</p>
                             <div>
                               <button
-                              // onClick={handleAddToCart}
+                                onClick={() => {
+                                  handleAddToCart({ id, title, price });
+                                }}
                               >
                                 +
                               </button>
