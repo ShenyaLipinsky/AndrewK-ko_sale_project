@@ -51,18 +51,20 @@ const ModalCartCheckout = ({
       userThirdName: ThirdName,
       userEmail: UserMail,
       userPhone: UserPhone,
+      dataProducts: dataProducts,
     };
+    console.log(body);
     // dispatch(productsOperations.add(body));
     // onClose();
   };
   useEffect(() => {
     dispatch(loadCart());
   }, [dispatch]);
-  const handleAddToCart = ({ id, price, title }) => {
+
+  const handleAddToCart = (e, { id, price, title }) => {
+    const operationName = e.target.name;
     dispatch((dispatch, getState) => {
       const cartData = getState().cart;
-      console.log(cartData);
-
       const convertedObject = Object.values(cartData)
         .filter(key => key.id)
         .map(el => {
@@ -70,27 +72,20 @@ const ModalCartCheckout = ({
         })
         .reduce((prev, current) => ({ ...prev, [current.id]: current }), {});
 
-      // const itemIndex = Object.keys(convertedObject).findIndex(
-      //   key => cartData[key] === id
-      // );
-
       const itemIndex = Object.values(convertedObject).findIndex(
         item => item.id === id
       );
-
-      // dispatch(updateQuantity({ id, quantity: 1 }));
-      console.log(convertedObject, id, itemIndex);
-
       if (itemIndex === -1) {
         dispatch(addItem({ id, price, title, quantity: 1 }));
+      } else if (operationName === 'minus') {
+        dispatch(updateQuantity({ operationName, id, quantity: -1 }));
       } else {
-        dispatch(updateQuantity({ id, quantity: 1 }));
+        dispatch(updateQuantity({ operationName, id, quantity: 1 }));
       }
       // Элемент уже есть в корзине
       const newData = Object.keys(cartData)
         .filter(key => key !== '_persist')
         .map(key => getState().cart[key]);
-      console.log(newData);
       localStorage.setItem('cart', JSON.stringify(newData));
       setDataProducts(newData);
     });
@@ -98,43 +93,7 @@ const ModalCartCheckout = ({
     handleUpdateCartItems();
   };
 
-  // const handleAddToCart = ({ id, price, title }) => {
-  //   dispatch((dispatch, getState) => {
-  //     const cartData = getState().cart;
-  //     const itemIndex = Object.keys(cartData)
-  //       .filter(key => key !== '_persist')
-  //       .findIndex(key => cartData[key].id === id);
-
-  //     if (itemIndex === -1) {
-  //       dispatch(addItem({ id, price, title, quantity: 1 }));
-  //     } else {
-  //       dispatch(updateQuantity({ id, quantity: 1 }));
-  //     }
-
-  //     const newData = Object.keys(getState().cart)
-  //       .filter(key => key !== '_persist')
-  //       .map(key => getState().cart[key]);
-
-  //     localStorage.setItem('cart', JSON.stringify(newData));
-  //     setDataProducts(newData);
-  //   });
-  //   handleUpdateCartQuantity();
-  //   handleUpdateCartItems();
-  // };
-
   const handleChange = e => {
-    console.log(e);
-    // if (!e.target) {
-    // const { name } = e;
-    // switch (name) {
-    //   case 'category':
-    //     setuse(e.label);
-    //     break;
-
-    //   default:
-    //     break;
-    // }
-    // } else {
     const { name, value } = e.target;
     switch (name) {
       case 'UserName':
@@ -158,8 +117,6 @@ const ModalCartCheckout = ({
       default:
         break;
     }
-    // }
-    console.log(UserName);
   };
 
   useEffect(() => {
@@ -225,13 +182,23 @@ const ModalCartCheckout = ({
                             <p>{quantity}</p>
                             <div>
                               <button
-                                onClick={() => {
-                                  handleAddToCart({ id, title, price });
+                                name="plus"
+                                type="button"
+                                onClick={e => {
+                                  handleAddToCart(e, { id, title, price });
                                 }}
                               >
                                 +
                               </button>
-                              <button>-</button>
+                              <button
+                                name="minus"
+                                type="button"
+                                onClick={e => {
+                                  handleAddToCart(e, { id, title, price });
+                                }}
+                              >
+                                -
+                              </button>
                             </div>
                           </ChartListItem>
                         );
@@ -323,15 +290,8 @@ const ModalCartCheckout = ({
                   type="submit"
                   htmlType="button"
                   onClick={() => {
-                    //   handleSubmit();
+                    handleSubmit();
                     console.log('click on submit');
-                    console.log(
-                      UserName,
-                      SecondName,
-                      ThirdName,
-                      UserMail,
-                      UserPhone
-                    );
                   }}
                 >
                   {/* {t('ModalAdd.ButtonAdd')} */}

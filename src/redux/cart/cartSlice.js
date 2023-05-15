@@ -77,9 +77,10 @@ const cartSlice = createSlice({
     },
     // Изменение количества товара в корзине
     updateQuantity: (state, action) => {
-      const { id, quantity } = action.payload;
-      console.log(state[id]);
-      if (state[id]) {
+      const { operationName, id, quantity } = action.payload;
+      if (state[id].quantity === 1 && operationName === 'minus') {
+        return;
+      } else {
         state[id].quantity += quantity;
       }
     },
