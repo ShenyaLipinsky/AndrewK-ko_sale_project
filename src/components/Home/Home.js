@@ -31,6 +31,7 @@ const Home = ({
   const [disabledBwd, setDisabledBwd] = useState(true);
 
   // const location = useLocation();
+  console.log(location);
 
   async function fetchMovieData() {
     try {
@@ -41,8 +42,12 @@ const Home = ({
     }
   }
   async function fetchProductsData(getPage, getLimit) {
+    let { pathname } = location;
     try {
-      const products = await fetchProducts(getPage, getLimit);
+      if (pathname === '/all') {
+        pathname = '';
+      }
+      const products = await fetchProducts(pathname, getPage, getLimit);
       setProducts(products.result);
       setTotalHits(products.total_items);
     } catch (error) {
@@ -92,8 +97,8 @@ const Home = ({
         <h4>No images</h4>
       )}
       <ProductBox>
-        {products.length !== 0 ? (
-          products.map(({ _id, image, title, short_description, price }) => {
+        {products?.length !== 0 ? (
+          products?.map(({ _id, image, title, short_description, price }) => {
             if (image === 'No Image') {
               return (
                 <ProductCard

@@ -112,6 +112,16 @@ export const App = () => {
             />
           }
         />
+        <Route
+          path="/category/:id"
+          element={
+            <Products
+              handleUpdateCartQuantity={handleUpdateCartQuantity}
+              handleUpdateCartItems={handleUpdateCartItems}
+            />
+          }
+        />
+        \
         <Route path=":id" element={<ProductDetails />}>
           <Route path="instruction" element={<Instruction />} />
           <Route path="sizing" element={<TableOfSize />} />

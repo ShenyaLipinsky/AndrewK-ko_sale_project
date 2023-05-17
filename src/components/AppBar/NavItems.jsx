@@ -8,35 +8,35 @@ export const navItems = [
         text: 'Всі товари',
       },
       {
-        href: 'ortho',
+        href: 'category/ortho',
         text: 'Ортопедична і бандажна продукція',
       },
       {
-        href: 'compression',
+        href: 'category/compression',
         text: 'Компресійний трикотаж',
       },
       {
-        href: 'reabilitation',
+        href: 'category/reabilitation',
         text: 'Товари для реабілітації',
       },
       {
-        href: 'momies',
+        href: 'category/momies',
         text: 'Мамам и новонародженим',
       },
       {
-        href: 'home_equip',
+        href: 'category/home_equip',
         text: 'Домашня медтехника',
       },
       {
-        href: 'aplicators',
+        href: 'category/aplicators',
         text: 'Аплікатори Ляпко',
       },
       {
-        href: 'pampers',
+        href: 'category/pampers',
         text: 'Памперси і серветки',
       },
       {
-        href: 'home_chemical',
+        href: 'category/home_chemical',
         text: 'Побутова Хімія',
       },
     ],

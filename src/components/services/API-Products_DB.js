@@ -1,15 +1,15 @@
-import { createGlobalStyle } from 'styled-components';
-
 const axios = require('axios').default;
 
 const URI = 'https://medclub.onrender.com/api';
 
-export async function fetchProducts(page, limit) {
+export async function fetchProducts(category = '', page, limit) {
   // if (endpoint === null) {
   //   return;
   // }
   const response = await axios
-    .get(`${URI}/products${page ? `/?limit=${limit}&page=${page}` : ''}`)
+    .get(
+      `${URI}/products${category}${page ? `/?limit=${limit}&page=${page}` : ''}`
+    )
     .then(res => {
       return res.data;
     })
