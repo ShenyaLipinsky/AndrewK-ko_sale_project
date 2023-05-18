@@ -29,9 +29,9 @@ const Home = ({
   const [page, setPage] = useState(preloadPage.toString());
   const [disabledFwd, setDisabledFwd] = useState(false);
   const [disabledBwd, setDisabledBwd] = useState(true);
+  const [pathname, setPathname] = useState(location.pathname);
 
   // const location = useLocation();
-  console.log(location);
 
   async function fetchMovieData() {
     try {
@@ -41,27 +41,29 @@ const Home = ({
       console.log('error', error);
     }
   }
-  async function fetchProductsData(getPage, getLimit) {
-    let { pathname } = location;
-    try {
-      if (pathname === '/all') {
-        pathname = '';
-      }
-      const products = await fetchProducts(pathname, getPage, getLimit);
-      setProducts(products.result);
-      setTotalHits(products.total_items);
-    } catch (error) {
-      console.log('error', error);
-    }
-  }
 
   useEffect(() => {
     fetchMovieData();
     return;
   }, []);
+
   useEffect(() => {
+    setPathname(location.pathname);
+    async function fetchProductsData(getPage, getLimit) {
+      let { pathname } = location;
+      try {
+        if (pathname === '/all') {
+          pathname = '';
+        }
+        const products = await fetchProducts(pathname, getPage, getLimit);
+        setProducts(products.result);
+        setTotalHits(products.total_items);
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
     fetchProductsData(page, limit);
-  }, [limit, page]);
+  }, [limit, location, location.pathname, page, pathname]);
 
   useEffect(() => {
     setTotalPages(parseInt(totalHist) / parseInt(limit));
@@ -97,8 +99,8 @@ const Home = ({
         <h4>No images</h4>
       )}
       <ProductBox>
-        {products?.length !== 0 ? (
-          products?.map(({ _id, image, title, short_description, price }) => {
+        {products.length !== 0 ? (
+          products.map(({ _id, image, title, short_description, price }) => {
             if (image === 'No Image') {
               return (
                 <ProductCard

@@ -9,6 +9,7 @@ const Home = lazy(() => import('../../Home/Home'));
 
 const Products = ({ handleUpdateCartQuantity, handleUpdateCartItems }) => {
   const location = useLocation();
+  // console.log(location);
   const [foundedFilms, setFoundedFilms] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const queueParam = searchParams.get('query') ?? '';
