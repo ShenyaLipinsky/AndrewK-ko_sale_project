@@ -21,6 +21,7 @@ const Home = ({
 }) => {
   const preloadLimit = 10;
   const preloadPage = 1;
+  const [isLoading, setIsLoading] = useState(false);
   const [hits, setHits] = useState([]);
   const [totalHist, setTotalHits] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
@@ -48,6 +49,7 @@ const Home = ({
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     setPathname(location.pathname);
     async function fetchProductsData(getPage, getLimit) {
       let { pathname } = location;
@@ -60,6 +62,8 @@ const Home = ({
         setTotalHits(products.total_items);
       } catch (error) {
         console.log('error', error);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchProductsData(page, limit);
@@ -99,7 +103,16 @@ const Home = ({
         <h4>No images</h4>
       )}
       <ProductBox>
-        {products.length !== 0 ? (
+        {isLoading && (
+          <>
+            {Array(10)
+              .fill(true)
+              .map((_, i) => (
+                <WrappedLoader key={i} />
+              ))}
+          </>
+        )}
+        {products.length !== 0 &&
           products.map(({ _id, image, title, short_description, price }) => {
             if (image === 'No Image') {
               return (
@@ -131,15 +144,11 @@ const Home = ({
                 handleUpdateCartItems={handleUpdateCartItems}
               />
             );
-          })
-        ) : (
-          <>
-            {Array(10)
-              .fill(true)
-              .map((_, i) => (
-                <WrappedLoader key={i} />
-              ))}
-          </>
+          })}
+        {products.length === 0 && (
+          <div>
+            <p>Sorry that category on construction study</p>
+          </div>
         )}
       </ProductBox>
       <Pagination

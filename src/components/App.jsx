@@ -102,7 +102,12 @@ export const App = () => {
           </>
         }
       >
-        <Route path="/" element={<Navigate to="all" replace={true} />} />
+        <Route path="/" element={<Navigate to="all" replace={true} />}>
+          <Route
+            path="products"
+            element={<Navigate to="/all" replace={true} />}
+          />
+        </Route>
         <Route
           path="/all"
           element={
