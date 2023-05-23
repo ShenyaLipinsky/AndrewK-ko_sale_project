@@ -10,8 +10,9 @@ import {
   fetchProducts,
 } from 'components/services/API-Products_DB';
 import Pagination from 'components/Pagination/Pagination';
-import { ProductBox } from './Home.styled';
+import { ProductBox, ProductsAddBtn } from './Home.styled';
 import WrappedLoader from 'components/ProductCardLoader/ProductCardLoader';
+import ModalAddTransaction from 'components/ModalAddTransaction/ModalAddTransaction';
 
 const Home = ({
   moreDetails,
@@ -31,6 +32,7 @@ const Home = ({
   const [disabledFwd, setDisabledFwd] = useState(false);
   const [disabledBwd, setDisabledBwd] = useState(true);
   const [pathname, setPathname] = useState(location.pathname);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // const location = useLocation();
 
@@ -42,11 +44,31 @@ const Home = ({
       console.log('error', error);
     }
   }
-
+  const modalInfo = {
+    sum: 0,
+    title: '',
+    category: '',
+    tradeMark: '',
+    cardDescription: '',
+    cardImage: '',
+    shortDescription: '',
+    productAbout: '',
+    fullImages: [''],
+    image_of_size: ['', ''],
+    sizing: '',
+    imageOfInstruction: '',
+    instruction_description: '',
+    recommended: [],
+  };
   useEffect(() => {
     fetchMovieData();
     return;
   }, []);
+
+  useEffect(() => {
+    if (isModalOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'visible';
+  }, [isModalOpen]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -87,6 +109,10 @@ const Home = ({
     }
     return;
   }, [limit, page, totalHist, totalPages]);
+
+  const handleAddClick = () => {
+    setIsModalOpen(true);
+  };
   return (
     <Box as="main" gridTemplateRows="auto 2fr" p={3}>
       <Box as="h2" mb={3}>
@@ -151,6 +177,19 @@ const Home = ({
           </div>
         )}
       </ProductBox>
+      <ProductsAddBtn
+        onClick={() => {
+          handleAddClick({ data: modalInfo });
+        }}
+      >
+        +
+      </ProductsAddBtn>
+      {isModalOpen && (
+        <ModalAddTransaction
+          data={modalInfo}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
       <Pagination
         disB={disabledBwd}
         disF={disabledFwd}

@@ -127,8 +127,8 @@ const ProductCard = ({
           <h3>Price: {price}</h3>
         </ProductCardDescr>
         <ProductCardBtnsBox>
-          <ProductCardBtns onClick={handleAddToCart}>Favorite</ProductCardBtns>
-          <ProductCardBtns>Add</ProductCardBtns>
+          <ProductCardBtns>Favorite</ProductCardBtns>
+          <ProductCardBtns onClick={handleAddToCart}>Add</ProductCardBtns>
         </ProductCardBtnsBox>
       </ProductCardBox>
     );

@@ -75,13 +75,13 @@ const transactionSchema = yup.object().shape({
 });
 
 const ModalAddTransaction = ({ onClose, data }) => {
-  // console.log(data);
+  console.log(data);
   const [title, setTitle] = useState(data.title);
   const [tradeMark, setTradeMark] = useState(data.TM);
   const [category, setCategory] = useState(data.category);
   const [cardDescription, setCardDescription] = useState(data.description);
   const [cardImage, setCardImage] = useState(data.image);
-  const [sum, setSum] = useState(data.price);
+  const [sum, setSum] = useState(data.price || 0);
   const [shortDescription, setShortDescription] = useState(
     data.short_description
   );

@@ -52,6 +52,7 @@ export const theme = {
   borders: {
     none: 'none',
     normal: '1px solid',
+    round: '50%',
   },
   shadows: {
     darkBox: '1px 1px 4px #000000',
