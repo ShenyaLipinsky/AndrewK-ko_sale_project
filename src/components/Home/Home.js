@@ -45,19 +45,18 @@ const Home = ({
     }
   }
   const modalInfo = {
-    sum: 0,
     title: '',
+    TM: '',
     category: '',
-    tradeMark: '',
-    cardDescription: '',
-    cardImage: '',
-    shortDescription: '',
-    productAbout: '',
-    fullImages: [''],
-    image_of_size: ['', ''],
-    sizing: '',
-    imageOfInstruction: '',
-    instruction_description: '',
+    description: '',
+    image: '',
+    price: 0,
+    short_description: '',
+    product_about: '',
+    full_images: [''],
+    image_of_size: [''],
+    // imageOfInstruction: '',
+    instruction_description: ['', ''],
     recommended: [],
   };
   useEffect(() => {
