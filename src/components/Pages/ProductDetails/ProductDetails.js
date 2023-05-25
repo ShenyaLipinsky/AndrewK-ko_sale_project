@@ -28,11 +28,14 @@ import { Container } from 'App.styled';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
-const ProductDetails = () => {
+const ProductDetails = ({ newLocation }) => {
   const { id } = useParams();
   const [productDetails, setProductDetails] = useState();
   const [remakedArray, setRemakedArray] = useState([]);
+  console.log(newLocation);
+
   const location = useLocation();
+  console.log(location);
   useEffect(() => {
     async function fetchProductData() {
       try {

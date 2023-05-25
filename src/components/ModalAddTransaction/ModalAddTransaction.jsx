@@ -74,8 +74,10 @@ const transactionSchema = yup.object().shape({
   type: yup.string().required(),
 });
 
-const ModalAddTransaction = ({ onClose, data }) => {
-  console.log(data);
+const ModalAddTransaction = ({ onClose, data, addMode }) => {
+  console.log(data, addMode);
+  const [productId, setProductId] = useState(data.productId);
+
   const [title, setTitle] = useState(data.title);
   const [tradeMark, setTradeMark] = useState(data.TM);
   const [category, setCategory] = useState(data.category);
@@ -102,6 +104,7 @@ const ModalAddTransaction = ({ onClose, data }) => {
   const [checkedRecomTitle, setCheckedRecomTitle] = useState([]);
 
   const [typeTransaction, setTypeTransaction] = useState('income');
+  const [modeOfSetProducts, setModeOfSetProducts] = useState(false);
 
   const { t } = useTranslation();
   const initialValues = {
@@ -137,7 +140,10 @@ const ModalAddTransaction = ({ onClose, data }) => {
         .then(setRecommended);
     };
     recommendedProducts();
-  }, []);
+    if (addMode !== undefined) {
+      setModeOfSetProducts(true);
+    }
+  }, [addMode]);
 
   useEffect(() => {
     categories.map(({ href, text }) => {
@@ -198,7 +204,6 @@ const ModalAddTransaction = ({ onClose, data }) => {
               }
               return e.value;
             });
-            console.log('NewState', newState);
 
             return [...prevState, newState];
           });
@@ -221,7 +226,6 @@ const ModalAddTransaction = ({ onClose, data }) => {
       });
     } else {
       const { name, value } = e.target;
-      console.log(e);
       switch (name) {
         case 'sum':
           setSum(value);
@@ -284,10 +288,10 @@ const ModalAddTransaction = ({ onClose, data }) => {
   //   setTypeTransaction('expense');
   // };
 
-  const handleSubmit = () => {
+  const handleSubmit = addMode => {
     let body = {
       price: parseInt(sum),
-      category: getCategoryHref.href,
+      category: getCategoryHref.href.split('/', 2)[1],
       title: title,
       product_about: productAbout,
       TM: tradeMark,
@@ -298,8 +302,13 @@ const ModalAddTransaction = ({ onClose, data }) => {
       image_of_size: [imageOfSize, sizing],
       instruction_description: [imageOfInstruction, instruction],
       recommended_products: checkedRecommended,
+      id: productId,
     };
-    dispatch(productsOperations.add(body));
+    if (addMode) {
+      dispatch(productsOperations.update(body));
+    } else {
+      dispatch(productsOperations.add(body));
+    }
     // onClose();
   };
 
@@ -690,9 +699,7 @@ const ModalAddTransaction = ({ onClose, data }) => {
                   onClick={
                     // handleSubmit
                     () => {
-                      console.log('Click');
-                      handleSubmit();
-                      console.log('Click2');
+                      handleSubmit(modeOfSetProducts);
                     }
                   }
                 >

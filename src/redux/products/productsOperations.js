@@ -42,6 +42,34 @@ const add = createAsyncThunk('products', async (credentials, thunkApi) => {
   }
 });
 
+const update = createAsyncThunk('products', async (credentials, thunkApi) => {
+  try {
+    console.log(credentials);
+    const { id } = credentials;
+
+    const removeKey = (key, data) =>
+      Object.fromEntries(Object.entries(data).filter(([k]) => k !== key));
+
+    const newData = removeKey('id', credentials);
+    console.log(newData);
+
+    const { data } = await axios.put(`products/${id}`, newData);
+    // token.set(data.token);
+    return data;
+  } catch (error) {
+    // console.log(error.response.data.message);
+    if (error.response.data.message !== undefined) {
+      Notiflix.Notify.failure(
+        `${error.response.data.message}`,
+        notiflixOptions
+      );
+      return thunkApi.rejectWithValue();
+    }
+    Notiflix.Notify.failure(`${error.message}`, notiflixOptions);
+    return thunkApi.rejectWithValue();
+  }
+});
+
 // const logIn = createAsyncThunk('users/login', async (credentials, thunkApi) => {
 //   try {
 //     const { data } = await axios.post('users/login', credentials);
@@ -112,6 +140,7 @@ const add = createAsyncThunk('products', async (credentials, thunkApi) => {
 
 export const productsOperations = {
   add,
+  update,
   // logIn,
   // logOut,
   // fetchCurrentUser,

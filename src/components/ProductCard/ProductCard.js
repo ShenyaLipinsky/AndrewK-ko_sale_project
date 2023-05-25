@@ -38,7 +38,7 @@ const ProductCard = ({
   let isAdmin = useSelector(authSelectors.getIsAdmin);
 
   const handleEditClick = async id => {
-    setModalInfo(await moreDetails(id));
+    setModalInfo({ ...(await moreDetails(id)), productId: id });
     setIsModalOpen(true);
   };
 
@@ -114,6 +114,7 @@ const ProductCard = ({
           <ModalAddTransaction
             data={modalInfo}
             onClose={() => setIsModalOpen(false)}
+            addMode={true}
           />
         )}
         <ProductCardImageLink href={`/${id}`}>

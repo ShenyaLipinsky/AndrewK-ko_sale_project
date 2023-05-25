@@ -35,7 +35,12 @@ const Home = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // const location = useLocation();
-
+  location.state = {
+    from: location.pathname,
+    page: page,
+    limit: limit,
+  };
+  console.log(location);
   async function fetchMovieData() {
     try {
       const movies = await fetchMovies();
@@ -149,7 +154,7 @@ const Home = ({
                   cardDescription={short_description}
                   price={price}
                   moreDetails={fetchProductById}
-                  location={location}
+                  newLocation={location}
                   handleUpdateCartQuantity={handleUpdateCartQuantity}
                   handleUpdateCartItems={handleUpdateCartItems}
                 />
@@ -164,7 +169,7 @@ const Home = ({
                 cardDescription={short_description}
                 price={price}
                 moreDetails={fetchProductById}
-                location={location}
+                newLocation={location}
                 handleUpdateCartQuantity={handleUpdateCartQuantity}
                 handleUpdateCartItems={handleUpdateCartItems}
               />

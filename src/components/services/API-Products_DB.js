@@ -104,3 +104,19 @@ export async function addProduct(body) {
     return null;
   }
 }
+
+export async function updateProduct(id, body) {
+  try {
+    const response = await axios
+      .post(`${URI}/products/:${id}`, body)
+      .then(res => {
+        console.log(res);
+        return res.data;
+      });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
