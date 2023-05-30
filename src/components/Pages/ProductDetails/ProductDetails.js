@@ -77,6 +77,7 @@ const ProductDetails = () => {
     full_images,
     image_of_size,
     price,
+    size_and_price,
     recommended_products,
     product_about,
   } = productDetails;

@@ -27,7 +27,6 @@ const ProductCard = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
-
   const dispatch = useDispatch();
 
   useEffect(() => {
