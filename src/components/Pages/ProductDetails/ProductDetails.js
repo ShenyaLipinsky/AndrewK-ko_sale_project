@@ -27,6 +27,7 @@ import { Container } from 'App.styled';
 
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
+import Select from 'react-select';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -128,6 +129,19 @@ const ProductDetails = () => {
             </InfoItem>
             <InfoItem>
               <InfoText>{product_about}</InfoText>
+            </InfoItem>
+            <InfoItem>
+              {Object.keys(size_and_price[0])[0] !== '1' && (
+                <Select
+                  name="size"
+                  type="select"
+                  options={size_and_price.map(key => ({
+                    name: 'size',
+                    value: Object.keys(key)[0].split(`"`),
+                    label: Object.keys(key)[0].split(`"`),
+                  }))}
+                />
+              )}
             </InfoItem>
             <InfoItem>
               <InfoPrice>Price: {price}</InfoPrice>

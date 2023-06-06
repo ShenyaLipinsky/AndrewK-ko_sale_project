@@ -13,6 +13,8 @@ import Pagination from 'components/Pagination/Pagination';
 import { ProductBox, ProductsAddBtn } from './Home.styled';
 import WrappedLoader from 'components/ProductCardLoader/ProductCardLoader';
 import ModalAddTransaction from 'components/ModalAddTransaction/ModalAddTransaction';
+import { useSelector } from 'react-redux';
+import { authSelectors } from 'redux/auth/authSlice';
 
 const Home = ({
   moreDetails,
@@ -33,6 +35,8 @@ const Home = ({
   const [disabledBwd, setDisabledBwd] = useState(true);
   const [pathname, setPathname] = useState(location.pathname);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  let isAdmin = useSelector(authSelectors.getIsAdmin);
 
   // const location = useLocation();
   async function fetchMovieData() {
@@ -175,13 +179,15 @@ const Home = ({
           </div>
         )}
       </ProductBox>
-      <ProductsAddBtn
-        onClick={() => {
-          handleAddClick({ data: modalInfo });
-        }}
-      >
-        +
-      </ProductsAddBtn>
+      {isAdmin && (
+        <ProductsAddBtn
+          onClick={() => {
+            handleAddClick({ data: modalInfo });
+          }}
+        >
+          +
+        </ProductsAddBtn>
+      )}
       {isModalOpen && (
         <ModalAddTransaction
           data={modalInfo}
