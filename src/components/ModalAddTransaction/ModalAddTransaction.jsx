@@ -289,21 +289,42 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
   // };
 
   const handleSubmit = addMode => {
-    let body = {
-      price: parseInt(sum),
-      category: getCategoryHref.href.split('/', 2)[1],
-      title: title,
-      product_about: productAbout,
-      TM: tradeMark,
-      description: cardDescription,
-      short_description: shortDescription,
-      image: cardImage,
-      full_images: fullImages,
-      image_of_size: [imageOfSize, sizing],
-      instruction_description: [imageOfInstruction, instruction],
-      recommended_products: checkedRecommended,
-      id: productId,
-    };
+    let body = {};
+    if (checkedRecommended[0] === '') {
+      body = {
+        price: parseInt(sum),
+        category: getCategoryHref.href,
+        title: title,
+        product_about: productAbout,
+        TM: tradeMark,
+        description: cardDescription,
+        short_description: shortDescription,
+        image: cardImage,
+        full_images: fullImages,
+        image_of_size: [imageOfSize, sizing],
+        instruction_description: [imageOfInstruction, instruction],
+        id: productId,
+      };
+    } else {
+      body = {
+        price: parseInt(sum),
+        category: getCategoryHref.href,
+        title: title,
+        product_about: productAbout,
+        TM: tradeMark,
+        description: cardDescription,
+        short_description: shortDescription,
+        image: cardImage,
+        full_images: fullImages,
+        image_of_size: [imageOfSize, sizing],
+        instruction_description: [imageOfInstruction, instruction],
+        recommended_products: checkedRecommended,
+        id: productId,
+      };
+    }
+
+    console.log('CaTEGORY', body);
+
     if (addMode) {
       dispatch(productsOperations.update(body));
     } else {
