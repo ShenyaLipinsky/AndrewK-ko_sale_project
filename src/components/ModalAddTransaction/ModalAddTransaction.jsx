@@ -293,7 +293,7 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
     if (checkedRecommended[0] === '') {
       body = {
         price: parseInt(sum),
-        category: getCategoryHref.href,
+        category: getCategoryHref.href.split('/')[1],
         title: title,
         product_about: productAbout,
         TM: tradeMark,
@@ -303,12 +303,14 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
         full_images: fullImages,
         image_of_size: [imageOfSize, sizing],
         instruction_description: [imageOfInstruction, instruction],
+        recommended_products: [],
+
         id: productId,
       };
     } else {
       body = {
         price: parseInt(sum),
-        category: getCategoryHref.href,
+        category: getCategoryHref.href.split('/')[1],
         title: title,
         product_about: productAbout,
         TM: tradeMark,
@@ -653,64 +655,117 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
                       as={InputComment}
                     />
                   </InputWrapper>
-                  {checkedRecommended.map((item, index, __) => {
-                    console.log(index, checkedRecomTitle[index]);
-                    return (
-                      <InputCategory key={`${item}${index}`}>
-                        <InputLabel htmlFor="Recommended">
-                          Рекоменд.:
-                        </InputLabel>
-                        <Select
-                          name="recommended"
-                          // key={typeTransaction}
-                          components={<DownOutlined />}
-                          options={recommended
-                            // .filter(elem => elem.type === typeTransaction)
-                            .map(({ _id, title }) => ({
-                              name: 'recommended',
-                              value: _id,
-                              label:
-                                // t(`categoryName.${href}`),
-                                title,
-                            }))}
-                          styles={selectStyles(typeTransaction)}
-                          placeholder={checkedRecomTitle[index]}
-                          value={checkedRecomTitle[index]}
-                          onChange={
-                            // option => {
-                            // setFieldValue('category', option.value);
-                            // }
-                            handleChange
-                          }
-                          isSearchable={false}
-                        />
-                        {/* {touched.category && errors.category && (
+                  {checkedRecommended.length > 0 ? (
+                    checkedRecommended.map((item, index, __) => {
+                      console.log(index, checkedRecomTitle[index]);
+                      return (
+                        <InputCategory key={`${item}${index}`}>
+                          <InputLabel htmlFor="Recommended">
+                            Рекоменд.:
+                          </InputLabel>
+                          <Select
+                            name="recommended"
+                            // key={typeTransaction}
+                            components={<DownOutlined />}
+                            options={recommended
+                              // .filter(elem => elem.type === typeTransaction)
+                              .map(({ _id, title }) => ({
+                                name: 'recommended',
+                                value: _id,
+                                label:
+                                  // t(`categoryName.${href}`),
+                                  title,
+                              }))}
+                            styles={selectStyles(typeTransaction)}
+                            placeholder={checkedRecomTitle[index]}
+                            value={checkedRecomTitle[index]}
+                            onChange={
+                              // option => {
+                              // setFieldValue('category', option.value);
+                              // }
+                              handleChange
+                            }
+                            isSearchable={false}
+                          />
+                          {/* {touched.category && errors.category && (
                               <FormError name="category" />
                                )} */}
-                        <InputRecommendedBtnAdd
-                          onClick={() => {
-                            checkedRecommended.push('');
-                          }}
-                        >
-                          +
-                        </InputRecommendedBtnAdd>
-                        <InputRecommendedBtnRemove
-                          onClick={() => {
-                            if (checkedRecommended.length === 1) {
+                          <InputRecommendedBtnAdd
+                            onClick={() => {
+                              checkedRecommended.push('');
+                            }}
+                          >
+                            +
+                          </InputRecommendedBtnAdd>
+                          <InputRecommendedBtnRemove
+                            onClick={() => {
+                              if (checkedRecommended.length === 1) {
+                                checkedRecommended.pop();
+                                checkedRecomTitle.pop();
+                                checkedRecommended.push('');
+                                return;
+                              }
                               checkedRecommended.pop();
                               checkedRecomTitle.pop();
-                              checkedRecommended.push('');
-                              return;
-                            }
+                            }}
+                          >
+                            -
+                          </InputRecommendedBtnRemove>
+                        </InputCategory>
+                      );
+                    })
+                  ) : (
+                    <InputCategory>
+                      <InputLabel htmlFor="Recommended">Рекоменд.:</InputLabel>
+                      <Select
+                        name="recommended"
+                        // key={typeTransaction}
+                        components={<DownOutlined />}
+                        options={recommended
+                          // .filter(elem => elem.type === typeTransaction)
+                          .map(({ _id, title }) => ({
+                            name: 'recommended',
+                            value: _id,
+                            label:
+                              // t(`categoryName.${href}`),
+                              title,
+                          }))}
+                        styles={selectStyles(typeTransaction)}
+                        placeholder={'Виберіть категорію'}
+                        onChange={
+                          // option => {
+                          // setFieldValue('category', option.value);
+                          // }
+                          handleChange
+                        }
+                        isSearchable={false}
+                      />
+                      {/* {touched.category && errors.category && (
+                              <FormError name="category" />
+                               )} */}
+                      <InputRecommendedBtnAdd
+                        onClick={() => {
+                          checkedRecommended.push('');
+                        }}
+                      >
+                        +
+                      </InputRecommendedBtnAdd>
+                      <InputRecommendedBtnRemove
+                        onClick={() => {
+                          if (checkedRecommended.length === 1) {
                             checkedRecommended.pop();
                             checkedRecomTitle.pop();
-                          }}
-                        >
-                          -
-                        </InputRecommendedBtnRemove>
-                      </InputCategory>
-                    );
-                  })}
+                            checkedRecommended.push('');
+                            return;
+                          }
+                          checkedRecommended.pop();
+                          checkedRecomTitle.pop();
+                        }}
+                      >
+                        -
+                      </InputRecommendedBtnRemove>
+                    </InputCategory>
+                  )}
                 </InputGroupBox>
               </InputBox>
               <InputGroupBox>
