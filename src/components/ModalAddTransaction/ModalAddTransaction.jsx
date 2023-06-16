@@ -56,6 +56,7 @@ import './rdt-styles.css';
 import { navItems } from 'components/AppBar/NavItems';
 import { fetchProducts } from 'components/services/API-Products_DB';
 import { productsOperations } from 'redux/products/productsOperations';
+import { toNumber } from 'lodash';
 
 const modalRoot = document.getElementById('modal-root');
 
@@ -83,6 +84,9 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
   const [category, setCategory] = useState(data.category);
   const [cardDescription, setCardDescription] = useState(data.description);
   const [cardImage, setCardImage] = useState(data.image);
+  const [cardSizeAndPrice, setCardSizeAndPrice] = useState(data.size_and_price);
+  const [cardSize, setCardSize] = useState(['1']);
+  const [cardPrice, setCardPrice] = useState(['No Price']);
   const [sum, setSum] = useState(data.price || 0);
   const [shortDescription, setShortDescription] = useState(
     data.short_description
@@ -155,6 +159,17 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
   }, [categories, data.category]);
 
   useEffect(() => {
+    let mappedCardSizes = cardSizeAndPrice.map((el, i, arr) => {
+      return Object.keys(el)[0].split(`"`)[1];
+    });
+    let mappedCardPrices = cardSizeAndPrice.map((el, i, arr) => {
+      return Object.values(el)[0];
+    });
+    setCardSize(mappedCardSizes);
+    setCardPrice(mappedCardPrices);
+  }, [cardSizeAndPrice]);
+
+  useEffect(() => {
     if (recommended === undefined || recommended.length === 0) {
       return;
     }
@@ -167,6 +182,7 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
     });
     return setCheckedRecomTitle(newTitleArray);
   }, [checkedRecommended, recommended]);
+
   // useEffect(() => {
   //   dispatch(getCategories());
   // }, [dispatch]);
@@ -225,7 +241,8 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
         return newState;
       });
     } else {
-      const { name, value } = e.target;
+      const { name, value, id } = e.target;
+      console.log('name', name);
       switch (name) {
         case 'sum':
           setSum(value);
@@ -275,6 +292,25 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
           setImageOfInstruction(value);
           break;
 
+        case 'cardSize':
+          setCardSize(prevState => {
+            console.log(
+              prevState,
+              toNumber(id),
+              prevState[toNumber(id)],
+              value
+            );
+            const newState = prevState.map((el, i, arr) => {
+              if (el === prevState[toNumber(id)]) {
+                return (prevState[toNumber(id)] = value);
+              }
+              return el;
+            });
+            console.log(newState);
+            return newState;
+          });
+          break;
+
         default:
           break;
       }
@@ -304,7 +340,7 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
         image_of_size: [imageOfSize, sizing],
         instruction_description: [imageOfInstruction, instruction],
         recommended_products: [],
-
+        size_and_price: [cardSizeAndPrice],
         id: productId,
       };
     } else {
@@ -321,6 +357,7 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
         image_of_size: [imageOfSize, sizing],
         instruction_description: [imageOfInstruction, instruction],
         recommended_products: checkedRecommended,
+        size_and_price: [cardSizeAndPrice],
         id: productId,
       };
     }
@@ -659,112 +696,174 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
                     checkedRecommended.map((item, index, __) => {
                       console.log(index, checkedRecomTitle[index]);
                       return (
-                        <InputCategory key={`${item}${index}`}>
-                          <InputLabel htmlFor="Recommended">
-                            Рекоменд.:
-                          </InputLabel>
-                          <Select
-                            name="recommended"
-                            // key={typeTransaction}
-                            components={<DownOutlined />}
-                            options={recommended
-                              // .filter(elem => elem.type === typeTransaction)
-                              .map(({ _id, title }) => ({
-                                name: 'recommended',
-                                value: _id,
-                                label:
-                                  // t(`categoryName.${href}`),
-                                  title,
-                              }))}
-                            styles={selectStyles(typeTransaction)}
-                            placeholder={checkedRecomTitle[index]}
-                            value={checkedRecomTitle[index]}
-                            onChange={
-                              // option => {
-                              // setFieldValue('category', option.value);
-                              // }
-                              handleChange
-                            }
-                            isSearchable={false}
-                          />
-                          {/* {touched.category && errors.category && (
+                        <>
+                          <InputCategory key={`${item}${index}`}>
+                            <InputLabel htmlFor="Recommended">
+                              Рекоменд.:
+                            </InputLabel>
+                            <Select
+                              name="recommended"
+                              // key={typeTransaction}
+                              components={<DownOutlined />}
+                              options={recommended
+                                // .filter(elem => elem.type === typeTransaction)
+                                .map(({ _id, title }) => ({
+                                  name: 'recommended',
+                                  value: _id,
+                                  label:
+                                    // t(`categoryName.${href}`),
+                                    title,
+                                }))}
+                              styles={selectStyles(typeTransaction)}
+                              placeholder={checkedRecomTitle[index]}
+                              value={checkedRecomTitle[index]}
+                              onChange={
+                                // option => {
+                                // setFieldValue('category', option.value);
+                                // }
+                                handleChange
+                              }
+                              isSearchable={false}
+                            />
+                            {/* {touched.category && errors.category && (
                               <FormError name="category" />
                                )} */}
-                          <InputRecommendedBtnAdd
-                            onClick={() => {
-                              checkedRecommended.push('');
-                            }}
-                          >
-                            +
-                          </InputRecommendedBtnAdd>
-                          <InputRecommendedBtnRemove
-                            onClick={() => {
-                              if (checkedRecommended.length === 1) {
+                            <InputRecommendedBtnAdd
+                              onClick={() => {
+                                checkedRecommended.push('');
+                              }}
+                            >
+                              +
+                            </InputRecommendedBtnAdd>
+                            <InputRecommendedBtnRemove
+                              onClick={() => {
+                                if (checkedRecommended.length === 1) {
+                                  checkedRecommended.pop();
+                                  checkedRecomTitle.pop();
+                                  checkedRecommended.push('');
+                                  return;
+                                }
                                 checkedRecommended.pop();
                                 checkedRecomTitle.pop();
-                                checkedRecommended.push('');
-                                return;
-                              }
-                              checkedRecommended.pop();
-                              checkedRecomTitle.pop();
-                            }}
-                          >
-                            -
-                          </InputRecommendedBtnRemove>
-                        </InputCategory>
+                              }}
+                            >
+                              -
+                            </InputRecommendedBtnRemove>
+                          </InputCategory>
+                          {cardSizeAndPrice.map((el, i, arr) => {
+                            return (
+                              <InputWrapper>
+                                <InputLabel htmlFor="CardSize">
+                                  Розмір:
+                                </InputLabel>
+                                <Field
+                                  name="cardSize"
+                                  value={cardSize[i]}
+                                  id={i}
+                                  // placeholder={
+                                  //   // t('ModalAdd.placeholderComent')
+                                  //   data.size_and_price[i]
+                                  // }
+                                  onChange={handleChange}
+                                  as={InputComment}
+                                />
+                                <InputLabel htmlFor="CardPrice">
+                                  Ціна:
+                                </InputLabel>
+                                <Field
+                                  name="cardPrice"
+                                  value={cardPrice[i]}
+                                  id={i}
+                                  // placeholder={
+                                  //   // t('ModalAdd.placeholderComent')
+                                  //   data.size_and_price[i]
+                                  // }
+                                  onChange={handleChange}
+                                  as={InputComment}
+                                />
+                              </InputWrapper>
+                            );
+                          })}
+                        </>
                       );
                     })
                   ) : (
-                    <InputCategory>
-                      <InputLabel htmlFor="Recommended">Рекоменд.:</InputLabel>
-                      <Select
-                        name="recommended"
-                        // key={typeTransaction}
-                        components={<DownOutlined />}
-                        options={recommended
-                          // .filter(elem => elem.type === typeTransaction)
-                          .map(({ _id, title }) => ({
-                            name: 'recommended',
-                            value: _id,
-                            label:
-                              // t(`categoryName.${href}`),
-                              title,
-                          }))}
-                        styles={selectStyles(typeTransaction)}
-                        placeholder={'Виберіть категорію'}
-                        onChange={
-                          // option => {
-                          // setFieldValue('category', option.value);
-                          // }
-                          handleChange
-                        }
-                        isSearchable={false}
-                      />
-                      {/* {touched.category && errors.category && (
-                              <FormError name="category" />
+                    <>
+                      <InputCategory>
+                        <InputLabel htmlFor="Recommended">
+                          Рекоменд.:
+                        </InputLabel>
+                        <Select
+                          name="recommended"
+                          // key={typeTransaction}
+                          components={<DownOutlined />}
+                          options={recommended
+                            // .filter(elem => elem.type === typeTransaction)
+                            .map(({ _id, title }) => ({
+                              name: 'recommended',
+                              value: _id,
+                              label:
+                                // t(`categoryName.${href}`),
+                                title,
+                            }))}
+                          styles={selectStyles(typeTransaction)}
+                          placeholder={'Виберіть категорію'}
+                          onChange={
+                            // option => {
+                            // setFieldValue('category', option.value);
+                            // }
+                            handleChange
+                          }
+                          isSearchable={false}
+                        />
+                        {/* {touched.category && errors.category && (
+                        <FormError name="category" />
                                )} */}
-                      <InputRecommendedBtnAdd
-                        onClick={() => {
-                          checkedRecommended.push('');
-                        }}
-                      >
-                        +
-                      </InputRecommendedBtnAdd>
-                      <InputRecommendedBtnRemove
-                        onClick={() => {
-                          if (checkedRecommended.length === 1) {
+                        <InputRecommendedBtnAdd
+                          onClick={() => {
+                            checkedRecommended.push('');
+                          }}
+                        >
+                          +
+                        </InputRecommendedBtnAdd>
+                        <InputRecommendedBtnRemove
+                          onClick={() => {
+                            if (checkedRecommended.length === 1) {
+                              checkedRecommended.pop();
+                              checkedRecomTitle.pop();
+                              checkedRecommended.push('');
+                              return;
+                            }
                             checkedRecommended.pop();
                             checkedRecomTitle.pop();
-                            checkedRecommended.push('');
-                            return;
-                          }
-                          checkedRecommended.pop();
-                          checkedRecomTitle.pop();
-                        }}
-                      >
-                        -
-                      </InputRecommendedBtnRemove>
-                    </InputCategory>
+                          }}
+                        >
+                          -
+                        </InputRecommendedBtnRemove>
+                      </InputCategory>
+                      <InputWrapper>
+                        {cardSizeAndPrice.map(() => {
+                          console.log(cardSizeAndPrice);
+                          return (
+                            <>
+                              <InputLabel htmlFor="CardSize">
+                                Розмір:
+                              </InputLabel>
+                              <Field
+                                name="cardSize"
+                                value={cardImage}
+                                placeholder={
+                                  // t('ModalAdd.placeholderComent')
+                                  data.image
+                                }
+                                onChange={handleChange}
+                                as={InputComment}
+                              />
+                            </>
+                          );
+                        })}
+                      </InputWrapper>
+                    </>
                   )}
                 </InputGroupBox>
               </InputBox>

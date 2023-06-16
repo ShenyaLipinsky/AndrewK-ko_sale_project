@@ -4,7 +4,7 @@ export const navItems = [
     text: 'Продукція',
     buttons: [
       {
-        href: 'all',
+        href: 'category/all',
         text: 'Всі товари',
       },
       {
