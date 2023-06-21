@@ -310,6 +310,24 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
             return newState;
           });
           break;
+        case 'cardPrice':
+          setCardPrice(prevState => {
+            console.log(
+              prevState,
+              toNumber(id),
+              prevState[toNumber(id)],
+              value
+            );
+            const newState = prevState.map((el, i, arr) => {
+              if (el === prevState[toNumber(id)]) {
+                return (prevState[toNumber(id)] = value);
+              }
+              return el;
+            });
+            console.log(newState);
+            return newState;
+          });
+          break;
 
         default:
           break;
@@ -750,40 +768,6 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
                               -
                             </InputRecommendedBtnRemove>
                           </InputCategory>
-                          {cardSizeAndPrice.map((el, i, arr) => {
-                            return (
-                              <InputWrapper>
-                                <InputLabel htmlFor="CardSize">
-                                  Розмір:
-                                </InputLabel>
-                                <Field
-                                  name="cardSize"
-                                  value={cardSize[i]}
-                                  id={i}
-                                  // placeholder={
-                                  //   // t('ModalAdd.placeholderComent')
-                                  //   data.size_and_price[i]
-                                  // }
-                                  onChange={handleChange}
-                                  as={InputComment}
-                                />
-                                <InputLabel htmlFor="CardPrice">
-                                  Ціна:
-                                </InputLabel>
-                                <Field
-                                  name="cardPrice"
-                                  value={cardPrice[i]}
-                                  id={i}
-                                  // placeholder={
-                                  //   // t('ModalAdd.placeholderComent')
-                                  //   data.size_and_price[i]
-                                  // }
-                                  onChange={handleChange}
-                                  as={InputComment}
-                                />
-                              </InputWrapper>
-                            );
-                          })}
                         </>
                       );
                     })
@@ -841,30 +825,40 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
                           -
                         </InputRecommendedBtnRemove>
                       </InputCategory>
-                      <InputWrapper>
-                        {cardSizeAndPrice.map(() => {
-                          console.log(cardSizeAndPrice);
-                          return (
-                            <>
-                              <InputLabel htmlFor="CardSize">
-                                Розмір:
-                              </InputLabel>
-                              <Field
-                                name="cardSize"
-                                value={cardImage}
-                                placeholder={
-                                  // t('ModalAdd.placeholderComent')
-                                  data.image
-                                }
-                                onChange={handleChange}
-                                as={InputComment}
-                              />
-                            </>
-                          );
-                        })}
-                      </InputWrapper>
                     </>
                   )}
+                  <div>
+                    {cardSizeAndPrice.map((el, i, arr) => {
+                      return (
+                        <InputWrapper>
+                          <InputLabel htmlFor="CardSize">Розмір:</InputLabel>
+                          <Field
+                            name="cardSize"
+                            value={cardSize[i]}
+                            id={i}
+                            // placeholder={
+                            //   // t('ModalAdd.placeholderComent')
+                            //   data.size_and_price[i]
+                            // }
+                            onChange={handleChange}
+                            as={InputComment}
+                          />
+                          <InputLabel htmlFor="CardPrice">Ціна:</InputLabel>
+                          <Field
+                            name="cardPrice"
+                            value={cardPrice[i]}
+                            id={i}
+                            // placeholder={
+                            //   // t('ModalAdd.placeholderComent')
+                            //   data.size_and_price[i]
+                            // }
+                            onChange={handleChange}
+                            as={InputComment}
+                          />
+                        </InputWrapper>
+                      );
+                    })}
+                  </div>
                 </InputGroupBox>
               </InputBox>
               <InputGroupBox>

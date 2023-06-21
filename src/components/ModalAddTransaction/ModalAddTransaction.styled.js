@@ -154,10 +154,13 @@ export const InputImageButtonRemove = styled.button`
   bottom: 2px;
 `;
 export const InputRecommendedBtnRemove = styled(InputImageButtonRemove)`
+  position: relative;
   bottom: -3px;
+  right: -12px;
 `;
 
 export const InputRecommendedBtnAdd = styled(InputImageButtonAdd)`
+  position: relative;
   bottom: 18px;
 `;
 
@@ -174,6 +177,7 @@ export const FullImagesInputBox = styled.div`
 `;
 
 export const InputCategory = styled.div`
+  position: static;
   display: flex;
   margin-bottom: ${p => p.theme.space[2]}px;
   width: 100%;
@@ -181,6 +185,7 @@ export const InputCategory = styled.div`
   & > div {
     width: 85%;
   }
+  align-items: center;
 
   /* @media (${breakpoints.tablet}) {
     width: 394px;
