@@ -151,7 +151,8 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
 
   useEffect(() => {
     categories.map(({ href, text }) => {
-      if (data.category === href) {
+      console.log(text, href.split('/', 2)[1]);
+      if (data.category === href.split('/', 2)[1]) {
         return setCategory(text);
       }
       return data.category;
@@ -160,7 +161,7 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
 
   useEffect(() => {
     let mappedCardSizes = cardSizeAndPrice.map((el, i, arr) => {
-      return Object.keys(el)[0].split(`"`)[1];
+      return Object.keys(el)[0];
     });
     let mappedCardPrices = cardSizeAndPrice.map((el, i, arr) => {
       return Object.values(el)[0];
@@ -183,6 +184,7 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
     return setCheckedRecomTitle(newTitleArray);
   }, [checkedRecommended, recommended]);
 
+  useEffect(() => {}, []);
   // useEffect(() => {
   //   dispatch(getCategories());
   // }, [dispatch]);
@@ -294,37 +296,23 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
 
         case 'cardSize':
           setCardSize(prevState => {
-            console.log(
-              prevState,
-              toNumber(id),
-              prevState[toNumber(id)],
-              value
-            );
             const newState = prevState.map((el, i, arr) => {
               if (el === prevState[toNumber(id)]) {
                 return (prevState[toNumber(id)] = value);
               }
               return el;
             });
-            console.log(newState);
             return newState;
           });
           break;
         case 'cardPrice':
           setCardPrice(prevState => {
-            console.log(
-              prevState,
-              toNumber(id),
-              prevState[toNumber(id)],
-              value
-            );
             const newState = prevState.map((el, i, arr) => {
               if (el === prevState[toNumber(id)]) {
                 return (prevState[toNumber(id)] = value);
               }
               return el;
             });
-            console.log(newState);
             return newState;
           });
           break;
@@ -358,10 +346,14 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
         image_of_size: [imageOfSize, sizing],
         instruction_description: [imageOfInstruction, instruction],
         recommended_products: [],
-        size_and_price: [cardSizeAndPrice],
+        size_and_price: cardSize.map((el, i, arr) => {
+          return { [el]: toNumber(cardPrice[i]) };
+        }),
+
         id: productId,
       };
     } else {
+      console.log(cardSize, cardPrice);
       body = {
         price: parseInt(sum),
         category: getCategoryHref.href.split('/')[1],
@@ -375,7 +367,10 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
         image_of_size: [imageOfSize, sizing],
         instruction_description: [imageOfInstruction, instruction],
         recommended_products: checkedRecommended,
-        size_and_price: [cardSizeAndPrice],
+        size_and_price: cardSize.map((el, i, arr) => {
+          return { [el]: toNumber(cardPrice[i]) };
+        }),
+
         id: productId,
       };
     }
@@ -846,6 +841,7 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
                           <InputLabel htmlFor="CardPrice">Ціна:</InputLabel>
                           <Field
                             name="cardPrice"
+                            type={'number'}
                             value={cardPrice[i]}
                             id={i}
                             // placeholder={
@@ -858,6 +854,33 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
                         </InputWrapper>
                       );
                     })}
+                    <InputRecommendedBtnAdd
+                      onClick={() => {
+                        cardSize.push('');
+                        cardPrice.push('0');
+                        cardSizeAndPrice.push('');
+                      }}
+                    >
+                      +
+                    </InputRecommendedBtnAdd>
+                    <InputRecommendedBtnRemove
+                      onClick={() => {
+                        if (cardSizeAndPrice.length === 1) {
+                          cardSizeAndPrice.pop();
+                          cardSize.pop();
+                          cardPrice.pop();
+                          cardSizeAndPrice.push('');
+                          cardSize.push('1');
+                          cardPrice.push('No Price');
+                          return;
+                        }
+                        cardSize.pop();
+                        cardPrice.pop();
+                        cardSizeAndPrice.pop();
+                      }}
+                    >
+                      -
+                    </InputRecommendedBtnRemove>
                   </div>
                 </InputGroupBox>
               </InputBox>
