@@ -133,7 +133,7 @@ const ProductDetails = () => {
             <InfoItem>
               <InfoText>{product_about}</InfoText>
             </InfoItem>
-            {Object.keys(size_and_price[0])[0] !== '1' && (
+            {Object.keys(size_and_price[0])[0] !== '1' ? (
               <>
                 <InfoItem>
                   <Select
@@ -158,6 +158,10 @@ const ProductDetails = () => {
                   <InfoPrice>Price:{currentPrice}</InfoPrice>
                 </InfoItem>
               </>
+            ) : (
+              <InfoItem>
+                <InfoPrice>Price:{price}</InfoPrice>
+              </InfoItem>
             )}
             <InfoBtnBox>
               <InfoBtn>Buy</InfoBtn>
