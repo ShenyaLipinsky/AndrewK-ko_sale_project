@@ -32,6 +32,9 @@ import Select from 'react-select';
 const ProductDetails = () => {
   const { id } = useParams();
   const [productDetails, setProductDetails] = useState();
+  const [currentSize, setCurrentSize] = useState('');
+  const [currentPrice, setCurrentPrice] = useState('Please, Set Size');
+
   const [remakedArray, setRemakedArray] = useState([]);
 
   const location = useLocation();
@@ -130,22 +133,32 @@ const ProductDetails = () => {
             <InfoItem>
               <InfoText>{product_about}</InfoText>
             </InfoItem>
-            <InfoItem>
-              {Object.keys(size_and_price[0])[0] !== '1' && (
-                <Select
-                  name="size"
-                  type="select"
-                  options={size_and_price.map(key => ({
-                    name: 'size',
-                    value: Object.keys(key)[0].split(`"`),
-                    label: Object.keys(key)[0].split(`"`),
-                  }))}
-                />
-              )}
-            </InfoItem>
-            <InfoItem>
-              <InfoPrice>Price: {price}</InfoPrice>
-            </InfoItem>
+            {Object.keys(size_and_price[0])[0] !== '1' && (
+              <>
+                <InfoItem>
+                  <Select
+                    name="size"
+                    type="select"
+                    options={size_and_price.map(key => {
+                      // setCurrentSize(Object.keys(key)[0].split(`"`));
+                      return {
+                        name: 'size',
+                        price: Object.values(key)[0],
+                        value: Object.keys(key)[0].split(`"`),
+                        label: Object.keys(key)[0].split(`"`),
+                      };
+                    })}
+                    onChange={e => {
+                      setCurrentSize(e.value[0]);
+                      setCurrentPrice(e.price);
+                    }}
+                  />
+                </InfoItem>
+                <InfoItem>
+                  <InfoPrice>Price:{currentPrice}</InfoPrice>
+                </InfoItem>
+              </>
+            )}
             <InfoBtnBox>
               <InfoBtn>Buy</InfoBtn>
               <InfoBtn>Buy</InfoBtn>
