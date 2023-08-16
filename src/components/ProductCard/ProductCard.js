@@ -94,7 +94,28 @@ const ProductCard = ({
   };
 
   const handleRemoveItem = () => {
+    console.log('Click');
+
     dispatch(removeItem(id));
+    dispatch((dispatch, getState) => {
+      const cartData = getState().cart;
+
+      const existingItem = Object.keys(cartData);
+      const newData = Object.keys(cartData)
+        .filter(key => key !== '_persist')
+        .map(key => {
+          if (key === existingItem) {
+            return {
+              ...cartData[key],
+              quantity: cartData[key].quantity - 1,
+            };
+          }
+          return { ...cartData[key] };
+        });
+      localStorage.setItem('cart', JSON.stringify(newData));
+    });
+    handleUpdateCartQuantity();
+    handleUpdateCartItems();
   };
 
   if (image === 'No Image') {
@@ -127,7 +148,7 @@ const ProductCard = ({
           <h3>Price: {price}</h3>
         </ProductCardDescr>
         <ProductCardBtnsBox>
-          <ProductCardBtns>Favorite</ProductCardBtns>
+          <ProductCardBtns onClick={handleRemoveItem}>Remove</ProductCardBtns>
           <ProductCardBtns onClick={handleAddToCart}>Add</ProductCardBtns>
         </ProductCardBtnsBox>
       </ProductCardBox>
@@ -160,7 +181,7 @@ const ProductCard = ({
         <h3>Price: {price}</h3>
       </ProductCardDescr>
       <ProductCardBtnsBox>
-        <ProductCardBtns>Favorite</ProductCardBtns>
+        <ProductCardBtns>Remove</ProductCardBtns>
         <ProductCardBtns>Add</ProductCardBtns>
       </ProductCardBtnsBox>
     </ProductCardBox>

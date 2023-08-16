@@ -118,11 +118,11 @@ export const InputBox = styled.div`
 `;
 export const InputGroupBox = styled.div`
   padding: 8px;
-  & > div {
+  /* & > div {
     :last-child {
       position: relative;
     }
-  }
+  } */
 `;
 
 export const InputWrapper = styled.div`
@@ -174,6 +174,11 @@ export const FullImagesInputBox = styled.div`
   & > div {
     display: flex;
   }
+`;
+export const SizeAndPriceBox = styled(FullImagesInputBox)`
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
 `;
 
 export const InputCategory = styled.div`

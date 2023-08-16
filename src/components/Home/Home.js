@@ -58,6 +58,7 @@ const Home = ({
     product_about: '',
     full_images: [''],
     image_of_size: [''],
+    size_and_price: [{ 1: 'No Price' }],
     // imageOfInstruction: '',
     instruction_description: ['', ''],
     recommended: [],

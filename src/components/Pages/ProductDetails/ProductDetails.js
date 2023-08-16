@@ -33,7 +33,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const [productDetails, setProductDetails] = useState();
   const [currentSize, setCurrentSize] = useState('');
-  const [currentPrice, setCurrentPrice] = useState('Please, Set Size');
+  const [currentPrice, setCurrentPrice] = useState('Please, Choose Size');
 
   const [remakedArray, setRemakedArray] = useState([]);
 

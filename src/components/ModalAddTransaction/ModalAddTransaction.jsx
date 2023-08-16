@@ -36,6 +36,7 @@ import {
   InputImageButtonRemove,
   InputRecommendedBtnAdd,
   InputRecommendedBtnRemove,
+  SizeAndPriceBox,
 } from './ModalAddTransaction.styled';
 // import {
 //   Switcher,
@@ -822,10 +823,10 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
                       </InputCategory>
                     </>
                   )}
-                  <div>
+                  <SizeAndPriceBox>
                     {cardSizeAndPrice.map((el, i, arr) => {
                       return (
-                        <InputWrapper>
+                        <div>
                           <InputLabel htmlFor="CardSize">Розмір:</InputLabel>
                           <Field
                             name="cardSize"
@@ -851,7 +852,7 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
                             onChange={handleChange}
                             as={InputComment}
                           />
-                        </InputWrapper>
+                        </div>
                       );
                     })}
                     <InputRecommendedBtnAdd
@@ -881,7 +882,7 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
                     >
                       -
                     </InputRecommendedBtnRemove>
-                  </div>
+                  </SizeAndPriceBox>
                 </InputGroupBox>
               </InputBox>
               <InputGroupBox>
