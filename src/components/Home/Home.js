@@ -37,7 +37,6 @@ const Home = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   let isAdmin = useSelector(authSelectors.getIsAdmin);
-
   // const location = useLocation();
   async function fetchMovieData() {
     try {
@@ -142,38 +141,66 @@ const Home = ({
           </>
         )}
         {products.length !== 0 &&
-          products.map(({ _id, image, title, short_description, price }) => {
-            if (image === 'No Image') {
+          products.map(
+            ({
+              _id,
+              image,
+              title,
+              short_description,
+              price,
+              size_and_price,
+            }) => {
+              console.log(products, Object.values(size_and_price)[0]);
+              if (image === 'No Image') {
+                if (size_and_price[0] !== 'No Price') {
+                  return (
+                    <ProductCard
+                      key={_id}
+                      id={_id}
+                      image="No Image"
+                      title={title}
+                      cardDescription={short_description}
+                      price={`${size_and_price[0]} - ${
+                        Object.values(size_and_price)[size_and_price.length]
+                      }`}
+                      moreDetails={fetchProductById}
+                      newLocation={location}
+                      handleUpdateCartQuantity={handleUpdateCartQuantity}
+                      handleUpdateCartItems={handleUpdateCartItems}
+                    />
+                  );
+                }
+                return (
+                  <ProductCard
+                    key={_id}
+                    id={_id}
+                    image="No Image"
+                    title={title}
+                    cardDescription={short_description}
+                    price={price}
+                    moreDetails={fetchProductById}
+                    newLocation={location}
+                    handleUpdateCartQuantity={handleUpdateCartQuantity}
+                    handleUpdateCartItems={handleUpdateCartItems}
+                  />
+                );
+              }
               return (
                 <ProductCard
                   key={_id}
                   id={_id}
-                  image="No Image"
+                  image={image}
                   title={title}
                   cardDescription={short_description}
                   price={price}
                   moreDetails={fetchProductById}
-                  newLocation={location}
+                  state={{ location }}
                   handleUpdateCartQuantity={handleUpdateCartQuantity}
                   handleUpdateCartItems={handleUpdateCartItems}
                 />
               );
             }
-            return (
-              <ProductCard
-                key={_id}
-                id={_id}
-                image={image}
-                title={title}
-                cardDescription={short_description}
-                price={price}
-                moreDetails={fetchProductById}
-                state={{ location }}
-                handleUpdateCartQuantity={handleUpdateCartQuantity}
-                handleUpdateCartItems={handleUpdateCartItems}
-              />
-            );
-          })}
+          )}
         {products.length === 0 && (
           <div>
             <p>Sorry that category on construction study</p>
