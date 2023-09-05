@@ -150,9 +150,12 @@ const Home = ({
               price,
               size_and_price,
             }) => {
-              console.log(products, Object.values(size_and_price)[0]);
+              console.log(
+                products,
+                Object.values(size_and_price[size_and_price.length - 1])[0]
+              );
               if (image === 'No Image') {
-                if (size_and_price[0] !== 'No Price') {
+                if (Object.values(size_and_price[0])[0] !== 'No Price') {
                   return (
                     <ProductCard
                       key={_id}
@@ -160,8 +163,10 @@ const Home = ({
                       image="No Image"
                       title={title}
                       cardDescription={short_description}
-                      price={`${size_and_price[0]} - ${
-                        Object.values(size_and_price)[size_and_price.length]
+                      price={`${Object.values(size_and_price[0])[0]} - ${
+                        Object.values(
+                          size_and_price[size_and_price.length - 1]
+                        )[0]
                       }`}
                       moreDetails={fetchProductById}
                       newLocation={location}
