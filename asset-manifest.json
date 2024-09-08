@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/AndrewK-ko_sale_project/static/css/main.617e5fe4.css",
-    "main.js": "/AndrewK-ko_sale_project/static/js/main.c51b22dc.js",
-    "static/js/394.a5841b60.chunk.js": "/AndrewK-ko_sale_project/static/js/394.a5841b60.chunk.js",
-    "static/js/543.a45fca1f.chunk.js": "/AndrewK-ko_sale_project/static/js/543.a45fca1f.chunk.js",
-    "static/js/204.fe3a1247.chunk.js": "/AndrewK-ko_sale_project/static/js/204.fe3a1247.chunk.js",
-    "static/js/653.acbb49d8.chunk.js": "/AndrewK-ko_sale_project/static/js/653.acbb49d8.chunk.js",
+    "main.js": "/AndrewK-ko_sale_project/static/js/main.be6b4f5a.js",
+    "static/js/394.b3423989.chunk.js": "/AndrewK-ko_sale_project/static/js/394.b3423989.chunk.js",
+    "static/js/543.ab581f05.chunk.js": "/AndrewK-ko_sale_project/static/js/543.ab581f05.chunk.js",
+    "static/js/204.24721571.chunk.js": "/AndrewK-ko_sale_project/static/js/204.24721571.chunk.js",
+    "static/js/653.c725b33d.chunk.js": "/AndrewK-ko_sale_project/static/js/653.c725b33d.chunk.js",
     "static/css/514.50b78a6b.chunk.css": "/AndrewK-ko_sale_project/static/css/514.50b78a6b.chunk.css",
-    "static/js/514.166a25a7.chunk.js": "/AndrewK-ko_sale_project/static/js/514.166a25a7.chunk.js",
-    "static/js/107.40c2c458.chunk.js": "/AndrewK-ko_sale_project/static/js/107.40c2c458.chunk.js",
-    "static/js/480.3a6c4794.chunk.js": "/AndrewK-ko_sale_project/static/js/480.3a6c4794.chunk.js",
+    "static/js/514.33763599.chunk.js": "/AndrewK-ko_sale_project/static/js/514.33763599.chunk.js",
+    "static/js/107.22201c87.chunk.js": "/AndrewK-ko_sale_project/static/js/107.22201c87.chunk.js",
+    "static/js/480.fba97bac.chunk.js": "/AndrewK-ko_sale_project/static/js/480.fba97bac.chunk.js",
     "static/media/axios.cjs": "/AndrewK-ko_sale_project/static/media/axios.fb15ab73b791c728b728.cjs",
     "static/media/revicons.eot": "/AndrewK-ko_sale_project/static/media/revicons.a77de540a38981833f9e.eot",
     "static/media/revicons.ttf": "/AndrewK-ko_sale_project/static/media/revicons.57fd05d4ae650374c8de.ttf",
@@ -17,18 +17,18 @@
     "index.html": "/AndrewK-ko_sale_project/index.html",
     "static/media/getFetch.cjs": "/AndrewK-ko_sale_project/static/media/getFetch.40f37ddea2378391108f.cjs",
     "main.617e5fe4.css.map": "/AndrewK-ko_sale_project/static/css/main.617e5fe4.css.map",
-    "main.c51b22dc.js.map": "/AndrewK-ko_sale_project/static/js/main.c51b22dc.js.map",
-    "394.a5841b60.chunk.js.map": "/AndrewK-ko_sale_project/static/js/394.a5841b60.chunk.js.map",
-    "543.a45fca1f.chunk.js.map": "/AndrewK-ko_sale_project/static/js/543.a45fca1f.chunk.js.map",
-    "204.fe3a1247.chunk.js.map": "/AndrewK-ko_sale_project/static/js/204.fe3a1247.chunk.js.map",
-    "653.acbb49d8.chunk.js.map": "/AndrewK-ko_sale_project/static/js/653.acbb49d8.chunk.js.map",
+    "main.be6b4f5a.js.map": "/AndrewK-ko_sale_project/static/js/main.be6b4f5a.js.map",
+    "394.b3423989.chunk.js.map": "/AndrewK-ko_sale_project/static/js/394.b3423989.chunk.js.map",
+    "543.ab581f05.chunk.js.map": "/AndrewK-ko_sale_project/static/js/543.ab581f05.chunk.js.map",
+    "204.24721571.chunk.js.map": "/AndrewK-ko_sale_project/static/js/204.24721571.chunk.js.map",
+    "653.c725b33d.chunk.js.map": "/AndrewK-ko_sale_project/static/js/653.c725b33d.chunk.js.map",
     "514.50b78a6b.chunk.css.map": "/AndrewK-ko_sale_project/static/css/514.50b78a6b.chunk.css.map",
-    "514.166a25a7.chunk.js.map": "/AndrewK-ko_sale_project/static/js/514.166a25a7.chunk.js.map",
-    "107.40c2c458.chunk.js.map": "/AndrewK-ko_sale_project/static/js/107.40c2c458.chunk.js.map",
-    "480.3a6c4794.chunk.js.map": "/AndrewK-ko_sale_project/static/js/480.3a6c4794.chunk.js.map"
+    "514.33763599.chunk.js.map": "/AndrewK-ko_sale_project/static/js/514.33763599.chunk.js.map",
+    "107.22201c87.chunk.js.map": "/AndrewK-ko_sale_project/static/js/107.22201c87.chunk.js.map",
+    "480.fba97bac.chunk.js.map": "/AndrewK-ko_sale_project/static/js/480.fba97bac.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.617e5fe4.css",
-    "static/js/main.c51b22dc.js"
+    "static/js/main.be6b4f5a.js"
   ]
 }
