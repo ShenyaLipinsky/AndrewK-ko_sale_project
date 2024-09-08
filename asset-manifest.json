@@ -1,28 +1,34 @@
 {
   "files": {
-    "main.css": "/AndrewK-ko_sale_project/static/css/main.8e160c73.css",
-    "main.js": "/AndrewK-ko_sale_project/static/js/main.03e719d0.js",
-    "static/js/589.8917c3dc.chunk.js": "/AndrewK-ko_sale_project/static/js/589.8917c3dc.chunk.js",
-    "static/js/853.48f53469.chunk.js": "/AndrewK-ko_sale_project/static/js/853.48f53469.chunk.js",
-    "static/css/420.45347fbe.chunk.css": "/AndrewK-ko_sale_project/static/css/420.45347fbe.chunk.css",
-    "static/js/420.c7151c57.chunk.js": "/AndrewK-ko_sale_project/static/js/420.c7151c57.chunk.js",
-    "static/js/18.fc9fa95c.chunk.js": "/AndrewK-ko_sale_project/static/js/18.fc9fa95c.chunk.js",
-    "static/js/259.bf5e2311.chunk.js": "/AndrewK-ko_sale_project/static/js/259.bf5e2311.chunk.js",
+    "main.css": "/AndrewK-ko_sale_project/static/css/main.617e5fe4.css",
+    "main.js": "/AndrewK-ko_sale_project/static/js/main.c51b22dc.js",
+    "static/js/394.a5841b60.chunk.js": "/AndrewK-ko_sale_project/static/js/394.a5841b60.chunk.js",
+    "static/js/543.a45fca1f.chunk.js": "/AndrewK-ko_sale_project/static/js/543.a45fca1f.chunk.js",
+    "static/js/204.fe3a1247.chunk.js": "/AndrewK-ko_sale_project/static/js/204.fe3a1247.chunk.js",
+    "static/js/653.acbb49d8.chunk.js": "/AndrewK-ko_sale_project/static/js/653.acbb49d8.chunk.js",
+    "static/css/514.50b78a6b.chunk.css": "/AndrewK-ko_sale_project/static/css/514.50b78a6b.chunk.css",
+    "static/js/514.166a25a7.chunk.js": "/AndrewK-ko_sale_project/static/js/514.166a25a7.chunk.js",
+    "static/js/107.40c2c458.chunk.js": "/AndrewK-ko_sale_project/static/js/107.40c2c458.chunk.js",
+    "static/js/480.3a6c4794.chunk.js": "/AndrewK-ko_sale_project/static/js/480.3a6c4794.chunk.js",
+    "static/media/axios.cjs": "/AndrewK-ko_sale_project/static/media/axios.fb15ab73b791c728b728.cjs",
     "static/media/revicons.eot": "/AndrewK-ko_sale_project/static/media/revicons.a77de540a38981833f9e.eot",
     "static/media/revicons.ttf": "/AndrewK-ko_sale_project/static/media/revicons.57fd05d4ae650374c8de.ttf",
     "static/media/revicons.woff": "/AndrewK-ko_sale_project/static/media/revicons.e8746a624ed098489406.woff",
     "index.html": "/AndrewK-ko_sale_project/index.html",
-    "main.8e160c73.css.map": "/AndrewK-ko_sale_project/static/css/main.8e160c73.css.map",
-    "main.03e719d0.js.map": "/AndrewK-ko_sale_project/static/js/main.03e719d0.js.map",
-    "589.8917c3dc.chunk.js.map": "/AndrewK-ko_sale_project/static/js/589.8917c3dc.chunk.js.map",
-    "853.48f53469.chunk.js.map": "/AndrewK-ko_sale_project/static/js/853.48f53469.chunk.js.map",
-    "420.45347fbe.chunk.css.map": "/AndrewK-ko_sale_project/static/css/420.45347fbe.chunk.css.map",
-    "420.c7151c57.chunk.js.map": "/AndrewK-ko_sale_project/static/js/420.c7151c57.chunk.js.map",
-    "18.fc9fa95c.chunk.js.map": "/AndrewK-ko_sale_project/static/js/18.fc9fa95c.chunk.js.map",
-    "259.bf5e2311.chunk.js.map": "/AndrewK-ko_sale_project/static/js/259.bf5e2311.chunk.js.map"
+    "static/media/getFetch.cjs": "/AndrewK-ko_sale_project/static/media/getFetch.40f37ddea2378391108f.cjs",
+    "main.617e5fe4.css.map": "/AndrewK-ko_sale_project/static/css/main.617e5fe4.css.map",
+    "main.c51b22dc.js.map": "/AndrewK-ko_sale_project/static/js/main.c51b22dc.js.map",
+    "394.a5841b60.chunk.js.map": "/AndrewK-ko_sale_project/static/js/394.a5841b60.chunk.js.map",
+    "543.a45fca1f.chunk.js.map": "/AndrewK-ko_sale_project/static/js/543.a45fca1f.chunk.js.map",
+    "204.fe3a1247.chunk.js.map": "/AndrewK-ko_sale_project/static/js/204.fe3a1247.chunk.js.map",
+    "653.acbb49d8.chunk.js.map": "/AndrewK-ko_sale_project/static/js/653.acbb49d8.chunk.js.map",
+    "514.50b78a6b.chunk.css.map": "/AndrewK-ko_sale_project/static/css/514.50b78a6b.chunk.css.map",
+    "514.166a25a7.chunk.js.map": "/AndrewK-ko_sale_project/static/js/514.166a25a7.chunk.js.map",
+    "107.40c2c458.chunk.js.map": "/AndrewK-ko_sale_project/static/js/107.40c2c458.chunk.js.map",
+    "480.3a6c4794.chunk.js.map": "/AndrewK-ko_sale_project/static/js/480.3a6c4794.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8e160c73.css",
-    "static/js/main.03e719d0.js"
+    "static/css/main.617e5fe4.css",
+    "static/js/main.c51b22dc.js"
   ]
 }
