@@ -7,7 +7,7 @@ import {
   AdditionalInfoBtn,
   AdditionalInfoTitle,
   BackLinkBtn,
-  FilmImage,
+  // FilmImage,
   InfoBox,
   InfoBtn,
   InfoBtnBox,
@@ -32,10 +32,14 @@ import Select from 'react-select';
 const ProductDetails = () => {
   const { id } = useParams();
   const [productDetails, setProductDetails] = useState();
-  const [currentSize, setCurrentSize] = useState('');
+  const [
+    // currentSize,
+    setCurrentSize,
+  ] = useState('');
+
   const [currentPrice, setCurrentPrice] = useState('Please, Choose Size');
 
-  const [remakedArray, setRemakedArray] = useState([]);
+  // const [remakedArray, setRemakedArray] = useState([]);
 
   const location = useLocation();
   useEffect(() => {
@@ -74,15 +78,15 @@ const ProductDetails = () => {
     );
   }
   const {
-    instruction_description,
+    // instruction_description,
     TM,
     title,
     description,
     full_images,
-    image_of_size,
+    // image_of_size,
     price,
     size_and_price,
-    recommended_products,
+    // recommended_products,
     product_about,
   } = productDetails;
   console.log(productDetails);

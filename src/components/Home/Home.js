@@ -1,7 +1,10 @@
 // import MainPage from 'components/MainPage/MainPage';
 import ProductCard from 'components/ProductCard/ProductCard';
 import { Suspense, useEffect, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import {
+  Outlet,
+  // useLocation
+} from 'react-router-dom';
 import { Box } from '../Box';
 import { fetchMovieById, fetchMovies } from '../services/API-MovieDB';
 import SliderHomePage from './SliderHomePage';
