@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux/es/exports';
 import { createPortal } from 'react-dom';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import '../../utils/i18next';
 import { Formik, Field } from 'formik';
 // import { FormError } from '../AuthForm/FormError';

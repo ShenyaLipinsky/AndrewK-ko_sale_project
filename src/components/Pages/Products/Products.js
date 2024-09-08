@@ -16,12 +16,15 @@ const Products = ({ handleUpdateCartQuantity, handleUpdateCartItems }) => {
   ] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const queueParam = searchParams.get('query') ?? '';
-  useEffect(() => {
-    if (queueParam === '') {
-      return;
+  useEffect(
+    () => {
+      if (queueParam === '') {
+        return;
+      }
+      searchMovies(queueParam).then(setFoundedFilms);
     }
-    searchMovies(queueParam).then(setFoundedFilms);
-  }, [queueParam]);
+    // [queueParam]
+  );
   const changeSearchValue = value => {
     setSearchParams(value !== '' ? { query: value } : {});
   };
