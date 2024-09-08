@@ -4,7 +4,7 @@ import {
   Overlay,
   PrimaryButton,
   SecondaryButton,
-  StyledForm,
+  // StyledForm,
   Title,
 } from 'components/ModalAddTransaction/ModalAddTransaction.styled';
 import { Field, Formik } from 'formik';

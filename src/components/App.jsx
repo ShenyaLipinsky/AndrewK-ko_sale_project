@@ -4,15 +4,20 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import getStoredState from 'redux-persist/es/getStoredState';
+import {
+  Navigate,
+  Route,
+  Routes,
+  // useLocation
+} from 'react-router-dom';
+// import getStoredState from 'redux-persist/es/getStoredState';
 import { authOperations } from 'redux/auth/authOperations';
 import { authSelectors } from 'redux/auth/authSlice';
 import {
-  addItem,
+  // addItem,
   loadCart,
-  saveCart,
-  updateQuantity,
+  // saveCart,
+  // updateQuantity,
 } from 'redux/cart/cartSlice';
 import LogIn from './LogIn/LogIn';
 import Instruction from './Pages/ProductDetails/Instruction';
@@ -29,7 +34,7 @@ export const App = () => {
   const [cartCounter, setCartCounter] = useState(0);
 
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation();
   let loggedIn = useSelector(authSelectors.getIsLoggedIn);
 
   function handleUpdateCartQuantity() {
@@ -46,10 +51,10 @@ export const App = () => {
     }
   }
 
-  function handleUpdateQuantity(id, quantity) {
-    dispatch(updateQuantity({ id, quantity }));
-    dispatch(saveCart(getStoredState().cart));
-  }
+  // function handleUpdateQuantity(id, quantity) {
+  //   dispatch(updateQuantity({ id, quantity }));
+  //   dispatch(saveCart(getStoredState().cart));
+  // }
 
   useEffect(() => {
     dispatch(loadCart());

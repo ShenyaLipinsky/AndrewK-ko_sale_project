@@ -14,12 +14,19 @@ import {
 } from './AppBar.styled';
 import { Box } from '../Box';
 import { navItems } from './NavItems';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import {
+  useDispatch,
+  useSelector,
+  // useStore
+} from 'react-redux';
 import { authSelectors } from 'redux/auth/authSlice';
 import { authOperations } from 'redux/auth/authOperations';
 import CartIcon from 'components/Cart/CartIcon';
 import { useState, useEffect } from 'react';
-import { isEqual, toInteger } from 'lodash';
+import {
+  // isEqual,
+  toInteger,
+} from 'lodash';
 import ModalCartCheckout from 'components/ModalCartCheckout/ModalCartCheckout';
 
 const AppBar = ({

@@ -12,7 +12,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authSelectors } from 'redux/auth/authSlice';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { addItem, removeItem, updateQuantity } from 'redux/cart/cartSlice';
+import {
+  addItem,
+  removeItem,
+  // , updateQuantity
+} from 'redux/cart/cartSlice';
 import ModalAddTransaction from 'components/ModalAddTransaction/ModalAddTransaction';
 
 const ProductCard = ({

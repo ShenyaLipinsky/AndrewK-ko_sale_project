@@ -1,5 +1,5 @@
 export const selectStyles = typeTransaction => {
-  const optionColor = typeTransaction === 'income' ? '#24CCA7' : '#FF6596';
+  // const optionColor = typeTransaction === 'income' ? '#24CCA7' : '#FF6596';
   return {
     control: data => ({
       ...data,

@@ -14,14 +14,14 @@ export const notiflixOptions = Notiflix.Notify.init({
   fontSize: '23px',
 });
 
-let token = {
-  set(token) {
-    axios.defaults.headers.authorization = `Bearer ${token}`;
-  },
-  unset() {
-    axios.defaults.headers.authorization = '';
-  },
-};
+// let token = {
+//   set(token) {
+//     axios.defaults.headers.authorization = `Bearer ${token}`;
+//   },
+//   unset() {
+//     axios.defaults.headers.authorization = '';
+//   },
+// };
 
 const add = createAsyncThunk('products', async (credentials, thunkApi) => {
   try {

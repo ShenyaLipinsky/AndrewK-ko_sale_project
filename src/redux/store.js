@@ -10,7 +10,10 @@ import {
 } from 'redux-persist';
 import authSlice, { authReducer } from '../redux/auth/authSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { contactsApi, filterReducer, filter } from './contactsSlice';
+import {
+  contactsApi,
+  // , filterReducer, filter
+} from './contactsSlice';
 import cartSlice, { cartReducer, loadCart } from './cart/cartSlice';
 
 export const store = configureStore({

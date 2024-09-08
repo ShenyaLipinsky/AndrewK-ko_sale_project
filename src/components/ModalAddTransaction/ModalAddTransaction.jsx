@@ -46,7 +46,10 @@ import {
 //   Income,
 //   Expense,
 // } from './TypeSwitcher.styled';
-import { PlusOutlined, MinusOutlined, DownOutlined } from '@ant-design/icons';
+import {
+  // PlusOutlined, MinusOutlined,
+  DownOutlined,
+} from '@ant-design/icons';
 
 // import {
 //   addTransaction,
@@ -78,14 +81,20 @@ const transactionSchema = yup.object().shape({
 
 const ModalAddTransaction = ({ onClose, data, addMode }) => {
   console.log(data, addMode);
-  const [productId, setProductId] = useState(data.productId);
+  const [
+    productId,
+    // ,    setProductId
+  ] = useState(data.productId);
 
   const [title, setTitle] = useState(data.title);
   const [tradeMark, setTradeMark] = useState(data.TM);
   const [category, setCategory] = useState(data.category);
   const [cardDescription, setCardDescription] = useState(data.description);
   const [cardImage, setCardImage] = useState(data.image);
-  const [cardSizeAndPrice, setCardSizeAndPrice] = useState(data.size_and_price);
+  const [
+    cardSizeAndPrice,
+    // , setCardSizeAndPrice
+  ] = useState(data.size_and_price);
   const [cardSize, setCardSize] = useState(['1']);
   const [cardPrice, setCardPrice] = useState(['No Price']);
   const [sum, setSum] = useState(data.price || 0);
@@ -108,10 +117,13 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
   );
   const [checkedRecomTitle, setCheckedRecomTitle] = useState([]);
 
-  const [typeTransaction, setTypeTransaction] = useState('income');
+  const [
+    typeTransaction,
+    // , setTypeTransaction
+  ] = useState('income');
   const [modeOfSetProducts, setModeOfSetProducts] = useState(false);
 
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const initialValues = {
     sum: 0,
     title: '',
@@ -200,7 +212,7 @@ const ModalAddTransaction = ({ onClose, data, addMode }) => {
           break;
 
         case 'recommended':
-          const { label, value } = e;
+          // const { label, value } = e;
 
           let contains = function (array, item) {
             return !!~array.indexOf(item);
